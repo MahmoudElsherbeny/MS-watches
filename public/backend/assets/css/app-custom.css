@@ -1,0 +1,92 @@
+/* *******************  css edit  ******************  */
+
+select {
+    font-family: FontAwesome, Ionicons, sans-serif;
+}
+
+/* header */
+.drawer-header {
+    padding: 18px 24px 2px;
+}
+
+.drawer-header .logo1 {
+    font-size: 34px;
+    font-weight: bold;
+    color: #222;
+}
+
+.drawer-header .logo2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ff4136;
+}
+
+.my-profile-dropdown {
+    padding: 0;
+    width: 160px !important;
+    margin-top: 6px !important;
+    right: 12px !important;
+}
+
+.my-profile-dropdown li > a,
+.my-profile-dropdown li > button{
+    background: none;
+    border:none;
+    display: block;
+    padding: 9px 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333333;
+    width: 100%;
+    text-align: left;
+}
+
+.my-profile-dropdown li:hover > a,
+.my-profile-dropdown li:hover > button{
+    color: #262626;
+    background-color: #f9f9f9;
+    padding-left:25px;
+    transition: all 0.3s linear;
+}
+
+/*  validation  */
+.msg-error {
+    color: #d9534f;
+    font-size: 13px;
+    padding-top: 4px;
+    padding-left: 5px;
+}
+
+.input-error,
+.input-error:hover,
+.input-error:focus {
+    border-color: #d9534f;
+}
+
+/*  modal   */
+.modal-card-header {
+    border-bottom: 1px solid #eee;
+    padding: 0 24px 10px;
+    width: 100%;
+}
+
+
+/*************************************/
+/*  ******   product page   ******  */
+/************************************/
+
+.product_page .product_info h2,
+.product_page .product_info .cel1,
+.product_page .product_info .price,
+.product_page .product_description h2 {
+    font-weight: 500;
+}
+
+.product_page .product_info .price {
+    color: #ff4136;
+}
+
+.product_page .old_price {
+    color: #9c9b9b;
+    text-decoration: line-through;
+}

@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Http\Livewire\Frontend\Reviews;
+
+use Livewire\Component;
+use App\Product_review;
+use Auth;
+use Redirect;
+use DB;
+
+class Create extends Component
+{
+
+    public $rate;
+    public $review;
+    public $user;
+    public $productId;
+    public $reviews = [];
+
+    protected $rules = [
+        'rate' => 'required',
+        'review' => 'max:250',
+    ];
+
+    public function mount() {
+        if(Auth::check()) {
+            $this->user = Auth::user()->id;
+            $this->reviews = Product_review::Where('product',$this->productId)
+                                       ->orderByRaw("user = $this->user DESC")
+                                       ->OrderBy('created_at','DESC')->get();
+        }
+        else {
+            $this->reviews = Product_review::Where('product',$this->productId)
+                                       ->OrderBy('created_at','DESC')->get();
+        }
+    }
+
+    //review store function - store user review for an product
+    public function review_store() {
+
+        $this->validate();
+        
+        //store product
+        Product_review::create([
+            'user' => $this->user,
+            'product' => $this->productId,
+            'review' => $this->review,
+            'rate' => $this->rate,
+        ]);
+
+        //rate average stored when review created by ProductRevtew observer in app\observers
+
+        //show user review after submit
+        $this->reviews = Product_review::Where('product',$this->productId)
+                                       ->orderByRaw("user = $this->user DESC")
+                                       ->OrderBy('created_at','DESC')->get();
+
+        return Redirect::back();
+    }
+
+    public function render()
+    {
+        return view('livewire.frontend.reviews.create')->extends('frontend.layouts.app');
+    }
+}
