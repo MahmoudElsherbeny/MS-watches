@@ -69,6 +69,7 @@
                     <li><a href="{{ route('shop') }}">Shop</a></li>
                     <li><a href="{{ route('aboutus') }}">About Us</a></li>
                     <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ route('cart') }}">Cart</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
@@ -89,12 +90,12 @@
                                     <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                                     <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" tabindex="-1" value=""></div>
                                     <div class="clearfix subscribe__btn"><input type="submit" value="Send" name="subscribe" id="mc-embedded-subscribe" class="bst__btn btn--white__color">
-                                        
+
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>        
+                    </div>
                 </div>
             </div>
         </div>

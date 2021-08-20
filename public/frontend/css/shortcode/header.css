@@ -2,11 +2,11 @@
   Template Name: Tmart-Minimalist eCommerce HTML5 Template.
   Template URI: #
   Description: Tmart is a unique website template designed in HTML with a simple & beautiful look. There is an excellent solution for creating clean, wonderful and trending material design corporate, corporate any other purposes websites.
-  Author: Theme365 
+  Author: Theme365
   Version: 1.0
 -------------------------------------------------------------------------------------*/
 /*
- 
+
     font-family: 'Poppins', sans-serif;
 
     font-family: 'Dosis', sans-serif;
@@ -335,6 +335,7 @@
 }
 .menu-extra li {
     padding: 0 15px;
+    position: relative;
 }
 .menu-extra li:last-child {
     padding-right: 0;
@@ -351,6 +352,17 @@
 }
 .menu-extra li span:hover {
     color: #ff4136;
+}
+.menu-extra li .badge,
+.menu-extra li .badge:hover {
+    background-color: #ff4136;
+    color: #fff;
+    font-size: 10px;
+    line-height: normal;
+    padding: 2px 6px;
+    position: absolute;
+    top: -7px;
+    left: 1px;
 }
 /*---------------------------
   Header Stayle 2
@@ -690,7 +702,7 @@
 
 
 .offsetmenu,
-.shopping__cart, 
+.shopping__cart,
 .user__meta  {
   background: #eeeeee none repeat scroll 0 0;
   box-shadow: 0 0 85px rgba(0, 0, 0, 0.2);
@@ -717,8 +729,8 @@
   padding-bottom: 50px;
   right: calc(0px - 16px);
 }
-.offsetmenu__inner, 
-.shopping__cart__inner, 
+.offsetmenu__inner,
+.shopping__cart__inner,
 .user__meta__inner {
   height: 100%;
   padding: 60px 50px 60px;
@@ -1084,7 +1096,7 @@ h4.offset__title {
 }
 .category-menu-list > ul {
   font-family: FontAwesome, Ionicons, sans-serif;
-} 
+}
 .category-menu-list ul li {
     border-bottom: 1px solid #eee;
     position: relative;
