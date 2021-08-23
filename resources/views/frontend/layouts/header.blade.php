@@ -26,7 +26,7 @@
                                     <li><a href="checkout.html">checkout</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ route('cart') }}">Cart</a></li>
+                            <li><a href="{{ route('cart.index') }}">Cart</a></li>
                         </ul>
                     </nav>
                     <div class="mobile-menu clearfix visible-xs visible-sm">
@@ -43,7 +43,7 @@
                                         <li><a href="checkout.html">checkout</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ route('cart') }}">Cart</a></li>
+                                <li><a href="{{ route('cart.index') }}">Cart</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -166,10 +166,14 @@
             <div class="offsetmenu__close__btn">
                 <a href="#"><i class="zmdi zmdi-close"></i></a>
             </div>
-            <div class="shp__cart__wrap">
 
-                @if(Session::has('cart'))
-                    @foreach (Session::get('cart') as $id => $product)
+            @if(Session::has('cart'))
+                <div class="shp__cart__wrap">
+
+                    <?php
+                        $subtotal = 0;
+                    ?>
+                    @foreach (Session::get('cart') as $key => $product)
                         <div class="shp__single__product">
                             <div class="shp__pro__thumb">
                                 <a href="#">
@@ -177,26 +181,45 @@
                                 </a>
                             </div>
                             <div class="shp__pro__details">
-                                <h2><a href="product-details.html">{{ $product['name'] }}</a></h2>
+                                <h2>
+                                    <a href="{{ route('product_detailes', ['id' => $product['id']]) }}">{{ $product['name'] }}</a>
+                                </h2>
                                 <span class="quantity">QTY: {{ $product['quantity'] }}</span>
-                                <span class="shp__price">${{ $product['price'] }}</span>
+                                <span class="shp__price">£{{ $product['price'] }}</span>
                             </div>
                             <div class="remove__btn">
                                 <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
                             </div>
                         </div>
-                    @endforeach
-                @endif
 
-            </div>
-            <ul class="shoping__total">
-                <li class="subtotal">Subtotal:</li>
-                <li class="total__price">$130.00</li>
-            </ul>
-            <ul class="shopping__btn">
-                <li><a href="{{ route('cart') }}">View Cart</a></li>
-                <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
-            </ul>
+                        <?php
+                            $subtotal += $product['price'] * $product['quantity'];
+                        ?>
+                    @endforeach
+                    
+
+                </div>
+                <ul class="shoping__total">
+                    <li class="subtotal">Subtotal:</li>
+                    <li class="total__price">£{{ $subtotal }}</li>
+                </ul>
+                <ul class="shopping__btn">
+                    <li><a href="{{ route('cart.index') }}">View Cart</a></li>
+                    <li class="shp__checkout"><a href="{{ route('cart.checkout_page') }}">Checkout</a></li>
+                </ul>
+            @else
+                <div class="shp__cart__wrap">
+                        <div class="cart__empty__details">
+                            <p>your cart is empty <br>start shopping now !</p>
+                            @if(!Auth::check())
+                                <span>create account <a href="{{ route('register') }}">SIGNUP</a> OR <a href="{{ route('login') }}">LOGIN</a></span>
+                            @endif
+                        </div>
+                </div>
+                <ul class="shopping__btn">
+                    <li><a href="{{ route('shop') }}">shop</a></li>
+                </ul>
+            @endif
         </div>
     </div>
     <!-- End Cart Panel -->

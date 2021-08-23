@@ -180,10 +180,11 @@
   height: 60px;
   line-height: 62px;
 }
-.sticky__header.scroll-header .menu-extra li span {
+.sticky__header.scroll-header .menu-extra li span:not('.badge') {
   height: 60px;
   line-height: 62px;
 }
+
 .fluid-container.mobile-menu-container {
   position: relative;
 }
@@ -359,10 +360,10 @@
     color: #fff;
     font-size: 10px;
     line-height: normal;
-    padding: 2px 6px;
+    padding: 1px 6px;
     position: absolute;
-    top: -7px;
-    left: 1px;
+    top: -5px;
+    left: 3px;
 }
 /*---------------------------
   Header Stayle 2
@@ -716,7 +717,7 @@
   transition: all 0.25s ease 0s;
   width: 100%;
   z-index: 99999;
-  width: 475px;
+  width: 468px;
 
 }
 .user__meta .htc__login__register {
@@ -917,7 +918,7 @@ h4.offset__title {
   margin-bottom: 15px;
   padding: 0 25px;
   text-align: center;
-  text-transform: none;
+  text-transform: capitalize;
   transition: all 0.5s ease 0s;
   width: 100%;
   display: block;
@@ -952,6 +953,23 @@ h4.offset__title {
 }
 .shp__pro__details {
     min-width: 71%;
+}
+.cart__empty__details {
+  text-align: center;
+  padding-top: 8px;
+  margin-bottom: 38px;
+}
+.cart__empty__details p {
+  font-size: 28px;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+.cart__empty__details span {
+  font-size: 13px;
+  text-transform: capitalize;
+}
+.cart__empty__details span a {
+  color: #ff4136;
 }
 .shp__cart__wrap {
     margin-top: -30px;

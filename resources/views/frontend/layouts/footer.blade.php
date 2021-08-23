@@ -69,7 +69,7 @@
                     <li><a href="{{ route('shop') }}">Shop</a></li>
                     <li><a href="{{ route('aboutus') }}">About Us</a></li>
                     <li><a href="{{ route('contact') }}">Contact Us</a></li>
-                    <li><a href="{{ route('cart') }}">Cart</a></li>
+                    <li><a href="{{ route('cart.index') }}">Cart</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>

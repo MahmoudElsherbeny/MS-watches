@@ -87,7 +87,7 @@
                                                 <div class="product__hover__info">
                                                     <ul class="product__action">
                                                         <li><a data-toggle="modal" data-target="#topratewatche{{ $product->id }}" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                        <li><a title="Add TO Cart" href="{{ route('add_to_cart', ['id' => $product->id]) }}"><span class="ti-shopping-cart"></span></a></li>
+                                                        <li><a title="Add TO Cart" href="{{ route('cart.add', ['id' => $product->id]) }}"><span class="ti-shopping-cart"></span></a></li>
                                                         <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
                                                     </ul>
                                                 </div>
@@ -180,6 +180,14 @@
                                                             <div class="prod__color" style="background-color: {{ $product->mina_color }}"></div>
                                                         </div>
                                                     </div>
+                                                    <div class="select__quantity">
+                                                        <h2>Quantity :</h2>
+                                                        <div class="product__quantity">
+                                                            <div class="cart-plus-minus">
+                                                                <input class="cart-plus-minus-box" type="text" name="productqty" value="1">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="social-sharing">
                                                         <div class="widget widget_socialsharing_widget">
                                                             <h3 class="widget-title-modal">Share this product</h3>
@@ -192,7 +200,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="addtocart-btn">
-                                                        <a href="{{ route('add_to_cart', ['id' => $product->id]) }}">Add to cart</a>
+                                                        <a href="{{ route('cart.add', ['id' => $product->id]) }}">Add to cart</a>
                                                     </div>
                                                 </div><!-- .product-info -->
                                             </div><!-- .modal-product -->

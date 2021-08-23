@@ -67,9 +67,4 @@ class HomeController extends Controller
         return view("frontend.pages.contact");
     }
 
-    //show cart page function
-    public function cart() {
-        return view("frontend.pages.cart");
-    }
-
 }

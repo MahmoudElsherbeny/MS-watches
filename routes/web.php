@@ -22,7 +22,6 @@ Route::get('/', 'frontend\HomeController@index')->name('home');
 Route::get('/shop', 'frontend\HomeController@shopPage')->name('shop');
 Route::get('/about', 'frontend\HomeController@aboutus')->name('aboutus');
 Route::get('/contact', 'frontend\HomeController@contact')->name('contact');
-Route::get('/cart', 'frontend\HomeController@cart')->name('cart');
 Route::get('/login', 'frontend\HomeController@login')->name('login');
 
 //product routes
@@ -30,7 +29,17 @@ Route::get('product/{id}/details', 'frontend\productCtrl@product_detailes')->nam
 Route::get('product/{id}/delete/{review}', 'frontend\productCtrl@review_destroy');
 Route::post('product/{id}/delete/{review}', 'frontend\productCtrl@review_destroy')->name('review_delete');
 
-Route::get('addtocart/{id}', 'frontend\productCtrl@addToCart')->name('add_to_cart');
+//cart routes
+Route::group(['prefix'=>'cart', 'as'=>'cart.'] , function() {
+
+    Route::get('/', 'frontend\CartController@cart')->name('index');
+    Route::get('add/{id}', 'frontend\CartController@addToCart')->name('add');
+    Route::post('remove/{id}','frontend\CartController@remove')->name('remove');
+    Route::get('checkout','frontend\CartController@checkout_page')->middleware('auth')->name('checkout_page');
+
+});
+
+
 
 
 Auth::routes();

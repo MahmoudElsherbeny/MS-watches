@@ -854,19 +854,21 @@
     margin-top: 30px;
     width: 83%;
 }
-.select__color {
+.select__color,
+.select__quantity {
     display: flex;
 }
-.color__list {
+.color__list,
+.product__quantity {
     align-items: center;
     display: flex;
-    margin-left: 30px;
+    margin-left: 28px;
 }
 .color__list .prod__color {
     border: 2px solid #444;
     border-radius: 5px;
-    width: 45px;
-    height: 25px;
+    width: 42px;
+    height: 24px;
 }
 .color__list li + li {
     margin-left: 15px;
@@ -880,9 +882,6 @@
     text-align: center;
     width: 30px;
 }
-.select__size {
-    display: flex;
-}
 .color__list li.gold a {
     background: #cc9900 none repeat scroll 0 0;
 }
@@ -892,25 +891,16 @@
 .select__color ul.color__list li a {
     text-indent: 999px;
 }
-.select__color h2 {
+.select__color h2,
+.select__quantity h2 {
     align-items: center;
     display: flex;
     font-size: 16px;
     text-transform: capitalize;
 }
-.select__size h2 {
-    align-items: center;
-    display: flex;
-    font-size: 16px;
-    text-transform: capitalize;
-}
-.select__size {
-    margin-bottom: 25px;
-    margin-top: 25px;
-}
-.select__size ul.color__list li a {
-    background: #f1f1f1 none repeat scroll 0 0;
-    color: #999;
+.select__quantity {
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 .widget.widget_socialsharing_widget {
     display: flex;
@@ -2640,17 +2630,20 @@ input.star:checked ~ label.star:before {
     display: flex;
 }
 .cart-plus-minus-box {
-    border: 0 none;
-    max-width: 82px;
-    padding-left: 25px;
+    border: none;
+    max-width: 74px;
+    padding-left: 24px;
     padding-right: 24px;
+}
+.cart-plus-minus-box:focus {
+    border:none;
 }
 .cart-plus-minus {
     position: relative;
 }
 .dec.qtybutton {
-    color: #666666;
-    font-size: 16px;
+    color: #444;
+    font-size: 18px;
     left: 0;
     position: absolute;
 }
@@ -3443,8 +3436,16 @@ blockquote::before {
     width: 20px;
 }
 .wishlist-table table .product-remove > a,
-.table-content table .product-remove > a {
-    font-size: 25px;
+.table-content table .product-remove button {
+    font-size: 24px;
+}
+.table-content table .product-remove button {
+    border: none;
+    color: #666;
+    background: none;
+}
+.table-content table .product-remove button:hover {
+    color: #333;
 }
 .wishlist-table table .product-thumbnail {
     width: 150px;
@@ -3508,20 +3509,58 @@ blockquote::before {
     margin: 0;
     text-transform: uppercase;
 }
+.empty__cart {
+    text-align: center;
+    margin-bottom: 38px;
+}
+.empty__cart p {
+    font-size: 36px;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+.empty__cart span {
+    font-size: 13px;
+    text-transform: capitalize;
+}
+.empty__cart span a {
+    color: #ff4e43;
+}
+.empty__cart__button {
+    margin-bottom: 30px;
+    overflow: hidden;
+    text-align: center;
+}
+.empty__cart__button a {
+    background: #252525 none repeat scroll 0 0;
+    border: medium none;
+    color: #fff;
+    display: inline-block;
+    font-size: 15px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 74px;
+    text-transform: capitalize;
+    transition: all 0.3s ease 0s;
+}
+.empty__cart__button a:hover {
+    background: #ff4136;
+    color: #fff !important;
+}
+
 .table-content table {
     background: #fff none repeat scroll 0 0;
     border-color: #c1c1c1;
     border-radius: 0;
     border-style: solid;
     border-width: 1px 0 0 1px;
-    margin: 0 0 50px;
+    margin: 0 0 40px;
     text-align: center;
     width: 100%;
 }
 .table-content table th {
     border-top: medium none;
     font-weight: bold;
-    padding: 20px 10px;
+    padding: 16px 8px;
     text-align: center;
     text-transform: uppercase;
     vertical-align: middle;
@@ -3534,12 +3573,11 @@ blockquote::before {
 }
 .table-content table td {
     border-top: medium none;
-    padding: 20px 10px;
+    padding: 16px 8px;
     vertical-align: middle;
     font-size: 13px;
 }
 .table-content table td input {
-    background: #e5e5e5 none repeat scroll 0 0;
     border: medium none;
     border-radius: 3px;
     color: #6f6f6f;
@@ -3550,7 +3588,7 @@ blockquote::before {
     width: 60px;
 }
 .table-content table td.product-subtotal {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     width: 120px;
     color: #777;
@@ -3563,6 +3601,9 @@ blockquote::before {
 }
 .table-content table td.product-name {
     width: 270px;
+}
+.table-content table td.product-order {
+    width: 60px;
 }
 .table-content table td.product-thumbnail {
     width: 130px;
@@ -3585,10 +3626,11 @@ blockquote::before {
     color: #252525
 }
 .table-content table td.product-quantity {
-    width: 180px;
+    padding-left: 36px;
+    width: 160px;
 }
 .table-content table td.product-remove {
-    width: 150px;
+    width: 140px;
 }
 .table-content table td.product-price {
     width: 130px;
@@ -3617,7 +3659,7 @@ blockquote::before {
     height: 40px;
     line-height: 40px;
     margin-right: 15px;
-    padding: 0 15px;
+    padding: 0 28px;
     text-shadow: none;
     text-transform: uppercase;
     transition: all 0.3s ease 0s;
@@ -3652,10 +3694,9 @@ blockquote::before {
     margin: 0 6px 20px 0;
     max-width: 100%;
     padding: 0 0 0 10px;
-    width: 170px;
+    width: 180px;
 }
 .cart_totals {
-    float: left;
     text-align: right;
     width: 100%;
 }
@@ -3666,34 +3707,22 @@ blockquote::before {
     margin: 0 0 35px;
     text-transform: uppercase;
 }
-.cart_totals table {
-    border: medium none;
-    float: right;
-    margin: 0;
-    text-align: right;
-}
-.cart_totals table th {
-    border: medium none;
-    font-size: 14px;
+.cart_totals .order_total {
+    color: #333;
+    font-size: 18px;
     font-weight: bold;
-    padding: 0 20px 12px 0;
-    text-align: right;
-    text-transform: uppercase;
-    vertical-align: top;
+    text-transform: capitalize;
 }
-.cart_totals table td {
-    border: medium none;
-    padding: 0 0 12px;
-    vertical-align: top;
+.cart_totals .order_total .title {
+    display: inline-block;
+    text-align: left;
+    text-decoration: underline;
+    width: 40%;
 }
-.cart_totals table td .amount {
-    color: #252525;
-    float: right;
-    font-size: 13px;
-    font-weight: bold;
-    margin-left: 5px;
+.cart_totals .order_total .amount {
+    display: inline-block;
     text-align: right;
-    text-transform: uppercase;
+    width: 58%;
 }
 .cart_totals table td ul#shipping_method {
     list-style: outside none none;
@@ -3733,8 +3762,8 @@ a.shipping-calculator-button:hover {
     font-weight: 700;
     height: 50px;
     line-height: 50px;
-    margin-top: 20px;
-    padding: 0 30px;
+    margin-top: 24px;
+    padding: 0 58px;
     text-transform: none;
 }
 .wc-proceed-to-checkout a:hover {
