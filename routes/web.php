@@ -29,5 +29,17 @@ Route::get('product/{id}/details', 'frontend\productCtrl@product_detailes')->nam
 Route::get('product/{id}/delete/{review}', 'frontend\productCtrl@review_destroy');
 Route::post('product/{id}/delete/{review}', 'frontend\productCtrl@review_destroy')->name('review_delete');
 
+//cart routes
+Route::group(['prefix'=>'cart', 'as'=>'cart.'] , function() {
+
+    Route::get('/', 'frontend\CartController@cart')->name('index');
+    Route::get('add/{id}', 'frontend\CartController@addToCart')->name('add');
+    Route::post('remove/{id}','frontend\CartController@remove')->name('remove');
+    Route::get('checkout','frontend\CartController@checkout_page')->middleware('auth')->name('checkout_page');
+
+});
+
+
+
 
 Auth::routes();

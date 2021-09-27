@@ -17,7 +17,7 @@ use View;
 class ProductCtrl extends Controller
 {
     protected $categories;
-    
+
     public function __construct() {
         $this->categories = Category::Where('status','active')->OrderBy('order')->get();
         View::share('categories', $this->categories);
@@ -30,7 +30,7 @@ class ProductCtrl extends Controller
         $product_reviews = Product_review::Where('product',$id)->OrderBy('created_at','DESC')->get();
         if($product) {
             return view("frontend.pages.product_detailes")->with([
-                'product' => $product, 
+                'product' => $product,
                 'product_images' => $product_images,
                 'product_reviews' => $product_reviews
                 ]);
@@ -48,5 +48,6 @@ class ProductCtrl extends Controller
         $user_review->delete();
         return Redirect::back();
     }
+
 
 }

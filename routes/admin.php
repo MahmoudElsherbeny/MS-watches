@@ -23,18 +23,18 @@ Route::get('/', 'backend\DashController@dashboard')->name('dashboard')->middlewa
 
 //categories routes
 Route::group(['middleware'=>'admin', 'prefix'=>'category', 'as'=>'category.'] , function() {
-    
+
     Route::get('/','backend\CategoryCtrl@index')->name('index');
     Route::get('/create','backend\CategoryCtrl@create')->name('create');
     Route::get('/{id}/edit','backend\CategoryCtrl@edit')->name('edit');
     //Route::post('/search','backend\CategoryCtrl@update');
     Route::post('/{id}/delete','backend\CategoryCtrl@destroy')->name('delete');
-    
+
 });
 
 //products routes
 Route::group(['middleware'=>'admin', 'prefix'=>'products', 'as'=>'product.'] , function() {
-    
+
     Route::get('/','backend\ProductCtrl@index')->name('index');
     Route::get('/create','backend\ProductCtrl@create')->name('create');
     Route::get('/{id}/edit','backend\ProductCtrl@edit')->name('edit');
@@ -44,43 +44,52 @@ Route::group(['middleware'=>'admin', 'prefix'=>'products', 'as'=>'product.'] , f
     Route::post('/{id}/sale','backend\ProductCtrl@sale')->name('sale');
     Route::post('/{id}/image/{image}/edit','backend\ProductCtrl@image_update')->name('image_edit');
     Route::post('/{id}/image/{image}/delete','backend\ProductCtrl@image_destroy')->name('image_delete');
-    
+
+});
+
+//orders routes
+Route::group(['middleware'=>'admin', 'prefix'=>'orders', 'as'=>'order.'] , function() {
+
+    Route::get('/','backend\OrderController@index')->name('index');
+    Route::post('/{id}/cancel','backend\OrderController@destroy')->name('cancel');
+    Route::get('/{id}','backend\OrderController@product')->name('info');
+
 });
 
 //Editors routes
 Route::group(['middleware'=>['admin','admin.pages'], 'prefix'=>'editors', 'as'=>'editor.'] , function() {
-    
+
     Route::get('/','backend\EditorController@index')->name('index');
     Route::get('/{id}/edit','backend\EditorController@edit')->name('edit');
     Route::post('/{id}/edit','backend\EditorController@update');
     Route::post('/{id}/delete','backend\EditorController@destroy')->name('delete');
-    
+
 });
 
 //logs routes
 Route::group(['middleware'=>['admin','admin.pages'], 'prefix'=>'logs', 'as'=>'DashLogs.'] , function() {
-    
+
     Route::get('/','backend\LogsCtrl@index')->name('index');
     Route::post('/delete','backend\LogsCtrl@destroy')->name('delete');
-    
+
 });
 
 //slider routes
 Route::group(['middleware'=>'admin', 'prefix'=>'slider', 'as'=>'slider.'] , function() {
-    
+
     Route::get('/','backend\SliderController@index')->name('index');
     Route::get('/create','backend\SliderController@create')->name('create');
     Route::get('/{id}/edit','backend\SliderController@edit')->name('edit');
     Route::post('/{id}/delete','backend\SliderController@destroy')->name('delete');
-    
+
 });
 
 //settings routes
 Route::group(['middleware'=>'admin', 'prefix'=>'setting', 'as'=>'setting.'] , function() {
-    
+
     Route::get('/','backend\SettingController@index')->name('index');
     Route::get('/edit','backend\SettingController@edit')->name('edit');
-    //Route::post('/{id}/edit','backend\EditorController@update');    
+    //Route::post('/{id}/edit','backend\EditorController@update');
 });
 
 

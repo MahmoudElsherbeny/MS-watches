@@ -16,7 +16,7 @@ class HomeController extends Controller
 {
 
     protected $categories;
-    
+
     public function __construct() {
         $this->categories = Category::Where('status','active')->OrderBy('order')->get();
         View::share('categories', $this->categories);
@@ -41,8 +41,8 @@ class HomeController extends Controller
                               ->select('products.*', 'product_avg_rates.product', 'product_avg_rates.avg_rate')
                               ->join('product_avg_rates', 'product_avg_rates.product', '=', 'products.id')
                               ->Where('products.status', 'active')
-                              ->orderBy('avg_rate','DESC')->limit(12)->get();                           
-        
+                              ->orderBy('avg_rate','DESC')->limit(12)->get();
+
         return view("frontend.index")->with([
                                     'slides' => $slides,
                                     'latest' => $latest_products,

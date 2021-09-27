@@ -46,7 +46,7 @@
                             @foreach ($categories as $category)
                                 <li>
                                     <a href="#">
-                                        <span class="cat-icon"><i class="{{ $category->icon }}"></i></span> {{ $category->name }} 
+                                        <span class="cat-icon"><i class="{{ $category->icon }}"></i></span> {{ $category->name }}
                                     </a>
                                 </li>
                             @endforeach
@@ -73,7 +73,7 @@
                         <div class="tab-pane active" id="TopRated">
                             <div class="row">
                                 <div class="product-slider-active owl-carousel">
-                                    
+
                                 <!--   top rated products   -->
                                 @foreach ($toprate as $product)
                                     <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
@@ -87,7 +87,7 @@
                                                 <div class="product__hover__info">
                                                     <ul class="product__action">
                                                         <li><a data-toggle="modal" data-target="#topratewatche{{ $product->id }}" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                        <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
+                                                        <li><a title="Add TO Cart" href="{{ route('cart.add', ['id' => $product->id]) }}"><span class="ti-shopping-cart"></span></a></li>
                                                         <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
                                                     </ul>
                                                 </div>
@@ -141,18 +141,18 @@
 
                                                             @foreach (range(1,5) as $i)
 
-                                                                @if($rating > 0) 
+                                                                @if($rating > 0)
                                                                     @if($rating >= 0.7)
                                                                         <li><span class="zmdi zmdi-star"></span></li>
                                                                     @elseif($rating >= 0.3)
                                                                         <li><span class="zmdi zmdi-star-half"></span></li>
                                                                     @else
                                                                         <li><span class="zmdi zmdi-star-outline"></span></li>
-                                                                    @endif                                        
+                                                                    @endif
                                                                 @else
                                                                     <li><span class="zmdi zmdi-star-outline"></span></li>
                                                                 @endif
-                                                                
+
                                                                 @php $rating-- @endphp
                                                             @endforeach
 
@@ -180,6 +180,14 @@
                                                             <div class="prod__color" style="background-color: {{ $product->mina_color }}"></div>
                                                         </div>
                                                     </div>
+                                                    <div class="select__quantity">
+                                                        <h2>Quantity :</h2>
+                                                        <div class="product__quantity">
+                                                            <div class="cart-plus-minus">
+                                                                <input class="cart-plus-minus-box" type="text" name="productqty" value="1">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="social-sharing">
                                                         <div class="widget widget_socialsharing_widget">
                                                             <h3 class="widget-title-modal">Share this product</h3>
@@ -192,7 +200,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="addtocart-btn">
-                                                        <a href="#">Add to cart</a>
+                                                        <a href="{{ route('cart.add', ['id' => $product->id]) }}">Add to cart</a>
                                                     </div>
                                                 </div><!-- .product-info -->
                                             </div><!-- .modal-product -->
@@ -231,7 +239,7 @@
                         <div class="tab-pane active" id="BestSale">
                             <div class="row">
                                 <div class="product-slider-active owl-carousel">
-                                    
+
                                 <!--   best sale products   -->
                                 @foreach ($bestsale as $product)
                                     <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
@@ -299,18 +307,18 @@
 
                                                             @foreach (range(1,5) as $i)
 
-                                                                @if($rating > 0) 
+                                                                @if($rating > 0)
                                                                     @if($rating >= 0.7)
                                                                         <li><span class="zmdi zmdi-star"></span></li>
                                                                     @elseif($rating >= 0.3)
                                                                         <li><span class="zmdi zmdi-star-half"></span></li>
                                                                     @else
                                                                         <li><span class="zmdi zmdi-star-outline"></span></li>
-                                                                    @endif                                        
+                                                                    @endif
                                                                 @else
                                                                     <li><span class="zmdi zmdi-star-outline"></span></li>
                                                                 @endif
-                                                                
+
                                                                 @php $rating-- @endphp
                                                             @endforeach
 
@@ -457,18 +465,18 @@
 
                                                             @foreach (range(1,5) as $i)
 
-                                                                @if($rating > 0) 
+                                                                @if($rating > 0)
                                                                     @if($rating >= 0.7)
                                                                         <li><span class="zmdi zmdi-star"></span></li>
                                                                     @elseif($rating >= 0.3)
                                                                         <li><span class="zmdi zmdi-star-half"></span></li>
                                                                     @else
                                                                         <li><span class="zmdi zmdi-star-outline"></span></li>
-                                                                    @endif                                        
+                                                                    @endif
                                                                 @else
                                                                     <li><span class="zmdi zmdi-star-outline"></span></li>
                                                                 @endif
-                                                                
+
                                                                 @php $rating-- @endphp
                                                             @endforeach
 
@@ -614,18 +622,18 @@
 
                                                                 @foreach (range(1,5) as $i)
 
-                                                                    @if($rating > 0) 
+                                                                    @if($rating > 0)
                                                                         @if($rating >= 0.7)
                                                                             <li><span class="zmdi zmdi-star"></span></li>
                                                                         @elseif($rating >= 0.3)
                                                                             <li><span class="zmdi zmdi-star-half"></span></li>
                                                                         @else
                                                                             <li><span class="zmdi zmdi-star-outline"></span></li>
-                                                                        @endif                                        
+                                                                        @endif
                                                                     @else
                                                                         <li><span class="zmdi zmdi-star-outline"></span></li>
                                                                     @endif
-                                                                    
+
                                                                     @php $rating-- @endphp
                                                                 @endforeach
 

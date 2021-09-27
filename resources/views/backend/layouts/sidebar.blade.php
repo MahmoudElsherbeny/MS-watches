@@ -11,7 +11,7 @@
         <!-- Drawer navigation -->
         <nav class="drawer-main">
             <ul class="nav nav-drawer">
-                
+
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-ios-calculator-outline"></i> Categories</a>
                     <ul class="nav nav-subnav">
@@ -36,6 +36,20 @@
                         </li>
                         <li>
                             <a href="{{ route('product.create') }}">Product Report</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> Orders</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="{{ route('order.index') }}">All Orders</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('product.create') }}"> Report</a>
                         </li>
 
                     </ul>
@@ -66,21 +80,21 @@
                             <li>
                                 <a href="base_pages_blank.html">Logs</a>
                             </li>
-                            
+
                         </ul>
                     </li>
 
                     <li class="nav-item nav-item-has-subnav">
                         <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Setting</a>
                         <ul class="nav nav-subnav">
-    
+
                             <li>
                                 <a href="{{ route('setting.index') }}">All Setting</a>
                             </li>
                             <li>
                                 <a href="{{ route('setting.edit') }}">Edit Setting</a>
                             </li>
-                            
+
                         </ul>
                     </li>
                 @endif
@@ -95,7 +109,7 @@
                         <li>
                             <a href="{{ route('slider.create') }}">Create New Slide</a>
                         </li>
-                        
+
                     </ul>
                 </li>
 

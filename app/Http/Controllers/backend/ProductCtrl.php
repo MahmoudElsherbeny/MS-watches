@@ -39,7 +39,7 @@ class ProductCtrl extends Controller
     }
 
     //function store - store product data into database
-    
+
 
 
     //delete function - delete product data and it's images
@@ -66,16 +66,16 @@ class ProductCtrl extends Controller
         $validatedData = $request->validate([
             'order' => 'required|numeric|max:10'
         ]);
-        
+
         try {
-            
+
             $image = Product_image::find($image);
             if($image != null) {
                 $image->order = $request->input('order');
                 $image->save();
             }
             return Redirect::back();
-            
+
         } catch (EXTENSION $e) {
             Session::flash('error','Error:'.$e);
         }
@@ -94,7 +94,7 @@ class ProductCtrl extends Controller
         $validatedData = $request->validate([
             'new_price' => 'required|numeric|gt:0',
         ]);
-        
+
         try {
             $product = Product::find($id);
             if($product) {
@@ -106,7 +106,7 @@ class ProductCtrl extends Controller
         } catch (EXTENSION $e) {
             Session::flash('error','Error:'.$e);
         }
-        
+
         return Redirect::back();
     }
 
