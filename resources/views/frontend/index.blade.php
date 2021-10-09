@@ -699,7 +699,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="htc__loadmore__btn text-center">
-                    <a href="{{ route('shop') }}" class="load_products">Show All Products</a>
+                    <a href="{{ route('shop') }}" class="ms-btn black-btn load_products">Show All Products</a>
                 </div>
             </div>
         </div>

@@ -1659,29 +1659,15 @@ product__style--7
 }
 .htc__loadmore__btn button,
 .load_products {
-    background: #ff3e34;
-    border: 1px solid #ff3e34;
-    color: #fff;
-    box-shadow: 1px 1px 2px #a3a3a3;
-    display: inline-block;
-    height: 45px;
-    letter-spacing: 1px;
-    line-height: 42px;
-    padding: 0 44px;
-    text-transform: uppercase;
-    transition: all 0.5s ease 0s;
+    padding: 12px 44px !important;
+    text-transform: uppercase !important;
 }
-.htc__loadmore__btn button:active {
-    box-shadow: none;
-}
-
 .loading {
     font-size: 24px;
     font-weight: bold;
     text-transform: capitalize;
     text-align:center;
 }
-
 
 /*------------------------------
   13. Newsletter Area
@@ -3531,20 +3517,10 @@ blockquote::before {
     text-align: center;
 }
 .empty__cart__button a {
-    background: #252525 none repeat scroll 0 0;
-    border: medium none;
-    color: #fff;
     display: inline-block;
-    font-size: 15px;
     height: 45px;
     line-height: 45px;
     padding: 0 74px;
-    text-transform: capitalize;
-    transition: all 0.3s ease 0s;
-}
-.empty__cart__button a:hover {
-    background: #ff4136;
-    color: #fff !important;
 }
 
 .table-content table {
@@ -3845,8 +3821,19 @@ a.shipping-calculator-button:hover {
 .checkout-form-inner {
     margin-top: 40px;
 }
-.single-checkout-box input + input {
-    margin-left: 34px;
+.single-checkout-box {
+    margin-bottom: 14px;
+}
+.single-checkout-box label {
+    font-size: 20px;
+    padding-right: 48px;
+    width: 140px;
+    text-align: right;
+    text-transform: capitalize;
+}
+.single-checkout-box span {
+    color: #505050;
+    font-size: 20px;
 }
 .payment-form {
     margin-top: 51px;
