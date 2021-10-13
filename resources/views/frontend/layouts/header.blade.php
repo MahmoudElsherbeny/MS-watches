@@ -204,8 +204,8 @@
                     <li class="total__price">£{{ $subtotal }}</li>
                 </ul>
                 <ul class="shopping__btn">
-                    <li><a href="{{ route('cart.index') }}">View Cart</a></li>
-                    <li class="shp__checkout"><a href="{{ route('cart.checkout_page') }}">Checkout</a></li>
+                    <li><a href="{{ route('cart.index') }}" class="ms-btn transparent-btn">View Cart</a></li>
+                    <li class="shp__checkout"><a href="{{ route('cart.checkout_page') }}" class="ms-btn black-btn">Checkout</a></li>
                 </ul>
             @else
                 <div class="shp__cart__wrap">
@@ -217,7 +217,7 @@
                         </div>
                 </div>
                 <ul class="shopping__btn">
-                    <li><a href="{{ route('shop') }}">shop</a></li>
+                    <li><a href="{{ route('shop') }}" class="ms-btn black-btn">shop</a></li>
                 </ul>
             @endif
         </div>

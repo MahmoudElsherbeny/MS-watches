@@ -52,7 +52,7 @@
                                     ?>
                                     @foreach (session('cart') as $key => $product)
                                         <tr>
-                                            <td class="product-thumbnail">{{ ($index+1) }}</td>
+                                            <td class="product-order">{{ ($index+1) }}</td>
                                             <td class="product-thumbnail"><img src=" {{ url('frontend/images/product/3.png') }} " alt="product img" /></td>
                                             <td class="product-name">
                                                 <a href="{{ route('product_detailes', ['id' => $product['id']]) }}">{{ $product['name'] }}</a>
@@ -108,7 +108,7 @@
                             @endif
                         </div>
                         <div class="empty__cart__button">
-                            <a href="{{ route('shop') }}">Shop</a>
+                            <a href="{{ route('shop') }}" class="ms-btn black-btn">Shop</a>
                         </div>
                     @endif
 

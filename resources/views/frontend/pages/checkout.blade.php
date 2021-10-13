@@ -34,34 +34,72 @@
                             <h2 class="section-title-3">Billing details</h2>
                             <div class="checkout-form-inner">
                                 <div class="single-checkout-box">
-                                    <input type="text" placeholder="First Name*">
-                                    <input type="text" placeholder="Last Name*">
+                                    <label>Name: </label>
+                                    <span>{{ Auth::user()->name }}</span>
                                 </div>
                                 <div class="single-checkout-box">
-                                    <input type="email" placeholder="Emil*">
-                                    <input type="text" placeholder="Phone*">
+                                    <label>Email: </label>
+                                    <span>{{ Auth::user()->email }}</span>
                                 </div>
                                 <div class="single-checkout-box">
-                                    <textarea name="message" placeholder="Message*"></textarea>
-                                </div>
-                                <div class="single-checkout-box select-option mt--40">
-                                    <select>
-                                        <option>Country*</option>
-                                        <option>Bangladesh</option>
-                                        <option>Bangladesh</option>
-                                        <option>Bangladesh</option>
-                                        <option>Bangladesh</option>
-                                    </select>
-                                    <input type="text" placeholder="Company Name*">
+                                    <label>Phone: </label>
+                                    <span></span>
                                 </div>
                                 <div class="single-checkout-box">
-                                    <input type="email" placeholder="State*">
-                                    <input type="text" placeholder="Zip Code*">
+                                    <label>Country: </label>
+                                    <span></span>
+                                </div>
+                                <div class="single-checkout-box">
+                                    <label>State: </label>
+                                    <span></span>
+                                </div>
+                                <div class="single-checkout-box">
+                                    <label>Address: </label>
+                                    <span></span>
+                                </div>
+                                <div class="single-checkout-box">
+                                    <label>Total: </label>
+                                    <span></span>
                                 </div>
                                 <div class="single-checkout-box checkbox">
-                                    <input id="remind-me" type="checkbox">
-                                    <label for="remind-me"><span></span>Create a Account ?</label>
+                                    <button data-toggle="modal" data-target="#ChangeAdress" class="ms-btn black-btn">Change Address</button>
                                 </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="ChangeAdress" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="row">
+                                                    <h4 class="col-md-11 text-left">Change Address</h4>
+                                                    <ul class="card-actions col-md-1 p-t-md">
+                                                        <li>
+                                                            <button data-dismiss="modal" type="button" class="close"><i class="ion-close"></i></button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        {!! Form::Open(['url' => '' ]) !!} 
+                                            <div class="modal-body">
+                                                <p>Write a new address to deliver your order to.</p>
+                                                <div class="single-checkout-box">
+                                                    <label>your address: </label>
+                                                    <input type="text" value="" readonly>
+                                                </div>
+                                                <div class="single-checkout-box">
+                                                    <label>new address: </label>
+                                                    <input type="text" placeholder="write new address">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                                                <button class="btn btn-app" type="submit"> Confirm</button>
+                                            </div>
+                                        {!! Form::Close() !!}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END Modal -->
+
                             </div>
                         </div>
                         <!-- End Checkbox Area -->

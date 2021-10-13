@@ -131,7 +131,7 @@
     <div class="row">
         <div class="col-md-12 mt--60">
             <div class="htc__loadmore__btn">
-                <button wire:click="loadMore({{ $products->first()->id }})" wire:loading.remove class="load_products">load more</button>
+                <button wire:click="loadMore({{ $products->first()->id }})" wire:loading.remove class="ms-btn black-btn load_products">load more</button>
             </div>
         </div>
     </div>
