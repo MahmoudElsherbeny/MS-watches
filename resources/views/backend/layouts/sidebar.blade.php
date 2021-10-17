@@ -12,6 +12,20 @@
         <nav class="drawer-main">
             <ul class="nav nav-drawer">
 
+            <li class="nav-item nav-item-has-subnav">
+                    <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Slider</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="{{ route('slider.index') }}">All Slides</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('slider.create') }}">Create New Slide</a>
+                        </li>
+
+                    </ul>
+                </li>
+
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-ios-calculator-outline"></i> Categories</a>
                     <ul class="nav nav-subnav">
@@ -50,6 +64,20 @@
                         </li>
                         <li>
                             <a href="{{ route('product.create') }}"> Report</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> States</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="{{ route('state.index') }}">All States</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('state.create') }}">Create New State</a>
                         </li>
 
                     </ul>
@@ -98,20 +126,6 @@
                         </ul>
                     </li>
                 @endif
-
-                <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Slider</a>
-                    <ul class="nav nav-subnav">
-
-                        <li>
-                            <a href="{{ route('slider.index') }}">All Slides</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('slider.create') }}">Create New Slide</a>
-                        </li>
-
-                    </ul>
-                </li>
 
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-social-javascript-outline"></i> JS plugins</a>

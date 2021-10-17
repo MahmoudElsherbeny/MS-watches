@@ -82,7 +82,6 @@ class Create extends Component
 
             Session::flash('success','product created successfully');
         
-        return Redirect::route('product.create');
     }
 
     public function render()

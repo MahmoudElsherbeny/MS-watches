@@ -89,6 +89,13 @@ Route::group(['middleware'=>'admin', 'prefix'=>'setting', 'as'=>'setting.'] , fu
 
     Route::get('/','backend\SettingController@index')->name('index');
     Route::get('/edit','backend\SettingController@edit')->name('edit');
+});
+
+//states routes
+Route::group(['middleware'=>'admin', 'prefix'=>'states', 'as'=>'state.'] , function() {
+
+    Route::get('/','backend\StateController@index')->name('index');
+    Route::get('/create','backend\StateController@create')->name('create');
     //Route::post('/{id}/edit','backend\EditorController@update');
 });
 

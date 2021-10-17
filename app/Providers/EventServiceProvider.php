@@ -12,6 +12,7 @@ use App\Product;
 use App\Product_review;
 use App\Setting;
 use App\Slide;
+use App\State;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -40,5 +41,6 @@ class EventServiceProvider extends ServiceProvider
         Product_review::observe(\App\Observers\ProductReviewObserver::class);
         Setting::observe(\App\Observers\SettingObserver::class);
         Slide::observe(\App\Observers\SliderObserver::class);
+        State::observe(\App\Observers\StateObserver::class);
     }
 }
