@@ -20,8 +20,19 @@
                     <!-- Start Single Content -->
                     <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
                         {!! Form::Open(['class'=>'login']) !!}
-                            <input type="text" name="email" placeholder="Email">
-                            <input type="password" name="password" placeholder="Password">
+
+                            <div class="login__form__input">
+                                <input class="@error('email') app__input__error @enderror" type="text" name="email" placeholder="Email">
+                                @error('email')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="login__form__input">
+                                <input class="@error('password') app__input__error @enderror" type="password" name="password" placeholder="Password">
+                                @error('password')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
+                            </div>
                         
                             <div class="tabs__checkbox">
                                 <input type="checkbox">

@@ -96,7 +96,8 @@ Route::group(['middleware'=>'admin', 'prefix'=>'states', 'as'=>'state.'] , funct
 
     Route::get('/','backend\StateController@index')->name('index');
     Route::get('/create','backend\StateController@create')->name('create');
-    //Route::post('/{id}/edit','backend\EditorController@update');
+    Route::post('/{id}/edit','backend\StateController@update')->name('update');
+    Route::post('/{id}/delete','backend\StateController@destroy')->name('delete')->middleware('admin.pages');
 });
 
 

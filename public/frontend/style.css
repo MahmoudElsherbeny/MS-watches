@@ -652,23 +652,35 @@
     margin: 0 auto;
     max-width: 370px;
 }
-.login input:not([type="checkbox"]) {
+.login .login__form__input {
+    margin-bottom: 24px;
+}
+.login .login__form__input:last-of-type {
+    margin-bottom: 20px;
+}
+.app__input__error {
+    border-color: currentcolor currentcolor #d9534f !important;
+}
+.login .login__form__input input:not([type="checkbox"]) {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    border-color: currentcolor currentcolor #8e8e8e;
+    border-color: currentcolor currentcolor #a8a8a8;
     border-image: none;
     border-style: none none solid;
     border-width: 0 0 1px;
-    color: #686868;
+    color: #8b8b8b;
     font-size: 16px;
     height: 40px;
     line-height: 40px;
     padding: 0 15px;
-    margin-bottom: 24px;
     width: 100%;
     background: transparent;
+    transition: all 0.5s ease-in-out;
+}
+.login .login__form__input input:not([type="checkbox"]):focus {
+    border-color: currentcolor currentcolor #5b5b5b;
 }
 .tabs__checkbox span.forget a {
     float: right;
@@ -685,38 +697,40 @@
     font-weight: normal;
     cursor: pointer;
 }
+/*
 .tabs__checkbox {
     margin-bottom: 20px;
 }
+*/
 .tabs__checkbox span {
-    color: #686868;
+    color: #5b5b5b;
     text-transform: capitalize;
-    padding-left: 5px;
+    padding-left: 4px;
+}
+.htc__login__btn {
+    margin-top: 28px;
+    margin-bottom: 28px;
+    text-align: center;
 }
 .htc__login__btn button {
-    border: 1px solid #d5d5d5;
+    background-color: transparent;
+    border: 1px solid #b5b5b5;
     display: inline-block;
-    font-size: 20px;
+    font-size: 18px;
     height: 50px;
     line-height: 50px;
     text-align: center;
     text-transform: capitalize;
     transition: all 0.5s ease 0s;
-    width: 150px;
+    width: 164px;
     color: #4b4b4b;
     text-transform: uppercase;
-}
-.htc__login__btn {
-    text-align: center;
-}
-.login input:last-child {
-    margin-bottom: 34px;
 }
 .htc__social__connect h2 {
     color: #000;
     font-size: 16px;
-    margin-bottom: 24px;
-    margin-top: 34px;
+    margin-bottom: 14px;
+    margin-top: 10px;
     text-transform: capitalize;
     font-weight: 500;
 }

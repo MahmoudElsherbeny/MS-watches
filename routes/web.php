@@ -41,5 +41,4 @@ Route::group(['prefix'=>'cart', 'as'=>'cart.'] , function() {
 
 
 
-
-Auth::routes();
+Auth::routes(['verify' => true]);

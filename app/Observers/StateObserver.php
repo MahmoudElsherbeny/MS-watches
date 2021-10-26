@@ -26,4 +26,30 @@ class StateObserver
         }
     }
 
+    /**   Handle the state "updated" event.   **/
+    public function updated(State $state)
+    {
+        // search for changes
+        foreach ($state->getChanges() as $attribute => $new_value) {
+
+            $state_name = $state->getOriginal('state');
+            if ($attribute != 'updated_at') {
+                Dashboard_Log::create([
+                    'user' => Auth::guard('admin')->user()->id,
+                    'log' => 'Update state '.$state_name.' '.$attribute.' to '.$new_value,
+                ]);
+            }
+        }
+    }
+
+    /**   Handle the state "deleted" event.   **/
+    public function deleted(State $state)
+    {
+        //store logs when state deleted
+        Dashboard_log::create([
+            'user' => Auth::guard('admin')->user()->id,
+            'log' => 'Delete state '.$state->state,
+        ]);
+    }
+
 }
