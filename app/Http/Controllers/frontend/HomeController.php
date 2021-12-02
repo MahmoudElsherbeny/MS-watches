@@ -67,4 +67,9 @@ class HomeController extends Controller
         return view("frontend.pages.contact");
     }
 
+    //show success alert page after registeration function
+    public function register_success() {
+        return view("frontend.pages.register_success");
+    }
+
 }

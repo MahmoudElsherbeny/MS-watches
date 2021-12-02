@@ -645,6 +645,21 @@
     padding: 0 20px;
     transition: all 0.4s ease 0s;
 }
+.register_success_icon {
+    display: flex;
+    justify-content: center;
+    margin: 12px auto 26px;
+    max-width: 170px;
+    color: #5ab84e;
+    font-size: 52px;
+}
+.register_success_content {
+    text-align: center;
+}
+.register_success_content p {
+    font-size: 24px;
+    line-height: 1.8;
+}
 .login__register__menu .title.active {
     color: #ff4136;
 }

@@ -23,6 +23,7 @@ Route::get('/shop', 'frontend\HomeController@shopPage')->name('shop');
 Route::get('/about', 'frontend\HomeController@aboutus')->name('aboutus');
 Route::get('/contact', 'frontend\HomeController@contact')->name('contact');
 Route::get('/login', 'frontend\HomeController@login')->name('login');
+Route::get('/register_success', 'frontend\HomeController@register_success')->name('register_success');
 
 //product routes
 Route::get('product/{id}/details', 'frontend\productCtrl@product_detailes')->name('product_detailes');
