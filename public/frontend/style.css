@@ -1984,14 +1984,16 @@ product__style--7
     display: flex;
     justify-content: space-between;
 }
-.filter__box a {
+.filter__box button {
+    background: none;
+    border: none;
     color: #666666;
-    font-size: 17px;
+    font-size: 18px;
     text-transform: uppercase;
 }
 .filter__wrap.filter__menu__on {
     opacity: 1;
-    right: calc(0px - 16px);
+    right: calc(0px - 24px);
 }
 .filter__wrap {
     background: #ffffff none repeat scroll 0 0;
@@ -2037,10 +2039,12 @@ product__style--7
     margin-bottom: 13px;
     text-transform: uppercase;
 }
-.filter__list li span {
-    color: #555;
+.filter__list li label {
+    color: #444;
     font-size: 15px;
+    font-weight: normal;
     padding-left: 2px;
+    margin-bottom: 0;
     text-transform: capitalize;
 }
 .filter__list li + li {

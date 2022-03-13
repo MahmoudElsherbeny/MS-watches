@@ -35,7 +35,7 @@
                             </div>
                         
                             <div class="tabs__checkbox">
-                                <input type="checkbox">
+                                <input name="remember" type="checkbox">
                                 <span> Remember me</span>
                                 <span class="forget"><a href="#">Forget Pasword?</a></span>
                             </div>

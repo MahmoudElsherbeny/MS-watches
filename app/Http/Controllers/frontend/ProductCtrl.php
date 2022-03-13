@@ -29,7 +29,7 @@ class ProductCtrl extends Controller
         $product_images = Product_image::Where('product',$id)->orderBy('order')->get();
         $product_reviews = Product_review::Where('product',$id)->OrderBy('created_at','DESC')->get();
         if($product) {
-            return view("frontend.pages.product_detailes")->with([
+            return view("frontend.product.product_detailes")->with([
                 'product' => $product,
                 'product_images' => $product_images,
                 'product_reviews' => $product_reviews

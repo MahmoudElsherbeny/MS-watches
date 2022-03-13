@@ -9,27 +9,38 @@ class Shop extends Component
 {
 
     public $products;
-    public $amount = 136;
+    public $moreProducts;
     public $hasmore = true;
 
     public function mount() {
         $this->products = Product::Where('status','active')
                                 ->orderBy('id','DESC')
-                                ->limit(68)
+                                ->limit(64)
                                 ->get();
+
     }
     
     public function loadMore($lastid) {
-        $this->products = Product::Where('id','<=',$lastid)
-                                ->Where('status','active')
+        $this->moreProducts = Product::Where('status','active')
+                                ->Where('id','<',$lastid)
                                 ->orderBy('id','DESC')
-                                ->limit($this->amount)
+                                ->limit(64)
                                 ->get();
 
-        $this->amount += 68;
-        if($this->amount >= $lastid) {
+        $this->products = $this->products->merge($this->moreProducts);
+        if($lastid < 64) {
             $this->hasmore = false;
         }
+    }
+
+    public function priceFilter($minPrice,$maxPrice) {
+        $this->products = Product::Where('status','active')
+                                ->WhereBetween('price', [$minPrice,$maxPrice])
+                                ->orWhereBetween('sale', [$minPrice,$maxPrice])
+                                ->orderBy('id','DESC')
+                                ->get();
+
+        $this->hasmore = false;
     }
 
     public function render()

@@ -36,108 +36,14 @@
                                 <button data-filter=".cat--1">Watches</button>
                             </div>
                             <div class="filter__box">
-                                <a class="filter__menu" href="#">filter</a>
+                                <button class="filter__menu">filter</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Start Filter Menu -->
-                <div class="filter__wrap">
-                    <div class="filter__cart">
-                        <div class="filter__cart__inner">
-                            <div class="filter__content">
-                                <!-- Start Single Content -->
-                                <div class="fiter__content__inner">
-                                    <div class="single__filter">
-                                        <h2>Sort By</h2>
-                                        <ul class="filter__list">
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>Rate</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>Price</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>New</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="single__filter">
-                                        <h2>Tags</h2>
-                                        <ul class="filter__list">
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>Men</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>Women</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>Kids</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="single__filter">
-                                        <h2>Category</h2>
-                                        <ul class="filter__list">
-                                            @foreach ($categories as $category)
-                                                <li>
-                                                    <input type="checkbox" />
-                                                    <span>{{ $category->name }}</span>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    <div class="single__filter">
-                                        <h2>Price</h2>
-                                        <ul class="filter__list">
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>Less Than $50</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>$50 - $100</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>$100 - $250</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>$250 - $500</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>$500 - $1000</span>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" />
-                                                <span>$1000 Or More</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Single Content -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Filter Menu -->
-                <!-- End Product MEnu --> 
-
-                <div class="row">
-
-                    <!--   livewire/frontend/shop.blade.php   -->
-                    @livewire('frontend.shop')
-
-                </div>
-
+                
+                <!--   livewire/frontend/shop.blade.php   -->
+                @livewire('frontend.shop')
 
             </div>
         </div>

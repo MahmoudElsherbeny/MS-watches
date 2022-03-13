@@ -25,17 +25,6 @@ class HomeController extends Controller
     //show home page function
     public function index() {
         $slides = Slide::Where('status','active')->OrderBy('order')->get();
-        $latest_products = Product::Where('status','active')
-                                  ->Where('sale','<=',0)
-                                  ->OrderBy('id','DESC')->limit(12)->get();
-
-        $onsale_products = Product::Where('status','active')
-                                  ->Where('sale','>',0)
-                                  ->OrderBy('updated_at','DESC')->limit(12)->get();
-
-        $bestsale_products = Product::Where('status','active')
-                                    ->Where('sale','>',0)
-                                    ->OrderBy('sale','DESC')->limit(12)->get();
 
         $toprate_products = DB::table('products')
                               ->select('products.*', 'product_avg_rates.product', 'product_avg_rates.avg_rate')
@@ -45,9 +34,6 @@ class HomeController extends Controller
 
         return view("frontend.index")->with([
                                     'slides' => $slides,
-                                    'latest' => $latest_products,
-                                    'onsale' => $onsale_products,
-                                    'bestsale' => $bestsale_products,
                                     'toprate' => $toprate_products
                                     ]);
     }

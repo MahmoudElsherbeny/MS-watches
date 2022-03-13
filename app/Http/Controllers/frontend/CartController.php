@@ -41,7 +41,7 @@ class CartController extends Controller
                     "id" => $product->id,
                     "name" => $product->name,
                     "quantity" => $quantity,
-                    "price" => $product->sale > 0 ? ($product->price-$product->sale) : $product->price,
+                    "price" => $product->sale > 0 ? $product->sale : $product->price,
                     "image" => url(Product_image::ProductMainImage($product_id))
                 ]
             ];
@@ -64,7 +64,7 @@ class CartController extends Controller
             "id" => $product->id,
             "name" => $product->name,
             "quantity" => $quantity,
-            "price" => $product->sale > 0 ? ($product->price-$product->sale) : $product->price,
+            "price" => $product->sale > 0 ? $product->sale : $product->price,
             "image" => url(Product_image::ProductMainImage($product_id))
         ];
         Session::put('cart', $cart);
@@ -89,7 +89,7 @@ class CartController extends Controller
         return Redirect::back();
     }
 
-     //checkou page function - display checkout page
+     //checkout page function - display checkout page
      public function checkout_page()
      {
         return view("frontend.pages.checkout");

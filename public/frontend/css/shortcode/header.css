@@ -715,9 +715,8 @@
   right: -100%;
   top: 0;
   transition: all 0.25s ease 0s;
-  width: 100%;
   z-index: 99999;
-  width: 468px;
+  width: 440px;
 
 }
 .user__meta .htc__login__register {
@@ -738,15 +737,15 @@
 }
 .offsetmenu__close__btn {
   background-color: #eee;
-  padding: 29px 50px 24px;
+  padding: 14px 24px 18px;
   position: absolute;
   right: 0;
   top: 0;
   z-index: 10;
 }
 .offsetmenu__close__btn a i {
-  color: #666666;
-  font-size: 36px;
+  color: #888;
+  font-size: 32px;
   transition: all 0.3s ease 0s;
 }
 .offsetmenu__close__btn a:hover i{
@@ -864,13 +863,8 @@ h4.offset__title {
     opacity: 0.7;
 }
 .shopping__cart__inner {
-  padding: 102px 50px;
+  padding: 96px 42px;
 }
-.shopping__cart__inner .offsetmenu__close__btn {
-  padding: 21px 50px 24px;
-}
-
-
 
 
 
@@ -954,7 +948,7 @@ h4.offset__title {
   color: #ff4136;
 }
 .shp__cart__wrap {
-    margin-top: -30px;
+    margin-top: -34px;
 }
 .shoping__total {
     border-top: 1px solid #ddd;
@@ -963,8 +957,8 @@ h4.offset__title {
     padding: 22px 0;
 }
 .remove__btn a i {
-    color: #ccc;
-    font-size: 22px;
+    color: #bbb;
+    font-size: 20px;
     transition: all 0.5s ease 0s;
 }
 .remove__btn a:hover i {

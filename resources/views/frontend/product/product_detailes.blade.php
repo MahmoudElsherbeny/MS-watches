@@ -94,7 +94,7 @@
                         <ul class="pro__dtl__prize">
                             @if($product->sale > 0)
                                 <li class="old__prize">&pound;{{ $product->price }}</li>
-                                <li class="new__prize">&pound;{{ $product->price-$product->sale }}</li>
+                                <li class="new__prize">&pound;{{ $product->sale }}</li>
                             @else
                                 <li class="new__prize">&pound;{{ $product->price }}</li>
                             @endif
