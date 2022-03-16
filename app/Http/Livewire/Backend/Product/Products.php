@@ -3,27 +3,28 @@
 namespace App\Http\Livewire\Backend\Product;
 
 use Livewire\Component;
+use App\Product;
+
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
-use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
-
-use App\Product;
-use App\Product_image;
-use App\Category;
-use Session;
-use Redirect;
-use Auth;
 
 class Products extends LivewireDatatable
 {
     public $model = Product::class;
 
-    function columns() {
+    public function builder()
+    {
+        //
+    }
+
+    public function columns()
+    {
         return [
-            Column::name('name')->label('Name'),
-            Column::name('category')->label('Category')
-                
+            NumberColumn::name('id')->label('IDts'),
+            // Column that counts every line from 1 upwards, independent of content
+            //Column::index($this),
+            Column::delete()
         ];
     }
 
@@ -31,4 +32,5 @@ class Products extends LivewireDatatable
     {
         return view('livewire.backend.product.products');
     }
+
 }

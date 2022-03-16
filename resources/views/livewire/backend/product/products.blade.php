@@ -15,12 +15,14 @@
             </div>
         </div>
         <div class="card-block">
-            <livewire:datatable
+            <livewire:products
                 model="App\Product"
-                with="admins, admins.name"
                 name="products_list"
-                include="id, name, category, price, published_by, created_at"
-                dates="dob"
+                per-page="20"
+                include="id, name, category.name|Category, price|Price (EGP), published_by.name|Published By, created_at"
+                searchable="name, category.name"
+                dates="created_at"
+                exportable
             />
             <!--
             <-- DataTables init on table by adding .js-dataTable-simple class, functionality initialized in js/pages/base_tables_datatables.js --

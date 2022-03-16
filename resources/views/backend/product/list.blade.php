@@ -9,7 +9,7 @@
 
 @section('js_code')
 
-    <!--  Ajax code for product live search  -->
+    <!--  Ajax code for product live search  - ->
     <script type="text/javascript">
         $('#prod_search').on('keyup',function(){
             $value = $(this).val();
@@ -27,6 +27,7 @@
             });
         })
     </script>
+    -->
         
 
     <!-- Page JS Code -->
