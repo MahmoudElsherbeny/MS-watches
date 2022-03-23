@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="product__details">
-                <h2><a href="{{ route('product_detailes', ['id' => $product->id]) }}">{{ $product->name }}</a></h2>
+                <h2><a href="{{ route('product_detailes', ['id' => $product->id]) }}">{{ $product->name.'/'.$product->category }}</a></h2>
                 <ul class="product__price">
                     @if($product->sale > 0)
                         <li class="old__price">&pound; {{ $product->price }}</li>

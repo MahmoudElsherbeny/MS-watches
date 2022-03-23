@@ -4,6 +4,11 @@ select {
     font-family: FontAwesome, Ionicons, sans-serif;
 }
 
+.old_price {
+    color: #9c9b9b;
+    text-decoration: line-through;
+}
+
 /* header */
 .drawer-header {
     padding: 18px 24px 2px;
@@ -70,6 +75,28 @@ select {
     width: 100%;
 }
 
+/************************************/
+/*  *******  items list   *******  */
+/***********************************/
+
+.js-dataTable-simple {
+    font-size: 14px;
+}
+
+.js-dataTable-simple .status {
+    cursor: text;
+    font-size: 13px;
+    padding: 3px 7px;
+}
+
+.table .btn-group .btn {
+    font-size: 16px;
+    padding: 5px 9px;
+}
+.table .btn-group .btn:last-child {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
 /*************************************/
 /*  ******   product page   ******  */
@@ -84,9 +111,4 @@ select {
 
 .product_page .product_info .price {
     color: #ff4136;
-}
-
-.product_page .old_price {
-    color: #9c9b9b;
-    text-decoration: line-through;
 }

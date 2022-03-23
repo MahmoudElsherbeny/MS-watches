@@ -28,7 +28,8 @@ class CategoryCtrl extends Controller
             return Response()->json(['data'=>$returnCategories, 'count'=>$catCount]);
         }
         else {
-            $categories = Category::orderBY('created_at','DESC')->get();
+            $catAllCount = Product::count();
+            $categories = Category::orderBY('created_at','DESC')->paginate($catAllCount);
             return view('backend.category.list')->with('categories',$categories);
         }
     }

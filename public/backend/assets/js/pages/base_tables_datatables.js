@@ -1,25 +1,89 @@
 /*
 Document: base_tables_datatables.js
-Author: Rustheme
 Description: Custom JS code used in Tables Datatables Page
  */
 
 var BaseTableDatatables = function() {
-	// Init full DataTable: https://www.datatables.net/
-	var initDataTableFull = function() {
-		jQuery( '.js-dataTable-full' ).dataTable({
-			columnDefs: [ { orderable: false, targets: [ 4 ] } ],
-			pageLength: 10,
-			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]]
+
+	// Init simple DataTable for products list: https://www.datatables.net/
+	var initDataTableProduct = function() {
+		jQuery( '#ProductsTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 5,9 ] }, 
+			],
+			pageLength: 30,
+			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
+			pagingType: "full_numbers",
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
 		});
 	};
 
-	// Init simple DataTable: https://www.datatables.net/
-	var initDataTableSimple = function() {
-		jQuery( '.js-dataTable-simple' ).dataTable({
-			columnDefs: [ { orderable: false, targets: [ 4 ] } ],
-			pageLength: 10,
+	// Init simple DataTable for categories list
+	var initDataTableCategory = function() {
+		jQuery( '#CategoriesTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 2,7 ] }, 
+			],
+			pageLength: 30,
 			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
+			pagingType: "full_numbers",
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
+		});
+	};
+
+	// Init simple DataTable for slides list
+	var initDataTableSlide = function() {
+		jQuery( '#SlidesTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 1,2,3,6,9 ] }, 
+			],
+			pageLength: 30,
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
+		});
+	};
+
+	// Init simple DataTable for states list
+	var initDataTableState = function() {
+		jQuery( '#StatesTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 5 ] }, 
+			],
+			pageLength: 30,
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
+		});
+	};
+
+	// Init simple DataTable for editors list
+	var initDataTableState = function() {
+		jQuery( '#EditorsTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 2,7 ] }, 
+			],
+			pageLength: 30,
 			searching: false,
 			oLanguage: {
 				sLengthMenu: ''
@@ -186,8 +250,10 @@ var BaseTableDatatables = function() {
 		init: function() {
 			// Init Datatables
 			bsDataTables();
-			initDataTableSimple();
-			initDataTableFull();
+			initDataTableProduct();
+			initDataTableCategory();
+			initDataTableSlide();
+			initDataTableState();
 		}
 	};
 }();

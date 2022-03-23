@@ -5,7 +5,8 @@
             <a href="{{ route('product.info', ['id' => $product->id]) }}" style="text-decoration:underline;" target="_blank">{{ $product->name }}</a>
         </td>
         <td class="text-center">{{ App\Category::getCategoryName($product->category) }}</td>
-        <td class="text-center">&pound; {{ $product->price }}</td>
+        <td class="text-center @if($product->sale>0) old_price @endif">&pound; {{ $product->price }}</td>
+        <td class="text-center @if($product->sale==0) old_price @endif">&pound; {{ $product->sale }}</td>
         <td class="text-center text-capitalize"> 
             <span class="btn btn-sm btn-pill @if($product->status == 'active') btn-primary @else btn-warning @endif">{{ $product->status }}</span> 
         </td>
@@ -14,11 +15,12 @@
         <td class="text-center">{{ $product->updated_at->format("Y-m-d g:i a") }}</td>
         <td class="text-center">
             <div class="btn-group">
-                <a href="{{ route('product.edit', ['id' => $product->id]) }}" class="btn btn-success">Edit</a>
-                <button class="btn btn-warning" data-toggle="modal" data-target="#SaleProduct{{ $product->id }}">Sale</button>
-                <button class="btn btn-app" data-toggle="modal" data-target="#product{{ $product->id }}">Delete</button>
+                <a href="{{ route('product.edit', ['id' => $product->id]) }}" class="btn btn-success"><i class="ion-ios-compose-outline"></i></a>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#SaleProduct{{ $product->id }}"><i class="ion-ios-pricetags-outline"></i></button>
+                <button class="btn btn-app" data-toggle="modal" data-target="#product{{ $product->id }}"><i class="ion-ios-trash-outline"></i></button>
             </div>
-            <!-- Modal -->
+
+            <!-- Delete Modal -->
             <div class="modal fade" id="product{{ $product->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -46,7 +48,7 @@
                 </div>
             </div>
             <!-- End Modal -->
-            <!-- Modal -->
+            <!-- Sale Modal -->
             <div class="modal fade" id="SaleProduct{{ $product->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

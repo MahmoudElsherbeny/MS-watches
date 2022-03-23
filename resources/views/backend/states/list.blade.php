@@ -14,15 +14,15 @@
         </div>
         <div class="card-block">
             <!--  states list and update   -->
-            <table class="table table-striped table-vcenter js-dataTable-simple">
+            <table id="StatesTable" class="table table-striped table-vcenter js-dataTable-simple">
                 <thead>
                     <tr>
-                        <th class="text-center w-5">#</th>
-                        <th class="text-center">State</th>
-                        <th class="text-center">Delivery</th>
-                        <th class="text-center">Created At</th>
-                        <th class="text-center">Last Update</th>
-                        <th class="text-center" style="width: 20%;">Actions</th>
+                        <th class="text-center w-5"></th>
+                        <th class="">State</th>
+                        <th class="">Delivery</th>
+                        <th class="">Created At</th>
+                        <th class="">Last Update</th>
+                        <th class="" style="width: 15%;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,9 +36,9 @@
                             <td class="text-center">{{ $state->updated_at->format("Y-m-d g:i a") }}</td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#StateEdit{{ $state->id }}">Edit</button>
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#StateEdit{{ $state->id }}"><i class="ion-ios-compose-outline"></i></button>
                                     @if(Auth::guard('admin')->user()->role == 'admin')
-                                        <button class="btn btn-app" data-toggle="modal" data-target="#StateDelete{{ $state->id }}">Delete</button>
+                                        <button class="btn btn-app" data-toggle="modal" data-target="#StateDelete{{ $state->id }}"><i class="ion-ios-trash-outline"></i></button>
                                     @endif
                                 </div>
                             </td>

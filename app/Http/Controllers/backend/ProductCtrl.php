@@ -19,7 +19,7 @@ class ProductCtrl extends Controller
     //function index - show products page and products live search
     public function index(Request $request)
     {
-        /*
+        
         if($request->ajax())
         {
             $products = Product::where('name','LIKE','%'.$request->prod_search."%")->orderBY('created_at','DESC')->paginate(30);
@@ -28,12 +28,11 @@ class ProductCtrl extends Controller
             return Response()->json(['data'=>$returnProducts, 'count'=>$prodCount]);
         }
         else {
-            $products = Product::orderBY('created_at','DESC')->paginate(30);
+            $prodAllCount = Product::count();
+            $products = Product::orderBY('created_at','DESC')->paginate($prodAllCount);
             return view('backend.product.list')->with('products',$products);
         }
-        */
-
-        return view('backend.product.list');
+        
     }
 
     //function creat - show create new product page

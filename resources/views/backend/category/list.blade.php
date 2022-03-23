@@ -18,17 +18,16 @@
             </div>
         </div>
         <div class="card-block">
-            <!-- DataTables init on table by adding .js-dataTable-simple class, functionality initialized in js/pages/base_tables_datatables.js -->
             <table id="CategoriesTable" class="table table-striped table-vcenter js-dataTable-simple">
                 <thead>
                     <tr>
-                        <th class="text-center w-5">#</th>
-                        <th class="text-center">Name</th>
+                        <th class="text-center w-5"></th>
+                        <th class="">Name</th>
                         <th class="text-center hidden-xs">Icon</th>
-                        <th class="text-center hidden-xs">Order</th>
-                        <th class="text-center w-15">Status</th>
-                        <th class="text-center">Created At</th>
-                        <th class="text-center">Last Update</th>
+                        <th class="hidden-xs">Order</th>
+                        <th class="w-10">Status</th>
+                        <th class="">Created At</th>
+                        <th class="">Last Update</th>
                         <th class="text-center" style="width: 15%;">Actions</th>
                     </tr>
                 </thead>
@@ -41,14 +40,14 @@
                             <td class="text-center hidden-xs"><i class="{{ $category->icon }} fa-lg"></i></td>
                             <td class="text-center hidden-xs">{{ $category->order }}</td>
                             <td class="text-center text-capitalize"> 
-                                <span class="btn btn-sm btn-pill @if($category->status == 'active') btn-primary @else btn-warning @endif">{{ $category->status }}</span> 
+                                <span class="status btn btn-sm btn-pill @if($category->status == 'active') btn-primary @else btn-warning @endif">{{ $category->status }}</span> 
                             </td>
                             <td class="text-center">{{ $category->created_at->format("Y-m-d g:i a") }}</td>
                             <td class="text-center">{{ $category->updated_at->format("Y-m-d g:i a") }}</td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-success">Edit</a>
-                                    <button class="btn btn-app" data-toggle="modal" data-target="#category{{ $category->id }}">Delete</button>
+                                    <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-success"><i class="ion-ios-compose-outline"></i></a>
+                                    <button class="btn btn-app" data-toggle="modal" data-target="#category{{ $category->id }}"><i class="ion-ios-trash-outline"></i></button>
                                 </div>
                                 <!-- Modal -->
                                 <div class="modal fade" id="category{{ $category->id }}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -114,15 +113,4 @@
         })
     </script>
         
-
-    <!-- Page JS Code -->
-    <script src="{{ url('backend/assets/js/pages/base_tables_datatables.js') }}"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-
-
-    <script>
-        $(document).ready( function () {
-            $('#CategoriesTable').DataTable();
-        } );
-    </script>
 @endsection

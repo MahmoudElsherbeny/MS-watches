@@ -46,8 +46,8 @@
                             <h2>Category</h2>
                             <ul class="filter__list">
                                 @foreach ($categories as $category)
-                                    <li>
-                                        <input type="checkbox" id="{{ $category->name. $category->id }}" />
+                                    <li wire:key={{ $category->id }}>
+                                        <input type="checkbox" id="{{ $category->name. $category->id }}" value="{{ $category->id }}" wire:model="filters.categories.{{ $category->id }}" />
                                         <label for="{{ $category->name. $category->id }}">{{ $category->name }}</label>
                                     </li>
                                 @endforeach
@@ -57,11 +57,11 @@
                             <h2>Price</h2>
                             <ul class="filter__list">
                                 <li>
-                                    <input type="checkbox" id="price0_100" wire:click="priceFilter(1,100)" />
+                                    <input type="checkbox" id="price0_100" value="100" wire:model="" />
                                     <label for="price0_100">Less Than $100</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" id="price100_300" />
+                                    <input type="checkbox" id="price100_300" wire:click="priceFilter(100,300)" />
                                     <label for="price100_300">$100 - $300</label>
                                 </li>
                                 <li>
@@ -90,10 +90,10 @@
     
         <div class="product__list another-product-style">
                 <!-- Start Single Product -->
-                @include('frontend.product.card')
+                @include('frontend.product.card', ['products' => $this->products])
                 <!-- End Single Product -->
                 <!-- QUICKVIEW PRODUCT -->
-                @include('frontend.product.quickview')
+                @include('frontend.product.quickview', ['products' => $this->products])
                 <!-- END QUICKVIEW PRODUCT -->
         </div>
 
@@ -102,7 +102,7 @@
         <div class="row">
             <div class="col-md-12 mt--60">
                 <div class="htc__loadmore__btn">
-                    <button wire:click="loadMore({{ $products->last()->id }})" wire:loading.remove class="ms-btn black-btn load_products">load more</button>
+                    <button wire:click="loadMore({{ $this->products->last()->id }})" wire:loading.remove class="ms-btn black-btn load_products">load more</button>
                 </div>
             </div>
         </div>

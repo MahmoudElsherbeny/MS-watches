@@ -8,15 +8,18 @@ use App\Product;
 class Shop extends Component
 {
 
-    public $products;
+    //public $products;
     public $moreProducts;
     public $hasmore = true;
+    public $filters = [
+        'categories' => []
+    ];
 
     public function mount() {
-        $this->products = Product::Where('status','active')
+        /*$this->products = Product::Where('status','active')
                                 ->orderBy('id','DESC')
                                 ->limit(64)
-                                ->get();
+                                ->get();*/
 
     }
     
@@ -33,6 +36,23 @@ class Shop extends Component
         }
     }
 
+    public function getProductsProperty()
+    {
+        if (empty($this->filters['categories'])) {
+            return Product::Where('status','active')
+                                ->orderBy('id','DESC')
+                                ->limit(64)
+                                ->get();
+        }
+
+        // this is where we remove the categories with a false value
+        $this->filters['categories'] = array_filter($this->filters['categories']);
+        $this->hasmore = false;
+        return Product::Where('status','active')
+                      ->whereIn('category', array_keys($this->filters['categories']))->get();
+    }
+
+    /*
     public function priceFilter($minPrice,$maxPrice) {
         $this->products = Product::Where('status','active')
                                 ->WhereBetween('price', [$minPrice,$maxPrice])
@@ -42,6 +62,7 @@ class Shop extends Component
 
         $this->hasmore = false;
     }
+    */
 
     public function render()
     {

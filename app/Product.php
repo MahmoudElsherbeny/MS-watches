@@ -21,6 +21,18 @@ class Product extends Model
         return $this->belongsTo(Admin::class, 'published_by', 'id');
     }
 
+    public function scopeFilter($query, $filter_for) {
+        if($filter_for['categories']) {
+            $query->whereIn('category', $filter_for['categories']);
+        }
+
+        if($filter_for['prices']) {
+            $query->WhereBetween('price', [$filter_for['prices'][0],$filter_for['prices'][1]]);
+        }
+
+        return $query;
+    }
+
     //get products 
     static public function getSaleProducts($condition,$orderby,$limit) {
         $products = Self::Where('status','active')
