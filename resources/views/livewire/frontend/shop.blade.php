@@ -12,16 +12,20 @@
                             <h2>Sort By</h2>
                             <ul class="filter__list">
                                 <li>
-                                    <input type="checkbox" />
-                                    <span>Rate</span>
+                                    <input type="radio" id="sort_all" name="sort_by" value="" wire:model="filters.sort" />
+                                    <label for="sort_all">All</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" />
-                                    <span>Price</span>
+                                    <input type="radio" id="sort_rate" name="sort_by" value="rate" wire:model="filters.sort" />
+                                    <label for="sort_rate">Rate</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" />
-                                    <span>New</span>
+                                    <input type="radio" id="sort_price" name="sort_by" value="price" wire:model="filters.sort" />
+                                    <label for="sort_price">Price</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="sort_new" name="sort_by" value="created_at" wire:model="filters.sort" />
+                                    <label for="sort_new">New</label>
                                 </li>
                             </ul>
                         </div>
@@ -29,16 +33,20 @@
                             <h2>Tags</h2>
                             <ul class="filter__list">
                                 <li>
-                                    <input type="checkbox" />
-                                    <label for="price0_100">Men</label>
+                                    <input type="radio" id="tags_all" name="tags" value="" wire:model="filters.tags" />
+                                    <label for="tags_all">All</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" />
-                                    <label for="price0_100">Women</label>
+                                    <input type="radio" id="tags_men" name="tags" value="men" wire:model="filters.tags" />
+                                    <label for="tags_men">Men</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" />
-                                    <label for="price0_100">Kids</label>
+                                    <input type="radio" id="tags_women" name="tags" value="women" wire:model="filters.tags" />
+                                    <label for="tags_women">Women</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="tags_kids" name="tags" value="kids" wire:model="filters.tags" />
+                                    <label for="tags_kids">Kids</label>
                                 </li>
                             </ul>
                         </div>
@@ -57,23 +65,27 @@
                             <h2>Price</h2>
                             <ul class="filter__list">
                                 <li>
-                                    <input type="checkbox" id="price0_100" value="100" wire:model="" />
+                                    <input type="radio" id="priceAll" name="prices" value="" wire:model="filters.prices" />
+                                    <label for="priceAll">All</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="price0_100" name="prices" value="1,100" wire:model="filters.prices" />
                                     <label for="price0_100">Less Than $100</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" id="price100_300" wire:click="priceFilter(100,300)" />
+                                    <input type="radio" id="price100_300" name="prices" value="100,300" wire:model="filters.prices" />
                                     <label for="price100_300">$100 - $300</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" id="price300_500" />
+                                    <input type="radio" id="price300_500" name="prices" value="300,500" wire:model="filters.prices" />
                                     <label for="price300_500">$300 - $500</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" id="price500_1000" />
+                                    <input type="radio" id="price500_1000" name="prices" value="500,1000" wire:model="filters.prices" />
                                     <label for="price500_1000">$500 - $1000</label>
                                 </li>
                                 <li>
-                                    <input type="checkbox" id="price1000_0" />
+                                    <input type="radio" id="price1000_0" name="prices" value="1000,0" wire:model="filters.prices" />
                                     <label for="price1000_0">$1000 Or More</label>
                                 </li>
                             </ul>

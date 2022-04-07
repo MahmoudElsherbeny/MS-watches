@@ -30,7 +30,7 @@ class HomeController extends Controller
                               ->select('products.*', 'product_avg_rates.product', 'product_avg_rates.avg_rate')
                               ->join('product_avg_rates', 'product_avg_rates.product', '=', 'products.id')
                               ->Where('products.status', 'active')
-                              ->orderBy('avg_rate','DESC')->limit(12)->get();
+                              ->orderBy('avg_rate','DESC')->limit(15)->get();
 
         return view("frontend.index")->with([
                                     'slides' => $slides,

@@ -1,5 +1,5 @@
 @foreach ($products as $product)
-   <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
+   <div class="col single__pro cat--1">
         <div class="product">
             <div class="product__inner">
                 <div class="pro__thumb">

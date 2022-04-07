@@ -63,30 +63,26 @@
 <!-- Start Our Product Area Top Rated -->
 <section class="htc__product__area bg__white">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-style-tab">
-                    <div class="product-tab-list">
-                        <a href="#TopRated" class="active"> top rated </a>
-                    </div>
-                    <div class="tab-content another-product-style jump">
-                        <div class="tab-pane active" id="TopRated">
-                            <div class="row">
-                                <div class="product-slider-active owl-carousel">
+        <div class="product-style-tab">
+            <div class="product-tab-list">
+                <a href="#TopRated" class="active"> top rated </a>
+            </div>
+            <div class="tab-content another-product-style jump">
+                <div class="tab-pane active" id="TopRated">
+                    <div class="row">
+                        <div class="product-slider-active owl-carousel">
 
-                                <!--   top rated products   -->
-                                @include('frontend.product.card', ['products' => $toprate])
+                        <!--   top rated products   -->
+                        @include('frontend.product.card', ['products' => $toprate])
 
-                                </div>
-                            </div>
                         </div>
                     </div>
-
-                    <!--   overview of top rated products   -->
-                    @include('frontend.product.quickview', ['products' => $toprate])
-
                 </div>
             </div>
+
+            <!--   overview of top rated products   -->
+            @include('frontend.product.quickview', ['products' => $toprate])
+
         </div>
     </div>
 </section>
@@ -101,30 +97,26 @@
 <!-- Start Our Product Area Best Sale -->
 <section class="htc__product__area bg__white">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-style-tab">
-                    <div class="product-tab-list">
-                        <a href="#BestSale" class="active"> best sale </a>
-                    </div>
-                    <div class="tab-content another-product-style jump">
-                        <div class="tab-pane active" id="BestSale">
-                            <div class="row">
-                                <div class="product-slider-active owl-carousel">
+        <div class="product-style-tab">
+            <div class="product-tab-list">
+                <a href="#BestSale" class="active"> best sale </a>
+            </div>
+            <div class="tab-content another-product-style jump">
+                <div class="tab-pane active" id="BestSale">
+                    <div class="row">
+                        <div class="product-slider-active owl-carousel">
 
-                                <!--   best sale products   -->
-                                @include('frontend.product.card', ['products' => App\Product::getSaleProducts('>','sale',12)])
+                        <!--   best sale products   -->
+                        @include('frontend.product.card', ['products' => App\Product::getSaleProducts('>','sale',15)])
 
-                                </div>
-                            </div>
                         </div>
                     </div>
-
-                    <!--   overview of best sale products   -->
-                    @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('>','sale',12)])
-
                 </div>
             </div>
+
+            <!--   overview of best sale products   -->
+            @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('>','sale',15)])
+
         </div>
     </div>
 </section>
@@ -139,30 +131,26 @@
 <!-- Start Our Product Area On Sale -->
 <section class="htc__product__area bg__white">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-style-tab">
-                    <div class="product-tab-list">
-                        <a href="#OnSale" class="active"> on sale </a>
-                    </div>
-                    <div class="tab-content another-product-style jump">
-                        <div class="tab-pane active" id="OnSale">
-                            <div class="row">
-                                <div class="product-slider-active owl-carousel">
+        <div class="product-style-tab">
+            <div class="product-tab-list">
+                <a href="#OnSale" class="active"> on sale </a>
+            </div>
+            <div class="tab-content another-product-style jump">
+                <div class="tab-pane active" id="OnSale">
+                    <div class="row">
+                        <div class="product-slider-active owl-carousel">
 
-                                <!--   on sale products   -->
-                                @include('frontend.product.card', ['products' => App\Product::getSaleProducts('>','updated_at',12)])
+                        <!--   on sale products   -->
+                        @include('frontend.product.card', ['products' => App\Product::getSaleProducts('>','updated_at',15)])
 
-                                </div>
-                            </div>
                         </div>
                     </div>
-
-                    <!--  quickview of on sale products   -->
-                    @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('>','updated_at',12)])
-
                 </div>
             </div>
+
+            <!--  quickview of on sale products   -->
+            @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('>','updated_at',15)])
+
         </div>
     </div>
 </section>
@@ -177,29 +165,25 @@
 <!-- Start Our Product Area Latest -->
 <section class="htc__product__area pb--90 bg__white">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-style-tab">
-                    <div class="product-tab-list">
-                        <a href="#Latest" class="active"> latest </a>
-                    </div>
-                    <div class="tab-content another-product-style jump">
-                        <div class="tab-pane active" id="Latest">
-                            <div class="row">
-                                <div class="product-slider-active owl-carousel">
+        <div class="product-style-tab">
+            <div class="product-tab-list">
+                <a href="#Latest" class="active"> latest </a>
+            </div>
+            <div class="tab-content another-product-style jump">
+                <div class="tab-pane active" id="Latest">
+                    <div class="row">
+                        <div class="product-slider-active owl-carousel">
 
-                                <!--   latest products   -->
-                                @include('frontend.product.card', ['products' => App\Product::getSaleProducts('<=','id',12)])
+                        <!--   latest products   -->
+                        @include('frontend.product.card', ['products' => App\Product::getSaleProducts('<=','id',15)])
 
-                                </div>
-                            </div>
                         </div>
-
-                        <!--   quickview of latest products   -->
-                        @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('<=','id',12)])
-
                     </div>
                 </div>
+
+                <!--   quickview of latest products   -->
+                @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('<=','id',15)])
+
             </div>
         </div>
     </div>

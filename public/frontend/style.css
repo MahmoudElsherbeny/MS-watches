@@ -140,7 +140,7 @@
     display: block;
 }
 .product {
-    margin-top: 50px;
+    margin-top: 30px;
     overflow: hidden;
 }
 .product__inner {
@@ -148,9 +148,9 @@
 }
 .product__action {
     display: flex;
-    height: 48px;
+    height: 46px;
     justify-content: space-around;
-    line-height: 48px;
+    line-height: 46px;
     margin: auto;
     position: relative;
     width: 100%;
@@ -206,7 +206,7 @@
     content: none;
 }
 .another-product-style .product__action {
-    width: 155px;
+    width: 148px;
 }
 .another-product-style .product__details {
     text-align: center;
@@ -258,18 +258,18 @@
     font-weight: 500;
 }
 .product__details {
-    padding-top: 27px;
+    padding-top: 24px;
 }
 .product__price {
     display: flex;
-    margin-top: 9px;
+    margin-top: 8px;
 }
 .product__price li {
     color: #ff4136;
     font-size: 16px;
 }
 .product__price li.new__price {
-    padding-left: 12px;
+    padding-left: 10px;
 }
 .product__price li.old__price {
     color: #9c9b9b;
@@ -523,6 +523,7 @@
 }
 .product-style-tab {
     position: relative;
+    overflow: hidden;
 }
 .product-slider-active.owl-carousel .owl-nav div {
     font-size: 25px;
@@ -1401,8 +1402,8 @@ h3.widget-title-modal {
     opacity: 1;
     top: 0;
 }
-.popular__product__container .single__pro {
-    padding: 0 15px;
+.product__list .single__pro {
+    padding: 0 6px;
     width: 20%;
     float: left;
     overflow: hidden;
@@ -1441,8 +1442,8 @@ h3.widget-title-modal {
     margin-right: -15px;
 }
 .pro__thumb a img {
-    width: 270px;
-    height: 270px;
+    width: 250px;
+    height: 240px;
 }
 .popular__product--2 .product__action li:first-child::before,
 .product__style--7 .product__action li:first-child::before {
@@ -1993,7 +1994,7 @@ product__style--7
 }
 .filter__wrap.filter__menu__on {
     opacity: 1;
-    right: calc(0px - 24px);
+    right: calc(0px - 22px);
 }
 .filter__wrap {
     background: #ffffff none repeat scroll 0 0;
@@ -2006,12 +2007,12 @@ product__style--7
     right: -100%;
     top: 0;
     transition: all 0.25s ease 0s;
-    width: 470px;
+    width: 454px;
     z-index: 99999;
 }
 .filter__cart__inner {
     height: 100%;
-    padding: 54px 42px;
+    padding: 48px 40px;
 }
 .filter__menu__close__btn {
     background-color: #fff;

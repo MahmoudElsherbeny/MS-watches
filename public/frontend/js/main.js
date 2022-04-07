@@ -353,10 +353,10 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
 
   $('.product-slider-active').owlCarousel({
       loop: false,
-      margin:0,
+      margin:10,
       nav:true,
       navText: [ '<i class="zmdi zmdi-chevron-left"></i>', '<i class="zmdi zmdi-chevron-right"></i>' ],
-      items:4,
+      items:5,
       responsive:{
         0:{
           items:1
@@ -368,13 +368,13 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
           items:3
         },
         1024:{
-          items:3
+          items:4
         },
         1200:{
-          items:4
+          items:5
         },
         1400:{
-          items:4
+          items:5
         },
         1920:{
           items:5
@@ -678,7 +678,4 @@ $('.image-popup').magnificPopup({
     
     
 })(jQuery);
-
-
-
 

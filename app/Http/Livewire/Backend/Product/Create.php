@@ -24,6 +24,7 @@ class Create extends Component
     public $sale = 0;
     public $body_color;
     public $mina_color;
+    public $tags;
     public $status;
     public $editorId;
     public $images = [];
@@ -46,6 +47,7 @@ class Create extends Component
     public function mount() {
         $this->editorId = Auth::guard('admin')->user()->id;
         $this->category = Category::orderBY('name')->first()->id;
+        $this->tags = 'men';
         $this->status = 'active';
     }
 
@@ -62,6 +64,7 @@ class Create extends Component
             'sale' => $this->sale,
             'body_color' => $this->body_color,
             'mina_color' => $this->mina_color,
+            'tags' => $this->tags,
             'status' => $this->status,
             'published_by' => $this->editorId,
         ]);

@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->float('sale');
             $table->string('body_color');
             $table->string('mina_color');
+            $table->string('tags');
             $table->string('status');
             $table->integer('published_by');
             $table->timestamps();

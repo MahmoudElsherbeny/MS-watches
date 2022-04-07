@@ -57,6 +57,14 @@
             @enderror
         </div>
         <div class="form-group">
+            <label>Tags:</label>
+            <select class="form-control" name="tags" wire:model="tags">
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="kids">kids</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label>Status:</label>
             <select class="form-control" name="status" wire:model="status">
                 <option value="active">Active</option>
