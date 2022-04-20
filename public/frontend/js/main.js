@@ -22,16 +22,15 @@
   09. Search Bar
   10. Toogle Menu
   11. Shopping Cart Area
-  12. Filter Area
-  13. User Menu
-  14. Overlay Close
-  15. Home Slider 
-  16. Popular Product Wrap
-  17. Testimonial Wrap
-  18. Magnific Popup  
-  19. Price Slider Active
-  20.  Plus Minus Button
-  21. jQuery scroll Nav
+  12. User Menu
+  13. Overlay Close
+  14. Home Slider 
+  15. Popular Product Wrap
+  16. Testimonial Wrap
+  17. Magnific Popup  
+  18. Price Slider Active
+  19.  Plus Minus Button
+  20. jQuery scroll Nav
 
   
 
@@ -70,16 +69,6 @@ $('.htc__product__container').imagesLoaded( function() {
       var filterValue = $(this).attr('data-filter');
       $grid.isotope({ filter: filterValue });
     }); 
-    // init Isotope
-    var $grid = $('.product__list').isotope({
-      itemSelector: '.single__pro',
-      percentPosition: true,
-      transitionDuration: '0.7s',
-      masonry: {
-        // use outer width of grid-sizer for columnWidth
-        columnWidth: '.single__pro',
-      }
-    });
 
 });
 
@@ -98,7 +87,7 @@ $('.product__menu button').on('click', function(event) {
   var sticky_id = $("#sticky-header-with-topbar");
   win.on('scroll',function() {    
     var scroll = win.scrollTop();
-    if (scroll < 125) {
+    if (scroll < 80) {
       sticky_id.removeClass("scroll-header");
     }else{
       sticky_id.addClass("scroll-header");
@@ -137,11 +126,11 @@ $('[data-toggle="tooltip"]').tooltip({
     
 /*-------------------------------------------------------
   08. Fixed Footer bottom script ( Newsletter )
---------------------------------------------------------*/
+--------------------------------------------------------
 
 var $newsletter_height = $(".htc__foooter__area");
 $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
-
+*/
 
 /*------------------------------------    
   09. Search Bar
@@ -186,26 +175,10 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
       $('.shopping__cart').removeClass('shopping__cart__on');
       $('.body__overlay').removeClass('is-visible');
   });
-
-
-/*------------------------------------    
-  12. Filter Area
---------------------------------------*/
-
-  $('.filter__menu').on('click', function() {
-    $('.filter__wrap').addClass('filter__menu__on');
-    $('.body__overlay').addClass('is-visible');
-
-  });
-
-  $('.filter__menu__close__btn').on('click', function() {
-      $('.filter__wrap').removeClass('filter__menu__on');
-      $('.body__overlay').removeClass('is-visible');
-  });
     
     
 /*------------------------------------    
-  13. User Menu
+  12. User Menu
 --------------------------------------*/
 
   $('.user__menu').on('click', function() {
@@ -222,7 +195,7 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
 
 
 /*------------------------------------    
-  14. Overlay Close
+  13. Overlay Close
 --------------------------------------*/
   $('.body__overlay').on('click', function() {
     $(this).removeClass('is-visible');
@@ -234,7 +207,7 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
 
     
 /*-----------------------------------------------
-  15. Home Slider
+  14. Home Slider
 -------------------------------------------------*/
   if ($('.slider__activation__wrap').length) {
     $('.slider__activation__wrap').owlCarousel({
@@ -274,7 +247,7 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
   }
 
 /*-----------------------------------------------
-  16. Popular Product Wrap
+  15. Popular Product Wrap
 -------------------------------------------------*/
   $('.popular__product__wrap').owlCarousel({
       loop: true,
@@ -313,7 +286,7 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
     
     
 /*-----------------------------------------------
-  17.  product-slider-active
+  16.  product-slider-active
 -------------------------------------------------*/
   $('.single-portfolio-slider').owlCarousel({
       loop: true,
@@ -384,7 +357,7 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
 
 
 /*-----------------------------------------------
-  17.  product-details-slider
+  18.  product-details-slider
 -------------------------------------------------*/
 
 
@@ -419,7 +392,7 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
       }
     });
 /*-----------------------------------------------
-  17.  product-details-slider
+  19.  product-details-slider
 -------------------------------------------------*/
 
 
@@ -560,7 +533,7 @@ $('.image-popup').magnificPopup({
 
 
 /*-------------------------------
-  19. Price Slider Active
+  18. Price Slider Active
 --------------------------------*/
   $("#slider-range").slider({
       range: true,
@@ -576,7 +549,7 @@ $('.image-popup').magnificPopup({
 
 
 /*-------------------------------
-  20.  Plus Minus Button 
+  19.  Plus Minus Button 
 --------------------------------*/
 
     $(".cart-plus-minus").append('<div class="dec qtybutton">-</i></div><div class="inc qtybutton">+</div>');
@@ -599,12 +572,11 @@ $('.image-popup').magnificPopup({
 
 
 /*--------------------------
-  21. jQuery scroll Nav
+  20. jQuery scroll Nav
 ---------------------------- */
     $('.onepage--menu').onePageNav({
         scrollOffset: 0
     }); 
-
 
 
 /*---------------------
@@ -675,7 +647,4 @@ $('.image-popup').magnificPopup({
     });
     
     
-    
-    
 })(jQuery);
-

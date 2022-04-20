@@ -57,7 +57,22 @@ class Shop extends Component
 
     public function render()
     {
-        
+        foreach($this->filters as $key => $value) {
+            if(!empty($value)) {
+                $this->filter_count++;
+            }
+        }
+        if($this->filter_count == 0) {
+            $this->products = Product::Where('status','active')
+                                    ->orderBy('id','DESC')
+                                    ->limit(80)->get();
+        }
+        else if($this->filter_count > 0) {
+            $this->products = Product::WithFilters($this->filters)->get();
+
+            $this->hasmore = false;
+        }
+        /*
         foreach($this->filters as $key => $value) {
             if(!empty($value)) {
                 $this->filter_count++;
@@ -117,6 +132,7 @@ class Shop extends Component
 
             $this->hasmore = false;
         }
+        */
 
         return view('livewire.frontend.shop')->with('products', $this->products);
     }
