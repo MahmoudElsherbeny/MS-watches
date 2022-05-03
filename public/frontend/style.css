@@ -1406,6 +1406,7 @@ h3.widget-title-modal {
     box-sizing: border-box;
     padding-right: 15px;
     width: 100%;
+    overflow: hidden;
 }
 .product__list .single__pro {
     padding: 0 6px;

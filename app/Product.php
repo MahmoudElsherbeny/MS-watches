@@ -20,21 +20,29 @@ class Product extends Model
     {
         return $this->belongsTo(Admin::class, 'published_by', 'id');
     }
+    
 
     //products filters
     public function scopeWithFilters($query,$filters) {
-        return $query->when(count(array_filter($filters['categories'])), function ($query) use ($filters) {
-                    $query->WhereIn('category', [$filters['categories']]);
+        return $query->when(array_filter($filters['categories']), function ($query) use ($filters) {
+                    $query->WhereIn('category', $filters['categories'])->OrderBy('id','Desc');
                 })
                 ->when($filters['sort'], function ($query) use ($filters) {
-                    $query->OrderBy($filters['sort'],'Desc');
+                    if($filters['sort'] == 'price') {
+                        $query->OrderBy('price','ASC');
+                    }
+                    else {
+                        $query->OrderBy($filters['sort'],'Desc');
+                    }
                 })
                 ->when($filters['tags'], function ($query) use ($filters) {
-                    $query->Where('tags', $filters['tags']);
+                    $query->Where('tags', $filters['tags'])->OrderBy('id','Desc');;
                 })
                 ->when($filters['prices'], function ($query) use ($filters) {
-                    $query->WhereBetween('price', [explode(',', $filters['prices'])[0],explode(',', $filters['prices'])[1]])
-                          ->orWhereBetween('sale', [explode(',', $filters['prices'])[0],explode(',', $filters['prices'])[1]]);
+                    $priceFilter = explode(',', $filters['prices']);
+                    $query->WhereBetween('price', [$priceFilter])
+                          ->orWhereBetween('sale', [$priceFilter])
+                          ->OrderBy('id','Desc');
                 });
     }
 

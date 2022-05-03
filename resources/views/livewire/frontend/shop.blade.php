@@ -109,25 +109,26 @@
                 @include('frontend.product.quickview', ['products' => $this->products])
                 <!-- END QUICKVIEW PRODUCT -->
         </div>
-    </div>
 
-    <!-- Start Load More BTn -->
-    @if($hasmore)
-    <div class="row">
-        <div class="col-md-12 mt--60">
-            <div class="htc__loadmore__btn">
-                <button wire:click="loadMore({{ $this->products->last()->id }})" wire:loading.remove class="ms-btn black-btn load_products">load more</button>
+        <!-- Start Load More BTn -->
+        <div class="loading_container">
+            @if($hasmore)
+                <div class="mt--60">
+                    <div class="htc__loadmore__btn">
+                        <button wire:click="loadMore" wire:loading.remove class="ms-btn black-btn load_products">load more</button>
+                    </div>
+                </div>
+            @endif
+
+            <div class="loading mtb--50">
+                <div wire:loading>
+                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div>
             </div>
+            <!-- End Load More BTn -->
         </div>
+        
     </div>
-    @endif
-    
-    <div class="loading mtb--60">
-        <div wire:loading>
-            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-        </div>
-    </div>
-    <!-- End Load More BTn -->
         
 </div>
     

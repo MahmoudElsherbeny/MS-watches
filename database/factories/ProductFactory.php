@@ -22,6 +22,8 @@ $factory->define(Product::class, function (Faker $faker) {
         'sale' => 0,
         'body_color' => 'silver',
         'mina_color' => 'white',
+        'rate' => $faker->numberBetween(1, 4.9),
+        'tags' => $faker->word,
         'status' => 'active',
         'published_by' => function() {
             return Admin::all()->random();
