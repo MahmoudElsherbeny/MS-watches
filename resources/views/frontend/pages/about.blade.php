@@ -281,3 +281,6 @@
 @section('footer')
     @include('frontend.layouts.footer')
 @endsection
+@section('copyright')
+    @include('frontend.layouts.copyright')
+@endsection

@@ -68,7 +68,7 @@
                         </div>
                         <div class="pro__dtl__rating">
                             <ul class="pro__rating">
-                                @php $rating = App\Product_avg_rate::getProductRate($product->id); @endphp
+                                @php $rating = App\Product_review::getProductRate($product->id); @endphp
 
                                 @foreach (range(1,5) as $i)
 

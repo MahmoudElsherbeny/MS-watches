@@ -24,7 +24,7 @@
     </div>
     End Bradcaump area -->
     <!-- Start Our Product Area -->
-    <section class="htc__product__area shop__page pt--20 pb--20 bg__white">
+    <section class="htc__product__area shop__page pt--10 bg__white">
         <div class="shop_container">
             <div class="htc__product__container">
                 <div class="row">
@@ -39,8 +39,4 @@
     </section>
     <!-- End Our Product Area -->
 
-@endsection
-
-@section('footer')
-    @include('frontend.layouts.footer')
 @endsection

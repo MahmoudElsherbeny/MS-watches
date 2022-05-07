@@ -112,7 +112,7 @@
 
         <!-- Start Load More BTn -->
         <div class="loading_container">
-            @if($hasmore)
+            @if($this->hasMore())
                 <div class="mt--60">
                     <div class="htc__loadmore__btn">
                         <button wire:click="loadMore" wire:loading.remove class="ms-btn black-btn load_products">load more</button>
@@ -128,6 +128,21 @@
             <!-- End Load More BTn -->
         </div>
         
+        <!-- Start Copyright Area -->
+        <div class="htc__copyright__area">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <div class="copyright__inner">
+                        <div class="copyright">
+                            <p>Copyright © 2020 <a href="https://freethemescloud.com/">Mahmoud Elsherbeny</a>
+                            All Right Reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Area -->
+
     </div>
         
 </div>

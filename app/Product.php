@@ -24,8 +24,9 @@ class Product extends Model
 
     //products filters
     public function scopeWithFilters($query,$filters) {
-        return $query->when(array_filter($filters['categories']), function ($query) use ($filters) {
-                    $query->WhereIn('category', $filters['categories'])->OrderBy('id','Desc');
+        return $query
+                ->when(array_filter($filters['categories']), function ($query) use ($filters) {
+                    $query->WhereIn('category', $filters['categories']);
                 })
                 ->when($filters['sort'], function ($query) use ($filters) {
                     if($filters['sort'] == 'price') {
@@ -36,13 +37,12 @@ class Product extends Model
                     }
                 })
                 ->when($filters['tags'], function ($query) use ($filters) {
-                    $query->Where('tags', $filters['tags'])->OrderBy('id','Desc');;
+                    $query->Where('tags', $filters['tags']);
                 })
                 ->when($filters['prices'], function ($query) use ($filters) {
                     $priceFilter = explode(',', $filters['prices']);
                     $query->WhereBetween('price', [$priceFilter])
-                          ->orWhereBetween('sale', [$priceFilter])
-                          ->OrderBy('id','Desc');
+                          ->orWhereBetween('sale', [$priceFilter]);
                 });
     }
 

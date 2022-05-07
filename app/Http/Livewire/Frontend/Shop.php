@@ -13,8 +13,6 @@ class Shop extends Component
     public $products;
     public $filter_count;
     public $products_count = 5;
-    public $products_loadMoreCount = 5;
-    public $hasmore = true;
     public $filters = [
         'categories' => [],
         'prices' => '',
@@ -28,51 +26,41 @@ class Shop extends Component
                                 ->limit($this->products_count)->get();
     }
     
-    public function loadMore() {
+    public function filtersNotEmpty(): bool {
         foreach($this->filters as $key => $value) {
             if(!empty($value)) {
-                $this->filter_count++;
+                return true;
             }
         }
-        if($this->filter_count > 0) {
-            if(in_array(200, $this->filters)) {
-                $this->products_loadMoreCount = 5;
-            }
-            $this->products_loadMoreCount += 5;
-            $this->hasmore = true;
-        }
-        else {
-            if(count($this->products) < $this->products_count) {
-                $this->hasmore = false;
-            }
-            else {
-                $this->products_count += 5;
-                $this->hasmore = true;
-            }
-        }
+
+        return false;
+    }
+
+    public function updatingFilters($value) {
+        $this->products_count = 5;
+    }
+
+    public function hasMore() {
+        return count($this->products) >= $this->products_count;
+    }
+
+    public function loadMore() {
+        $this->products_count += 5;
     }
 
     public function render()
     {
-        foreach($this->filters as $key => $value) {
-            if(!empty($value)) {
-                $this->filter_count++;
-            }
-        }
-        if($this->filter_count > 0) {
-            if(count($this->products) < $this->products_loadMoreCount) {
-                $this->hasmore = false;
-            }
+        if($this->filtersNotEmpty()) {
             $this->products = Product::Where('status','active')
                                      ->WithFilters($this->filters)
-                                     ->limit($this->products_loadMoreCount)->get();
+                                     ->limit($this->products_count)->get();
         }
         else {
+
             $this->products = Product::Where('status','active')
                                      ->orderBy('id','DESC')
                                      ->limit($this->products_count)->get();
         }
-        dd(array_values($this->filters) && array_values($this->filters['categories']) == null);
 
         return view('livewire.frontend.shop');
     }
