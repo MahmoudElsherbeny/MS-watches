@@ -1462,6 +1462,22 @@ h3.widget-title-modal {
 .variation_product .product__details {
     text-align: left;
 }
+
+.no_product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+    text-align: center;
+    width: 100%;
+}
+.no_product p {
+    font-size: 26px;
+}
+.no_product span {
+    color: #ff4136;
+}
+
 /*---------------------------------
     Popular Product Style 3
 ----------------------------------*/
@@ -3435,10 +3451,13 @@ blockquote::before {
 .table-content table .product-remove button {
     font-size: 24px;
 }
-.table-content table .product-remove button {
-    border: none;
-    color: #666;
+.table-content table .product-remove button,
+.table-content table .product-remove button:focus {
     background: none;
+    border: none;
+    box-shadow: none;
+    color: #666;
+    outline: none;
 }
 .table-content table .product-remove button:hover {
     color: #333;
@@ -3629,7 +3648,7 @@ blockquote::before {
     margin-bottom: 30px;
     overflow: hidden;
 }
-.buttons-cart input,
+.buttons-cart button,
 .coupon input[type="submit"],
 .buttons-cart a,
 .coupon-info p.form-row input[type="submit"] {
@@ -3651,7 +3670,7 @@ blockquote::before {
     transition: all 0.3s ease 0s;
     white-space: nowrap;
 }
-.buttons-cart input:hover,
+.buttons-cart button:hover,
 .coupon input[type=submit]:hover,
 .buttons-cart a:hover {
     background: #ff4136;

@@ -15,7 +15,7 @@ class ProductReviewObserver
     /**   Handle the product "created" event.   **/
     public function created(Product_review $review)
     {
-        //store product average rates in (product_avg_rates) when review created
+        //store product average rates in (product) when review created
         $prod_exist = Product::Where('id', $review->product)->first();
         if ($prod_exist) {
             $prod_exist->rate = Product_review::getProductRate($review->product);

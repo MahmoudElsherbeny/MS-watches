@@ -48,11 +48,11 @@
                                 </div>
                                 <div class="price-box-3">
                                     <div class="s-price-box">
-                                        @if($product->sale > 0)
-                                            <span class="old-price">&pound;{{ $product->price }}</span>
-                                            <span class="new-price">&pound;{{ $product->sale }}</span>
+                                        @if($product->old_price > 0)
+                                            <span class="old-price">&pound;{{ $product->old_price/100 }}</span>
+                                            <span class="new-price">&pound;{{ $product->price/100 }}</span>
                                         @else
-                                            <span class="new-price">&pound;{{ $product->price }}</span>
+                                            <span class="new-price">&pound;{{ $product->price/100 }}</span>
                                         @endif
                                     </div>
                                 </div>

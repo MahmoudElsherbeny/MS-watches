@@ -25,7 +25,7 @@
                     <th class="">Name</th>
                     <th class="">Category</th>
                     <th class="">Price(EGP)</th>
-                    <th class="">Sale</th>
+                    <th class="">Old Price</th>
                     <th class="text-center">Status</th>
                     <th class="hidden-xs">Publisher</th>
                     <th class="">Created At</th>
@@ -42,8 +42,8 @@
                             <a href="{{ route('product.info', ['id' => $product->id]) }}" style="text-decoration:underline;" target="_blank">{{ $product->name }}</a>
                         </td>
                         <td class="text-center">{{ App\Category::getCategoryName($product->category) }}</td>
-                        <td class="text-center @if($product->sale>0) old_price @endif">&pound; {{ $product->price }}</td>
-                        <td class="text-center @if($product->sale==0) old_price @endif">&pound; {{ $product->sale }}</td>
+                        <td class="text-center">&pound; {{ $product->price/100 }}</td>
+                        <td class="text-center old_price">&pound; {{ $product->old_price/100 }}</td>
                         <td class="text-center text-capitalize"> 
                             <span class="status btn btn-sm btn-pill @if($product->status == 'active') btn-primary @else btn-warning @endif">{{ $product->status }}</span> 
                         </td>
@@ -103,7 +103,7 @@
                                         <div class="card-block text-left">
                                             <div class="form-group">
                                                 <label>Price:</label>
-                                                <input class="form-control" type="text" name="price" value="{{ $product->price }}" disabled />
+                                                <input class="form-control" type="text" name="price" value="{{ $product->price/100 }}" disabled />
                                             </div>
                                             <div class="form-group">
                                                 <label>New Price:</label>

@@ -9,7 +9,6 @@ use App\Category;
 use App\Product;
 use App\Product_avg_rate;
 use App\Slide;
-use DB;
 use View;
 
 class HomeController extends Controller

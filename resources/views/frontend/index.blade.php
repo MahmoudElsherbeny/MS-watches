@@ -107,7 +107,7 @@
                         <div class="product-slider-active owl-carousel">
 
                         <!--   best sale products   -->
-                        @include('frontend.product.card', ['products' => App\Product::getSaleProducts('>','sale',15)])
+                        @include('frontend.product.card', ['products' => App\Product::getSaleProducts('>','old_price',15)])
 
                         </div>
                     </div>
@@ -115,7 +115,7 @@
             </div>
 
             <!--   overview of best sale products   -->
-            @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('>','sale',15)])
+            @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('>','old_price',15)])
 
         </div>
     </div>

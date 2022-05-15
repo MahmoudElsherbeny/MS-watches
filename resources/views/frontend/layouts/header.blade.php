@@ -15,10 +15,12 @@
                 <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
                     <nav class="mainmenu__nav hidden-xs hidden-sm">
                         <ul class="main__menu">
-                            <li class="drop"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="drop"><a href="{{ route('shop') }}">Shop</a></li>
-                            <li class="drop"><a href="{{ route('aboutus') }}">About Us</a></li>
-                            <li class="drop"><a href="{{ route('contact') }}">Contact Us</a></li>
+                            <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="{{ route('shop') }}">Shop</a></li>
+                            <li><a href="{{ route('aboutus') }}">About Us</a></li>
+                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                            <li><a href="{{ route('cart.index') }}">Cart</a></li>
+                            <li><a href="{{ route('wishlist.index') }}">Whishlist</a></li>
                             <li class="drop"><a href="#">pages</a>
                                 <ul class="dropdown">
                                     <li><a href="cart.html">cart</a></li>
@@ -26,7 +28,6 @@
                                     <li><a href="checkout.html">checkout</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{ route('cart.index') }}">Cart</a></li>
                         </ul>
                     </nav>
                     <div class="mobile-menu clearfix visible-xs visible-sm">
@@ -63,8 +64,8 @@
                         </li>
                         <li class="cart__menu">
                             <span class="ti-shopping-cart"></span>
-                            @if (Session::has('cart'))
-                                <span class="badge badge-light">{{ count(Session::get('cart')) }}</span>
+                            @if (Cart::instance('cart')->count() > 0)
+                                <span class="badge badge-light">{{ Cart::instance('cart')->content()->count() }}</span>
                             @endif
                         </li>
                         <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
@@ -167,13 +168,10 @@
                 <a href="#"><i class="zmdi zmdi-close"></i></a>
             </div>
 
-            @if(Session::has('cart'))
+            @if(Cart::instance('cart')->count() > 0)
                 <div class="shp__cart__wrap">
 
-                    <?php
-                        $subtotal = 0;
-                    ?>
-                    @foreach (Session::get('cart') as $key => $product)
+                    @foreach (Cart::instance('cart')->content() as $key => $prod)
                         <div class="shp__single__product">
                             <div class="shp__pro__thumb">
                                 <a href="#">
@@ -182,26 +180,18 @@
                             </div>
                             <div class="shp__pro__details">
                                 <h2>
-                                    <a href="{{ route('product_detailes', ['id' => $product['id']]) }}">{{ $product['name'] }}</a>
+                                    <a href="{{ route('product_detailes', ['id' => $prod->id]) }}">{{ $prod->name }}</a>
                                 </h2>
-                                <span class="quantity">QTY: {{ $product['quantity'] }}</span>
-                                <span class="shp__price">£{{ $product['price'] }}</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
+                                <span class="quantity">QTY: {{ $prod->qty }}</span>
+                                <span class="shp__price">£{{ $prod->price/100 }}</span>
                             </div>
                         </div>
-
-                        <?php
-                            $subtotal += $product['price'] * $product['quantity'];
-                        ?>
                     @endforeach
                     
-
                 </div>
                 <ul class="shoping__total">
                     <li class="subtotal">Subtotal:</li>
-                    <li class="total__price">£{{ $subtotal }}</li>
+                    <li class="total__price">£{{ Cart::instance('cart')->subtotal() }}</li>
                 </ul>
                 <ul class="shopping__btn">
                     <li><a href="{{ route('cart.index') }}" class="ms-btn transparent-btn">View Cart</a></li>

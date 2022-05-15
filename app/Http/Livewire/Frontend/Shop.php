@@ -2,17 +2,15 @@
 
 namespace App\Http\Livewire\Frontend;
 
-use Livewire\WithPagination;
 use Livewire\Component;
 use App\Product;
 
 class Shop extends Component
 {
-    use WithPagination;
 
     public $products;
     public $filter_count;
-    public $products_count = 5;
+    public $products_count = 64;
     public $filters = [
         'categories' => [],
         'prices' => '',
@@ -21,9 +19,7 @@ class Shop extends Component
     ];
 
     public function mount() {
-        $this->products = Product::Where('status','active')
-                                ->orderBy('id','DESC')
-                                ->limit($this->products_count)->get();
+        
     }
     
     public function filtersNotEmpty(): bool {
@@ -36,16 +32,19 @@ class Shop extends Component
         return false;
     }
 
-    public function updatingFilters($value) {
-        $this->products_count = 5;
+    //when changing filter return products count to 64
+    public function updatingFilters() {
+        $this->products_count = 64;
     }
 
+    //check if there more product to load more
     public function hasMore() {
         return count($this->products) >= $this->products_count;
     }
 
+    //increase count of products by click load more
     public function loadMore() {
-        $this->products_count += 5;
+        $this->products_count += 64;
     }
 
     public function render()
@@ -56,7 +55,6 @@ class Shop extends Component
                                      ->limit($this->products_count)->get();
         }
         else {
-
             $this->products = Product::Where('status','active')
                                      ->orderBy('id','DESC')
                                      ->limit($this->products_count)->get();

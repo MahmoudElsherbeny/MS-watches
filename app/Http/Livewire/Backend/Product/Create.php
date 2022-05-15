@@ -9,7 +9,6 @@ use App\Product;
 use App\Product_image;
 use App\Category;
 use Session;
-use Redirect;
 use Auth;
 
 class Create extends Component
@@ -21,7 +20,6 @@ class Create extends Component
     public $mini_description;
     public $description;
     public $price;
-    public $sale = 0;
     public $body_color;
     public $mina_color;
     public $tags;
@@ -60,8 +58,8 @@ class Create extends Component
             'category' => $this->category,
             'mini_description' => $this->mini_description,
             'description' => $this->description,
-            'price' => $this->price,
-            'sale' => $this->sale,
+            'price' => $this->price*100,
+            'old_price' => 0,
             'body_color' => $this->body_color,
             'mina_color' => $this->mina_color,
             'tags' => $this->tags,

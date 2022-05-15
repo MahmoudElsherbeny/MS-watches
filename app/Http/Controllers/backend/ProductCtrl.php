@@ -37,8 +37,7 @@ class ProductCtrl extends Controller
 
     //function creat - show create new product page
     public function create() {
-        $categories = Category::orderBY('name')->get();
-        return view('backend.product.create')->with('categories',$categories);
+        return view('backend.product.create');
     }
 
     //function store - store product data into database
@@ -48,7 +47,7 @@ class ProductCtrl extends Controller
     //delete function - delete product data and it's images
     public function destroy($id) {
         $product = Product::findOrFail($id);
-        $product_images = Product_image::Where('product',$product->id)->get();
+        $product_images = Product::findOrFail($id)->product_images;
         foreach($product_images as $img) {
             Storage::Delete('public/products/'.$img->image);
         }
@@ -60,7 +59,7 @@ class ProductCtrl extends Controller
     // product function - show product page with all product's data
     public function product($id) {
         $product = Product::findOrFail($id);
-        $product_images = Product_image::Where('product',$id)->orderBy('order')->get();
+        $product_images = $product->product_images()->orderBy('order')->get();
         return view('backend.product.product')->with(['product' => $product, 'product_images' => $product_images]);
     }
 
@@ -93,6 +92,7 @@ class ProductCtrl extends Controller
         return Redirect::back();
     }
 
+    //sale function - make discount on product price
     public function sale(Request $request, $id) {
         $validatedData = $request->validate([
             'new_price' => 'required|numeric|gt:0',
@@ -101,7 +101,8 @@ class ProductCtrl extends Controller
         try {
             $product = Product::find($id);
             if($product) {
-                $product->sale = $request->input('new_price');
+                $product->old_price = $product->price;
+                $product->price = $request->input('new_price')*100;
                 $product->save();
             }
 

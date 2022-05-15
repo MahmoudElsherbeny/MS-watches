@@ -92,11 +92,11 @@
                         </div>
                         <div class="pro__details">{{ $product->mini_description }}</div>
                         <ul class="pro__dtl__prize">
-                            @if($product->sale > 0)
-                                <li class="old__prize">&pound;{{ $product->price }}</li>
-                                <li class="new__prize">&pound;{{ $product->sale }}</li>
+                            @if($product->old_price > 0)
+                                <li class="old__prize">&pound;{{ $product->old_price/100 }}</li>
+                                <li class="new__prize">&pound;{{ $product->price/100 }}</li>
                             @else
-                                <li class="new__prize">&pound;{{ $product->price }}</li>
+                                <li class="new__prize">&pound;{{ $product->price/100 }}</li>
                             @endif
                         </ul>
                         <div class="pro__dtl__color">

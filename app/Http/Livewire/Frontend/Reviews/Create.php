@@ -3,14 +3,14 @@
 namespace App\Http\Livewire\Frontend\Reviews;
 
 use Livewire\Component;
+use App\Product;
 use App\Product_review;
 use Auth;
 use Redirect;
-use DB;
 
 class Create extends Component
 {
-
+    public $product;
     public $rate;
     public $review;
     public $user;
@@ -23,15 +23,14 @@ class Create extends Component
     ];
 
     public function mount() {
+        $this->product = Product::findOrFail($this->productId);
         if(Auth::check()) {
             $this->user = Auth::user()->id;
-            $this->reviews = Product_review::Where('product',$this->productId)
-                                       ->orderByRaw("user = $this->user DESC")
-                                       ->OrderBy('created_at','DESC')->get();
+            $this->reviews = $this->product->product_reviews()->orderByRaw("user = $this->user DESC")
+                                                              ->OrderBy('created_at','DESC')->get();
         }
         else {
-            $this->reviews = Product_review::Where('product',$this->productId)
-                                       ->OrderBy('created_at','DESC')->get();
+            $this->reviews = $this->product->product_reviews()->OrderBy('created_at','DESC')->get();
         }
     }
 
@@ -48,12 +47,11 @@ class Create extends Component
             'rate' => $this->rate,
         ]);
 
-        //rate average stored when review created by ProductRevtew observer in app\observers
+        //rate average stored when review created by ProductReview observer in app\observers
 
         //show user review after submit
-        $this->reviews = Product_review::Where('product',$this->productId)
-                                       ->orderByRaw("user = $this->user DESC")
-                                       ->OrderBy('created_at','DESC')->get();
+        $this->reviews = $this->product->product_reviews()->orderByRaw("user = $this->user DESC")
+                                                          ->OrderBy('created_at','DESC')->get();
 
         return Redirect::back();
     }

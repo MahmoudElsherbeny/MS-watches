@@ -10,19 +10,19 @@
                 <div class="product__hover__info">
                     <ul class="product__action">
                         <li><a data-toggle="modal" data-target="#watche{{ $product->id }}" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                        <li><a title="Add TO Cart" href="{{ route('cart.add', ['id' => $product->id]) }}"><span class="ti-shopping-cart"></span></a></li>
-                        <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
+                        <li><a title="Add TO Cart" href="{{ route('cart.add',['id' => $product->id]) }}"><span class="ti-shopping-cart"></span></a></li>
+                        <li><a title="Wishlist" href="{{ route('wishlist.add',['id' => $product->id]) }}"><span class="ti-heart"></span></a></li>
                     </ul>
                 </div>
             </div>
             <div class="product__details">
-                <h2><a href="{{ route('product_detailes', ['id' => $product->id]) }}">{{ $product->name.'/'.$product->category }}</a></h2>
+                <h2><a href="{{ route('product_detailes', ['id' => $product->id]) }}">{{ $product->name }}</a></h2>
                 <ul class="product__price">
-                    @if($product->sale > 0)
-                        <li class="old__price">&pound; {{ $product->price }}</li>
-                        <li class="new__price">&pound; {{ $product->sale }}</li>
+                    @if($product->old_price > 0)
+                        <li class="old__price">&pound; {{ $product->old_price / 100 }}</li>
+                        <li class="new__price">&pound; {{ $product->price / 100 }}</li>
                     @else
-                        <li class="new__price">&pound; {{ $product->price }}</li>
+                        <li class="new__price">&pound; {{ $product->price / 100 }}</li>
                     @endif
                 </ul>
             </div>

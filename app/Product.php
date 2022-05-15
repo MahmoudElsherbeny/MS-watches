@@ -8,7 +8,7 @@ class Product extends Model
 {
     
     protected $fillable = [
-        'name', 'category', 'mini_description', 'description', 'price', 'sale', 'body_color', 'mina_color', 'tags', 'status', 'published_by',
+        'name', 'category', 'mini_description', 'description', 'price', 'old_price', 'body_color', 'mina_color', 'rate', 'tags', 'status', 'published_by',
     ];
 
     public function category()
@@ -19,6 +19,16 @@ class Product extends Model
     public function published_by()
     {
         return $this->belongsTo(Admin::class, 'published_by', 'id');
+    }
+
+    public function product_images()
+    {
+        return $this->hasMany(Product_image::class, 'product', 'id');
+    }
+
+    public function product_reviews()
+    {
+        return $this->hasMany(Product_review::class, 'product', 'id');
     }
     
 
@@ -41,15 +51,14 @@ class Product extends Model
                 })
                 ->when($filters['prices'], function ($query) use ($filters) {
                     $priceFilter = explode(',', $filters['prices']);
-                    $query->WhereBetween('price', [$priceFilter])
-                          ->orWhereBetween('sale', [$priceFilter]);
+                    $query->WhereBetween('price', [$priceFilter]);
                 });
     }
 
     //get products 
     static public function getSaleProducts($condition,$orderby,$limit) {
         $products = Self::Where('status','active')
-                    ->Where('sale',$condition,0)
+                    ->Where('old_price',$condition,0)
                     ->OrderBy($orderby,'DESC')->limit($limit)->get();   
         return $products;
     }

@@ -19,7 +19,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'mini_description' => $faker->paragraph,
         'description' => $faker->paragraph,
         'price' => $faker->numberBetween(100, 2000),
-        'sale' => 0,
+        'old_price' => 0,
         'body_color' => 'silver',
         'mina_color' => 'white',
         'rate' => $faker->numberBetween(1, 4.9),

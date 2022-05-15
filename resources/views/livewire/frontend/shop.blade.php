@@ -101,14 +101,24 @@
     </div>
 
     <div class="col-md-9">
-        <div class="product__list another-product-style">
+        @if(count($this->products))
+            <div class="product__list another-product-style">
                 <!-- Start Single Product -->
                 @include('frontend.product.card', ['products' => $this->products])
                 <!-- End Single Product -->
                 <!-- QUICKVIEW PRODUCT -->
                 @include('frontend.product.quickview', ['products' => $this->products])
                 <!-- END QUICKVIEW PRODUCT -->
-        </div>
+            </div>
+        @else
+            <div class="no_product">
+                @if($this->filtersNotEmpty())
+                    <p>No Products Matches !</p>
+                @else
+                    <p>No Products For Now. Wait for New <span>Collection</span> !</p>
+                @endif
+            </div>
+        @endif
 
         <!-- Start Load More BTn -->
         <div class="loading_container">
@@ -118,15 +128,15 @@
                         <button wire:click="loadMore" wire:loading.remove class="ms-btn black-btn load_products">load more</button>
                     </div>
                 </div>
-            @endif
 
-            <div class="loading mtb--50">
-                <div wire:loading>
-                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <div class="loading mtb--50">
+                    <div wire:loading>
+                        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    </div>
                 </div>
-            </div>
-            <!-- End Load More BTn -->
+             @endif
         </div>
+        <!-- End Load More BTn -->
         
         <!-- Start Copyright Area -->
         <div class="htc__copyright__area">

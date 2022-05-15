@@ -33,10 +33,17 @@ Route::post('product/{id}/delete/{review}', 'frontend\productCtrl@review_destroy
 //cart routes
 Route::group(['prefix'=>'cart', 'as'=>'cart.'] , function() {
 
-    Route::get('/', 'frontend\CartController@cart')->name('index');
+    Route::get('/', 'frontend\CartController@index')->name('index');
     Route::get('add/{id}', 'frontend\CartController@addToCart')->name('add');
-    Route::post('remove/{id}','frontend\CartController@remove')->name('remove');
     Route::get('checkout','frontend\CartController@checkout_page')->middleware(['auth','verified'])->name('checkout_page');
+
+});
+
+//wishlist routes
+Route::group(['prefix'=>'wishlist', 'as'=>'wishlist.'] , function() {
+
+    Route::get('/', 'frontend\WishlistController@index')->name('index');
+    Route::get('add/{id}', 'frontend\WishlistController@addToWishlist')->name('add');
 
 });
 
