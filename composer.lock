@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c06ef877385e1b340655bf3377f67ae",
+    "content-hash": "c955a8950978acaaaffbdf6f7decd15b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -124,16 +124,16 @@
         },
         {
             "name": "bumbummen99/shoppingcart",
-            "version": "4.1.1",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bumbummen99/LaravelShoppingcart.git",
-                "reference": "71dfa94ba8b509e4e3d541963ea53b1129d373a1"
+                "reference": "1c50fb564826b6ee748d2d9afad7447b6884166e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bumbummen99/LaravelShoppingcart/zipball/71dfa94ba8b509e4e3d541963ea53b1129d373a1",
-                "reference": "71dfa94ba8b509e4e3d541963ea53b1129d373a1",
+                "url": "https://api.github.com/repos/bumbummen99/LaravelShoppingcart/zipball/1c50fb564826b6ee748d2d9afad7447b6884166e",
+                "reference": "1c50fb564826b6ee748d2d9afad7447b6884166e",
                 "shasum": ""
             },
             "require": {
@@ -189,9 +189,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bumbummen99/LaravelShoppingcart/issues",
-                "source": "https://github.com/bumbummen99/LaravelShoppingcart/tree/4.1.1"
+                "source": "https://github.com/bumbummen99/LaravelShoppingcart/tree/4.2.0"
             },
-            "time": "2022-04-27T14:48:35+00:00"
+            "time": "2022-05-15T15:32:38+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -8714,5 +8714,5 @@
         "php": "^7.2.5"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

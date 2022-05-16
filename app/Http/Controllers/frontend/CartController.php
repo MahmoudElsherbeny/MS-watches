@@ -30,10 +30,16 @@ class CartController extends Controller
     }
     
     //add to cart function - add products in cart using session whatever user login or not
-    public function addToCart($product_id, $quantity = 1)
+    public function addToCart(Request $request, $product_id)
     {
         $product = Product::findOrFail($product_id);
         $image = url(Product_image::ProductMainImage($product_id));
+        if($request->input('qty')) {
+            $quantity = $request->input('qty');
+        }
+        else {
+            $quantity = 1 ;
+        }
 
         Cart::instance('cart')->add([
                     'id' => $product->id,

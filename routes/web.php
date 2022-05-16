@@ -35,6 +35,7 @@ Route::group(['prefix'=>'cart', 'as'=>'cart.'] , function() {
 
     Route::get('/', 'frontend\CartController@index')->name('index');
     Route::get('add/{id}', 'frontend\CartController@addToCart')->name('add');
+    Route::get('update/{id}/{quantity}', 'frontend\CartController@updateCart')->name('update');
     Route::get('checkout','frontend\CartController@checkout_page')->middleware(['auth','verified'])->name('checkout_page');
 
 });

@@ -25,11 +25,11 @@
                             <td class="product-name">
                                 <a href="{{ route('product_detailes', ['id' => $prod->id]) }}">{{ $prod->name }}</a>
                             </td>
-                            <td class="product-price"><span class="amount">£{{ $prod->price/100 }}</span></td>
+                            <td class="product-price"><span class="amount">£{{ $this->prod_price($prod->id)/100 }}</span></td>
                             <td class="product-quantity">
-                                <input type="number" name="prod_qty" min="1" value="{{ $prod->qty }}" wire:model="quantity" wire:change="update('{{ $key }}')" />
+                                <input type="number" name="prod_qty" min="1" value="{{ $prod->qty }}" wire:model="cart_items.{{ $key }}.qty" wire:change="updateCart('{{ $key }}', $event.target.value)" />
                             </td>
-                            <td class="product-subtotal">£{{ $prod->total }}</td>
+                            <td class="product-subtotal">£{{ $this->prod_price($prod->id)*$prod->qty / 100 }}</td>
                             <td class="product-remove">
                                 <button class="btn btn-app" wire:click="remove('{{ $key }}')"> X</button>
                             </td>

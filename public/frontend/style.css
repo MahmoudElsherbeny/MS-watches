@@ -2643,15 +2643,16 @@ input.star:checked ~ label.star:before {
 }
 .cart-plus-minus-box {
     border: none;
-    max-width: 74px;
-    padding-left: 24px;
-    padding-right: 24px;
+    max-width: 95px;
+    padding-left: 18px;
+    padding-right: 14px;
 }
 .cart-plus-minus-box:focus {
     border:none;
 }
 .cart-plus-minus {
     position: relative;
+    cursor: pointer;
 }
 .dec.qtybutton {
     color: #444;
@@ -3658,7 +3659,6 @@ blockquote::before {
     box-shadow: none;
     color: #fff;
     display: inline-block;
-    float: left;
     font-size: 12px;
     font-weight: 700;
     height: 40px;
@@ -3678,7 +3678,6 @@ blockquote::before {
 }
 .buttons-cart a {
     color: #fff;
-    float: left;
     height: 40px;
     line-height: 40px;
 }
