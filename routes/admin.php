@@ -44,6 +44,7 @@ Route::group(['middleware'=>'admin', 'prefix'=>'products', 'as'=>'product.'] , f
     Route::post('/{id}/sale','backend\ProductCtrl@sale')->name('sale');
     Route::post('/{id}/image/{image}/edit','backend\ProductCtrl@image_update')->name('image_edit');
     Route::post('/{id}/image/{image}/delete','backend\ProductCtrl@image_destroy')->name('image_delete');
+    Route::get('/reviews','backend\ProductCtrl@reviews')->name('reviews');
 
 });
 

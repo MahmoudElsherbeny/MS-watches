@@ -24,16 +24,16 @@
     </div>
     <!-- End Bradcaump area --> 
     <!-- Start Our Store Area -->
-    <section class="htc__store__area ptb--120 bg__white">
+    <section class="htc__store__area ptb--100 bg__white">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section__title section__title--2 text-center">
                         <h2 class="title__line">Welcome To MS Watches Store</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore gna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+                        <p>{{ App\Setting::getSettingValue('about') }}</p>
                     </div>
                     <div class="store__btn">
-                        <a href="#">contact us</a>
+                        <a href="{{ route('contact') }}">contact us</a>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="choose__details">
                                         <h4>Free Gift Box</h4>
-                                        <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                                        <p>You will recive our box and our bag for gift. </p>
                                     </div>
                                 </div>
                                 <div class="choose__us">
@@ -72,8 +72,8 @@
                                         <span class="ti-truck"></span>
                                     </div>
                                     <div class="choose__details">
-                                        <h4>Free Delivery</h4>
-                                        <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                                        <h4>Fast Delivery</h4>
+                                        <p>We deliverd your order in 24 hours and 3 days at more for far places . </p>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="choose__details">
                                         <h4>Money Back</h4>
-                                        <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                                        <p>You can retrival your order back in 24 hour if there any problem. </p>
                                     </div>
                                 </div>
                                 <div class="choose__us">
@@ -92,8 +92,8 @@
                                         <span class="ti-time"></span>
                                     </div>
                                     <div class="choose__details">
-                                        <h4>Support 24/7</h4>
-                                        <p>Lorem ipsum dolor sit amet consect adipisic elit sed do. </p>
+                                        <h4>Support 24</h4>
+                                        <p>We are in your service for 24 hours per day. </p>
                                     </div>
                                 </div>
                             </div>
@@ -104,93 +104,63 @@
         </div>
     </section>
     <!-- End Choose Us Area -->
-    <!-- Start Our Team Area -->
-    <section class="htc__team__area bg__white ptb--120">
-        <div class="container">
+    <!-- Start our location Area -->
+    <section class="htc__contact__area bg__white">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="section__title section__title--2 text-center">
-                        <h2 class="title__line">Our Staff</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labo.</p>
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    <div class="htc__contact__container">
+                        <div class="htc__contact__address">
+                            <h2 class="contact__title">Our Location</h2>
+                            <div class="contact__address__inner">
+                                <!-- Start Single Adress -->
+                                <div class="single__contact__address">
+                                    <div class="contact__icon">
+                                        <span class="ti-location-pin"></span>
+                                    </div>
+                                    <div class="contact__details">
+                                        <p>Location : <br> {{ App\Setting::getSettingValue('address') }}</p>
+                                    </div>
+                                </div>
+                                <!-- End Single Adress -->
+                            </div>
+                            <div class="contact__address__inner">
+                                <!-- Start Single Adress -->
+                                <div class="single__contact__address">
+                                    <div class="contact__icon">
+                                        <span class="ti-mobile"></span>
+                                    </div>
+                                    <div class="contact__details">
+                                        <p> Phone : <br>{{ App\Setting::getSettingValue('phone') }} </p>
+                                    </div>
+                                </div>
+                                <!-- End Single Adress -->
+                            </div>
+                            <div class="contact__address__inner">
+                                <!-- Start Single Adress -->
+                                <div class="single__contact__address">
+                                    <div class="contact__icon">
+                                        <span class="ti-email"></span>
+                                    </div>
+                                    <div class="contact__details">
+                                        <p> Mail :<br><a href="#">{{ App\Setting::getSettingValue('email') }}</a></p>
+                                    </div>
+                                </div>
+                                <!-- End Single Adress -->
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="team__wrap clearfix mt--60">
-                    <!-- Start Single Team -->
-                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                        <div class="team foo">
-                            <div class="team__thumb">
-                                <a href="#">
-                                    <img src="{{ url('frontend/images/team/1.jpg') }}" alt="team images">
-                                </a>
-                            </div>
-                            <div class="team__bg__color"></div>
-                            <div class="team__hover__info">
-                                <div class="team__hover__action">
-                                    <h2><a href="#">Robiul siddikee</a></h2>
-                                    <ul class="social__icon">
-                                        <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-instagram"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
+                    <div class="map-contacts">
+                        <div id="googleMap">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13642.524307751855!2d32.31806270215387!3d31.258634686949847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f99db3b4f22f63%3A0xfc27f01c3a35a48a!2z2YXYudiv2YrYqSDYqNmI2LHZgdik2KfYrw!5e0!3m2!1sar!2seg!4v1608926295419!5m2!1sar!2seg" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                         </div>
                     </div>
-                    <!-- End Single Team -->
-                    <!-- Start Single Team -->
-                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12 xmt-30">
-                        <div class="team foo">
-                            <div class="team__thumb">
-                                <a href="#">
-                                    <img src="{{ url('frontend/images/team/2.jpg') }}" alt="team images">
-                                </a>
-                            </div>
-                            <div class="team__bg__color"></div>
-                            <div class="team__hover__info">
-                                <div class="team__hover__action">
-                                    <h2><a href="#">Robiul siddikee</a></h2>
-                                    <ul class="social__icon">
-                                        <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-instagram"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Team -->
-                    <!-- Start Single Team -->
-                    <div class="col-md-4 col-lg-4 hidden-sm col-xs-12 xmt-30">
-                        <div class="team foo">
-                            <div class="team__thumb">
-                                <a href="#">
-                                    <img src="{{ url('frontend/images/team/4.jpg') }}" alt="team images">
-                                </a>
-                            </div>
-                            <div class="team__bg__color"></div>
-                            <div class="team__hover__info">
-                                <div class="team__hover__action">
-                                    <h2><a href="#">Robiul siddikee</a></h2>
-                                    <ul class="social__icon">
-                                        <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-instagram"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                        <li><a href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Team -->
                 </div>
             </div>
         </div>
     </section>
-    <!-- End Our Team Area -->
     <!-- Start Testimonial Area -->
     <div class="htc__testimonial__area ptb--120" style="background: rgba(0, 0, 0, 0) url(images/bg/4.jpg) no-repeat scroll center center / cover ;" data--black__overlay="6">
         <div class="container">

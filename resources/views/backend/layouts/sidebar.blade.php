@@ -49,6 +49,9 @@
                             <a href="{{ route('product.create') }}">Create New Product</a>
                         </li>
                         <li>
+                            <a href="{{ route('product.reviews') }}">Products Reviews</a>
+                        </li>
+                        <li>
                             <a href="{{ route('product.create') }}">Product Report</a>
                         </li>
 

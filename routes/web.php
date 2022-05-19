@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 //main pages routes
 Route::get('/', 'frontend\HomeController@index')->name('home');
+Route::get('/category/{id}', 'frontend\HomeController@category')->name('category_page');
 Route::get('/shop', 'frontend\HomeController@shopPage')->name('shop');
 Route::get('/about', 'frontend\HomeController@aboutus')->name('aboutus');
 Route::get('/contact', 'frontend\HomeController@contact')->name('contact');

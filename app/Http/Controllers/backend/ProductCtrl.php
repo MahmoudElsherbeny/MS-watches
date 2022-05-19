@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Product;
 use App\Product_image;
-use App\Category;
+use App\Product_review;
 use Session;
 use Redirect;
-use Auth;
-use File;
 
 class ProductCtrl extends Controller
 {
@@ -40,7 +38,7 @@ class ProductCtrl extends Controller
         return view('backend.product.create');
     }
 
-    //function store - store product data into database
+    //function store - store product data into database by livewire
 
 
 
@@ -112,6 +110,13 @@ class ProductCtrl extends Controller
         }
 
         return Redirect::back();
+    }
+
+    //function reviews - show products reviews page
+    public function reviews()
+    {
+        $products_reviews = Product_review::orderBY('rate','DESC')->get();
+        return view('backend.product.reviews')->with('products_reviews',$products_reviews);
     }
 
 }

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Category;
 use App\Product;
-use App\Product_avg_rate;
 use App\Slide;
 use View;
 
@@ -35,6 +34,19 @@ class HomeController extends Controller
                                     ]);
     }
 
+    //show category products page function
+    public function category($cat_id) {
+        $category = Category::Where('status','active')->findOrFail($cat_id);
+        $products = Product::Where('status','active')
+                           ->Where('category',$cat_id)
+                           ->orderBy('id','DESC')->get();
+
+        return view("frontend.pages.category")->with([
+                                            'category' => $category,
+                                            'products' => $products
+                                        ]);
+    }
+    
     //show shop page function
     public function shopPage() {
         return view("frontend.pages.shop");

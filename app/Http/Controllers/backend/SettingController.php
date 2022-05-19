@@ -18,7 +18,6 @@ class SettingController extends Controller
 
     //function edit - show edit setting page
     public function edit() {
-        //$category = Category::findOrFail($id);
         return view('backend.setting.update');
     }
 }

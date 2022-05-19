@@ -45,7 +45,7 @@
                         <ul>
                             @foreach ($categories as $category)
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('category_page', ['id' => $category->id]) }}">
                                         <span class="cat-icon"><i class="{{ $category->icon }}"></i></span> {{ $category->name }}
                                     </a>
                                 </li>
