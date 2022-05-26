@@ -1,25 +1,20 @@
 /*-----------------------------------------------------------------------------------
   Template Name: Tmart-Minimalist eCommerce HTML5 Template.
-  Template URI: #
   Description: Tmart is a unique website template designed in HTML with a simple & beautiful look. There is an excellent solution for creating clean, wonderful and trending material design corporate, corporate any other purposes websites.
-  Author: Theme365 
   Version: 1.0
 -------------------------------------------------------------------------------------*/
 /*
-
     font-family: 'Poppins', sans-serif;
-
     font-family: 'Dosis', sans-serif;
-
 */
+
 /*-----------------------------
 	Footer Default
 ------------------------------*/
 
-
 .footer__container {
-    padding-bottom: 34px;
-    padding-top: 52px;
+    padding-bottom: 32px;
+    padding-top: 42px;
 }
 .htc__copyright__area {
     border-top: 1px solid #d9d9d9;
@@ -27,8 +22,8 @@
 .copyright__inner {
     align-items: center;
     display: flex;
-    height: 60px;
-    justify-content: space-between;
+    height: 58px;
+    justify-content: center;
 }
 .footer__menu {
     display: flex;
@@ -39,13 +34,13 @@
   line-height: 26px;
 }
 .ft__logo {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 .ft__logo a:hover {
   color: inherit;
 }
 .ft__logo .logo1 {
-  font-size: 34px;
+  font-size: 32px;
   font-weight: bold;
   font-family:Arial, Helvetica, sans-serif;
 }
@@ -59,7 +54,7 @@
     color: #444444;
     font-size: 18px;
     font-weight: 500;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
     text-transform: capitalize;
 }
 .htc__news__inner {
@@ -139,10 +134,6 @@
     padding-right: 0;
 }
 .fixed__footer .htc__foooter__area {
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
   width: 100%;
   z-index: -99999;
 }
@@ -176,12 +167,6 @@
 .footer--7 .htc__copyright__area {
   border-top: 1px solid #fff;
 }
-
-
-
-
-
-
 
 
 /*---------------------
@@ -218,13 +203,9 @@
   background: #ff4136;
 }
 
-
 .input__box {
   position: relative;
 }
-
-
-
 
 
 /*-----------------------------
@@ -280,12 +261,6 @@
   padding-top: 115px;
 }
 
-
-
-
-
-
-
 .footer-address ul li {
   display: block;
   margin-bottom: 15px;
@@ -325,25 +300,9 @@
   color: #ff4136;
 }
 .gray-bg{
-  background-color: #f6f6f6;
+  background-color: #f5f5f6;
 }
 .copyright a {
   text-transform: capitalize;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

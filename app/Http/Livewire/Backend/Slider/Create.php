@@ -54,7 +54,6 @@ class Create extends Component
 
         Session::flash('success','slide created successfully');
         
-        return Redirect::route('slider.create');
     }
 
     public function render()

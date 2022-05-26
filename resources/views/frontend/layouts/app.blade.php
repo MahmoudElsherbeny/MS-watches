@@ -47,7 +47,7 @@
         <footer class="htc__foooter__area gray-bg">
             <div class="container">
                 @yield('footer')
-                @include('frontend.layouts.copyright')
+                @yield('copyright')
             </div>
         </footer>
     </div>

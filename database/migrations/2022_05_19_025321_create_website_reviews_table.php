@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductAvgRatesTable extends Migration
+class CreateWebsiteReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateProductAvgRatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_avg_rates', function (Blueprint $table) {
+        Schema::create('website_reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('product');
-            $table->float('avg_rate');
+            $table->integer('review_id');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateProductAvgRatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_avg_rates');
+        Schema::dropIfExists('website_reviews');
     }
 }

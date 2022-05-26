@@ -19,10 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 //main pages routes
 Route::get('/', 'frontend\HomeController@index')->name('home');
+Route::get('/category/{id}', 'frontend\HomeController@category')->name('category_page');
 Route::get('/shop', 'frontend\HomeController@shopPage')->name('shop');
 Route::get('/about', 'frontend\HomeController@aboutus')->name('aboutus');
 Route::get('/contact', 'frontend\HomeController@contact')->name('contact');
 Route::get('/login', 'frontend\HomeController@login')->name('login');
+Route::get('/register_success', 'frontend\HomeController@register_success')->name('register_success');
 
 //product routes
 Route::get('product/{id}/details', 'frontend\productCtrl@product_detailes')->name('product_detailes');
@@ -32,14 +34,21 @@ Route::post('product/{id}/delete/{review}', 'frontend\productCtrl@review_destroy
 //cart routes
 Route::group(['prefix'=>'cart', 'as'=>'cart.'] , function() {
 
-    Route::get('/', 'frontend\CartController@cart')->name('index');
+    Route::get('/', 'frontend\CartController@index')->name('index');
     Route::get('add/{id}', 'frontend\CartController@addToCart')->name('add');
-    Route::post('remove/{id}','frontend\CartController@remove')->name('remove');
-    Route::get('checkout','frontend\CartController@checkout_page')->middleware('auth')->name('checkout_page');
+    Route::get('update/{id}/{quantity}', 'frontend\CartController@updateCart')->name('update');
+    Route::get('checkout','frontend\CartController@checkout_page')->middleware(['auth','verified'])->name('checkout_page');
+
+});
+
+//wishlist routes
+Route::group(['prefix'=>'wishlist', 'as'=>'wishlist.'] , function() {
+
+    Route::get('/', 'frontend\WishlistController@index')->name('index');
+    Route::get('add/{id}', 'frontend\WishlistController@addToWishlist')->name('add');
 
 });
 
 
 
-
-Auth::routes();
+Auth::routes(['verify' => true]);

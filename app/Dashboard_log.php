@@ -16,4 +16,9 @@ class Dashboard_log extends Model
 
     protected $guarded = [];
 
+    public function user()
+    {
+        return $this->belongsTo(Admin::class, 'user', 'id');
+    }
+
 }

@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 use App\Product_review;
-use App\Product_avg_rate;
+use App\Product;
 
 class ProductReviewObserver
 {
@@ -15,16 +15,10 @@ class ProductReviewObserver
     /**   Handle the product "created" event.   **/
     public function created(Product_review $review)
     {
-        //store product average rates in (product_avg_rates) when review created
-        $prod_exist = Product_avg_rate::Where('product', $review->product)->first();
-        if (!$prod_exist) {
-            Product_avg_rate::create([
-                'product' => $review->product,
-                'avg_rate' => Product_review::getProductRate($review->product),
-            ]);
-        }
-        else {
-            $prod_exist->avg_rate = Product_review::getProductRate($review->product);
+        //store product average rates in (product) when review created
+        $prod_exist = Product::Where('id', $review->product)->first();
+        if ($prod_exist) {
+            $prod_exist->rate = Product_review::getProductRate($review->product);
             $prod_exist->save();
         }
     }

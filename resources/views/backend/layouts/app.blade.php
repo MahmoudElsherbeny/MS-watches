@@ -21,7 +21,7 @@
         <!-- Page JS Plugins CSS -->
         <link rel="stylesheet" href="{{ url('backend/assets/js/plugins/slick/slick.min.css') }}" />
         <link rel="stylesheet" href="{{ url('backend/assets/js/plugins/slick/slick-theme.min.css') }}" />
-        <link rel="stylesheet" href="{{ url('backend/assets/js/plugins/datatables/jquery.dataTables.min.css') }}">
+        <link rel="stylesheet" href="{{ url('backend/assets/js/plugins/datatables/jquery.dataTables.min.css') }}" />
 
         <!-- AppUI CSS stylesheets -->
         <link rel="stylesheet" id="css-font-awesome" href="{{ url('backend/assets/css/font-awesome.css') }}" />
@@ -113,6 +113,11 @@
      <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.pie.min.js') }}"></script>
      <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.stack.min.js') }}"></script>
      <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.resize.min.js') }}"></script>
+    
+    <script src="{{ url('backend/assets/js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+    <!-- Page JS Code -->
+    <script src="{{ url('backend/assets/js/pages/base_tables_datatables.js') }}"></script>
 
      <!-- Page JS Code -->
      <script src="{{ url('backend/assets/js/pages/index.js') }}"></script>

@@ -74,6 +74,16 @@ a {
     color: #000;
     padding: 0.2em 0;
 }
+/* for form errors validation  */
+.msg-error {
+    color: #d9534f;
+    font-size: 13px;
+    padding-top: 3px;
+    padding-left: 4px;
+}
+.input-error {
+  border-color: #d9534f;
+}
 /*-----------------------
   03. Typography
 ------------------------*/
@@ -608,6 +618,8 @@ textarea:focus {
 .pt--130 { padding-top: 130px }-
 .pt--140 { padding-top: 140px }
 .pt--150 { padding-top: 150px }
+.pt--180 { padding-top: 180px }
+.pt--200 { padding-top: 200px }
 
 /*------------------------
   18. Padding bottom
@@ -629,6 +641,8 @@ textarea:focus {
 .pb--130 { padding-bottom: 130px }
 .pb--140 { padding-bottom: 140px }
 .pb--150 { padding-bottom: 150px }
+.pb--180 { padding-bottom: 180px }
+.pb--200 { padding-bottom: 200px }
 
 
 /*------------------------------

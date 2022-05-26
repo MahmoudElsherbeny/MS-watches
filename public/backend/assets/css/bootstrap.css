@@ -2645,9 +2645,11 @@ caption {
 	text-align: left;
 }
 
+/*
 th {
 	text-align: left;
 }
+*/
 
 .table {
 	width: 100%;
@@ -2661,11 +2663,13 @@ th {
 .table > tbody > tr > td,
 .table > tfoot > tr > th,
 .table > tfoot > tr > td {
-	padding: 1em;
+	padding: 0.3em 0.5em;
 	line-height: 1.5;
 	vertical-align: top;
 	border-top: 1px solid #eee;
 }
+
+.table > thead > tr > th { padding: 1em 0.5em; }
 
 .table > thead > tr > th {
 	vertical-align: bottom;

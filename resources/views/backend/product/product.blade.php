@@ -23,11 +23,11 @@
                         <div class="product_info p-x-xs">
                             <h2 class="text-capitalize">{{ $product->name }}</h2>
                             <div class="product_price">
-                                @if ($product->sale > 0)
-                                    <span class="old_price p-r-sm">&pound; {{ $product->price }}</span>
-                                    <span class="price">&pound; {{ $product->price-$product->sale }}</span>
+                                @if ($product->old_price > 0)
+                                    <span class="old_price p-r-sm">&pound; {{ $product->old_price/100 }}</span>
+                                    <span class="price">&pound; {{ $product->price/100 }}</span>
                                 @else
-                                    <span class="price">&pound; {{ $product->price }}</span>
+                                    <span class="price">&pound; {{ $product->price/100 }}</span>
                                 @endif
                             </div>
                             <div class="product_category m-y-sm">

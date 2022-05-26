@@ -68,7 +68,7 @@
                         </div>
                         <div class="pro__dtl__rating">
                             <ul class="pro__rating">
-                                @php $rating = App\Product_avg_rate::getProductRate($product->id); @endphp
+                                @php $rating = App\Product_review::getProductRate($product->id); @endphp
 
                                 @foreach (range(1,5) as $i)
 
@@ -92,11 +92,11 @@
                         </div>
                         <div class="pro__details">{{ $product->mini_description }}</div>
                         <ul class="pro__dtl__prize">
-                            @if($product->sale > 0)
-                                <li class="old__prize">&pound;{{ $product->price }}</li>
-                                <li class="new__prize">&pound;{{ $product->price-$product->sale }}</li>
+                            @if($product->old_price > 0)
+                                <li class="old__prize">&pound;{{ $product->old_price/100 }}</li>
+                                <li class="new__prize">&pound;{{ $product->price/100 }}</li>
                             @else
-                                <li class="new__prize">&pound;{{ $product->price }}</li>
+                                <li class="new__prize">&pound;{{ $product->price/100 }}</li>
                             @endif
                         </ul>
                         <div class="pro__dtl__color">
@@ -113,23 +113,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-action-wrap">
-                            <div class="prodict-statas"><span>Quantity :</span></div>
-                            <div class="product-quantity">
-                                <form id='myform' method='POST' action='#'>
+                        {!! Form::Open(['url' => route('cart.add',['id' => $product->id]), 'method' => 'GET' ]) !!}
+                            <div class="product-action-wrap">
+                                <div class="prodict-statas"><span>Quantity :</span></div>
+                                <div class="product-quantity">
                                     <div class="product-quantity">
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
-                                        </div>
+                                        <input class="cart-plus-minus-box" type="number" name="qty" min="1" value="1">
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <ul class="pro__dtl__btn">
-                            <li class="buy__now__btn"><a href="#">buy now</a></li>
-                            <li><a href="#"><span class="ti-heart"></span></a></li>
-                            <li><a href="#"><span class="ti-email"></span></a></li>
-                        </ul>
+                            <ul class="pro__dtl__btn">
+                                <li class="buy__now__btn">
+                                    <button type="submit">Buy Now</a>
+                                </li>
+                                <li>
+                                    <a title="Wishlist" href="{{ route('wishlist.add',['id' => $product->id]) }}"><span class="ti-heart"></span></a>
+                                </li>
+                                <li><a href="#"><span class="ti-email"></span></a></li>
+                            </ul>
+                        {!! Form::Close() !!}
                         <div class="pro__social__share">
                             <h2>Share :</h2>
                             <ul class="pro__soaial__link">

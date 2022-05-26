@@ -8,6 +8,11 @@ class Product_image extends Model
 {
     protected $fillable = ['product', 'image','order'];
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product', 'id');
+    }
+
     /*
     //get product images
     static public function getProductImages($id) {

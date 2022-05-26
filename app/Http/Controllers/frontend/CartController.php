@@ -5,6 +5,8 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
+
 use App\Category;
 use App\Product;
 use App\Product_image;
@@ -23,73 +25,39 @@ class CartController extends Controller
     }
 
     //show cart page function
-    public function cart() {
+    public function index() {
         return view("frontend.pages.cart");
     }
     
     //add to cart function - add products in cart using session whatever user login or not
-    public function addToCart($product_id, $quantity = 1)
+    public function addToCart(Request $request, $product_id)
     {
         $product = Product::findOrFail($product_id);
-        $cart = Session::get('cart');
-
-        // if cart is empty then this the first product
-        if(!$cart) {
-
-            $cart = [
-                $product_id => [
-                    "id" => $product->id,
-                    "name" => $product->name,
-                    "quantity" => $quantity,
-                    "price" => $product->sale > 0 ? ($product->price-$product->sale) : $product->price,
-                    "image" => url(Product_image::ProductMainImage($product_id))
-                ]
-            ];
-            Session::put('cart', $cart);
-
-            return Redirect::back();
+        $image = url(Product_image::ProductMainImage($product_id));
+        if($request->input('qty')) {
+            $quantity = $request->input('qty');
+        }
+        else {
+            $quantity = 1 ;
         }
 
-        // if cart not empty then check if this product exists and increment quantity
-        if(isset($cart[$product_id])) {
-
-            $cart[$product_id]['quantity']++;
-            Session::put('cart', $cart);
-
-            return Redirect::back();
-        }
-        
-        // if item not exist in cart then add to cart with quantity = 1
-        $cart[$product_id] = [
-            "id" => $product->id,
-            "name" => $product->name,
-            "quantity" => $quantity,
-            "price" => $product->sale > 0 ? ($product->price-$product->sale) : $product->price,
-            "image" => url(Product_image::ProductMainImage($product_id))
-        ];
-        Session::put('cart', $cart);
+        Cart::instance('cart')->add([
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $quantity,
+                    'price' => $product->price,
+                    'weight' => 0,
+                    'options' => ['image' => $image]
+                ]);
 
         return Redirect::back();
     }
 
-    //remove from cart function - remove product from cart using session
-    public function remove($product_id)
-    {
-        $cart = Session::get('cart');
-        if(isset($cart[$product_id])) {
-            unset($cart[$product_id]);
-            if(!$cart) {
-                Session::forget('cart');
-            }
-            else {
-                Session::put('cart', $cart);
-            }
-        }
+    //upadte product quantity in cart by livewire shoppin-cart 
+    //remove from cart in livewire shoppin-cart 
+    
 
-        return Redirect::back();
-    }
-
-     //checkou page function - display checkout page
+     //checkout page function - display checkout page
      public function checkout_page()
      {
         return view("frontend.pages.checkout");

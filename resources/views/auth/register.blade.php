@@ -21,10 +21,31 @@
                     <!-- Start Single Content -->
                     <div id="register" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
                         {!! Form::Open(['class'=>'login']) !!}
-                            <input type="text" name="name" placeholder="Name">
-                            <input type="email" name="email" placeholder="Email">
-                            <input type="password" name="password" placeholder="Password">
-                            <input type="password" name="confirm_password" placeholder="Confirm Password">
+                            
+                            <div class="login__form__input">
+                                <input class="@error('name') app__input__error @enderror" type="text" name="name" placeholder="Name">
+                                @error('name')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="login__form__input">
+                                <input class="@error('email') app__input__error @enderror" type="email" name="email" placeholder="Email">
+                                @error('email')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="login__form__input">
+                                <input class="@error('password') app__input__error @enderror" type="password" name="password" placeholder="Password">
+                                @error('password')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="login__form__input">
+                                <input class="@error('confirm_password') app__input__error @enderror" type="password" name="confirm_password" placeholder="Confirm Password">
+                                @error('confirm_password')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
+                            </div>
                         
                             <div class="htc__login__btn">
                                 <button type="submit">register</button>

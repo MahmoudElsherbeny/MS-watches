@@ -9,7 +9,6 @@ use App\Product;
 use App\Product_image;
 use App\Category;
 use Session;
-use Redirect;
 use Auth;
 
 class Create extends Component
@@ -21,9 +20,9 @@ class Create extends Component
     public $mini_description;
     public $description;
     public $price;
-    public $sale = 0;
     public $body_color;
     public $mina_color;
+    public $tags;
     public $status;
     public $editorId;
     public $images = [];
@@ -46,6 +45,7 @@ class Create extends Component
     public function mount() {
         $this->editorId = Auth::guard('admin')->user()->id;
         $this->category = Category::orderBY('name')->first()->id;
+        $this->tags = 'men';
         $this->status = 'active';
     }
 
@@ -58,10 +58,11 @@ class Create extends Component
             'category' => $this->category,
             'mini_description' => $this->mini_description,
             'description' => $this->description,
-            'price' => $this->price,
-            'sale' => $this->sale,
+            'price' => $this->price*100,
+            'old_price' => 0,
             'body_color' => $this->body_color,
             'mina_color' => $this->mina_color,
+            'tags' => $this->tags,
             'status' => $this->status,
             'published_by' => $this->editorId,
         ]);
@@ -82,7 +83,6 @@ class Create extends Component
 
             Session::flash('success','product created successfully');
         
-        return Redirect::route('product.create');
     }
 
     public function render()

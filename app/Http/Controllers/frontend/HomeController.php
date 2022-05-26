@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Category;
 use App\Product;
-use App\Product_avg_rate;
 use App\Slide;
-use DB;
 use View;
 
 class HomeController extends Controller
@@ -25,33 +23,30 @@ class HomeController extends Controller
     //show home page function
     public function index() {
         $slides = Slide::Where('status','active')->OrderBy('order')->get();
-        $latest_products = Product::Where('status','active')
-                                  ->Where('sale','<=',0)
-                                  ->OrderBy('id','DESC')->limit(12)->get();
 
-        $onsale_products = Product::Where('status','active')
-                                  ->Where('sale','>',0)
-                                  ->OrderBy('updated_at','DESC')->limit(12)->get();
-
-        $bestsale_products = Product::Where('status','active')
-                                    ->Where('sale','>',0)
-                                    ->OrderBy('sale','DESC')->limit(12)->get();
-
-        $toprate_products = DB::table('products')
-                              ->select('products.*', 'product_avg_rates.product', 'product_avg_rates.avg_rate')
-                              ->join('product_avg_rates', 'product_avg_rates.product', '=', 'products.id')
-                              ->Where('products.status', 'active')
-                              ->orderBy('avg_rate','DESC')->limit(12)->get();
+        $toprate_products = Product::Where('status', 'active')
+                                   ->Where('rate', '>',0)
+                                   ->orderBy('rate','DESC')->limit(15)->get();
 
         return view("frontend.index")->with([
                                     'slides' => $slides,
-                                    'latest' => $latest_products,
-                                    'onsale' => $onsale_products,
-                                    'bestsale' => $bestsale_products,
                                     'toprate' => $toprate_products
                                     ]);
     }
 
+    //show category products page function
+    public function category($cat_id) {
+        $category = Category::Where('status','active')->findOrFail($cat_id);
+        $products = Product::Where('status','active')
+                           ->Where('category',$cat_id)
+                           ->orderBy('id','DESC')->get();
+
+        return view("frontend.pages.category")->with([
+                                            'category' => $category,
+                                            'products' => $products
+                                        ]);
+    }
+    
     //show shop page function
     public function shopPage() {
         return view("frontend.pages.shop");
@@ -65,6 +60,11 @@ class HomeController extends Controller
     //show contact us page function
     public function contact() {
         return view("frontend.pages.contact");
+    }
+
+    //show success alert page after registeration function
+    public function register_success() {
+        return view("frontend.pages.register_success");
     }
 
 }

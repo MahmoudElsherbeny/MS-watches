@@ -8,6 +8,11 @@ class Category extends Model
 {
     protected $fillable = ['name', 'icon','order','status'];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category', 'id');
+    }
+
     //get category name
     static public function getCategoryName($id) {
         $category = Self::find($id);

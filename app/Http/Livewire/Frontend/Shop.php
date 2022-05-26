@@ -9,32 +9,58 @@ class Shop extends Component
 {
 
     public $products;
-    public $amount = 136;
-    public $hasmore = true;
+    public $filter_count;
+    public $products_count = 64;
+    public $filters = [
+        'categories' => [],
+        'prices' => '',
+        'sort' => '',
+        'tags' => ''
+    ];
 
     public function mount() {
-        $this->products = Product::Where('status','active')
-                                ->orderBy('id','DESC')
-                                ->limit(68)
-                                ->get();
+        
     }
     
-    public function loadMore($lastid) {
-        $this->products = Product::Where('id','<=',$lastid)
-                                ->Where('status','active')
-                                ->orderBy('id','DESC')
-                                ->limit($this->amount)
-                                ->get();
-
-        $this->amount += 68;
-        if($this->amount >= $lastid) {
-            $this->hasmore = false;
+    public function filtersNotEmpty(): bool {
+        foreach($this->filters as $key => $value) {
+            if(!empty($value)) {
+                return true;
+            }
         }
+
+        return false;
+    }
+
+    //when changing filter return products count to 64
+    public function updatingFilters() {
+        $this->products_count = 64;
+    }
+
+    //check if there more product to load more
+    public function hasMore() {
+        return count($this->products) >= $this->products_count;
+    }
+
+    //increase count of products by click load more
+    public function loadMore() {
+        $this->products_count += 64;
     }
 
     public function render()
     {
-        return view('livewire.frontend.shop')->extends('frontend.layouts.app');
+        if($this->filtersNotEmpty()) {
+            $this->products = Product::Where('status','active')
+                                     ->WithFilters($this->filters)
+                                     ->limit($this->products_count)->get();
+        }
+        else {
+            $this->products = Product::Where('status','active')
+                                     ->orderBy('id','DESC')
+                                     ->limit($this->products_count)->get();
+        }
+
+        return view('livewire.frontend.shop');
     }
 
 }

@@ -46,7 +46,6 @@ class Create extends Component
             Session::flash('error','category already exist');
         }
         
-        return Redirect::route('category.create');
     }
 
     public function render()

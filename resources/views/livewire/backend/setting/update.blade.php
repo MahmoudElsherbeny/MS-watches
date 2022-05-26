@@ -60,6 +60,13 @@
                 <div class="msg-error">{{ $message }}</div>
             @enderror
         </div>
+        <div class="form-group">
+            <label>about US Paragraph:</label>
+            <input class="form-control @error('about') input-error @enderror" type="text" name="about" wire:model="about" />
+            @error('about')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
+        </div>
         <div class="form-group m-b-0">
             <button class="btn btn-success" type="submit">Update</button>
             <a href="{{ route('category.index') }}" class="btn btn-app">Back</a>

@@ -44,6 +44,7 @@ Route::group(['middleware'=>'admin', 'prefix'=>'products', 'as'=>'product.'] , f
     Route::post('/{id}/sale','backend\ProductCtrl@sale')->name('sale');
     Route::post('/{id}/image/{image}/edit','backend\ProductCtrl@image_update')->name('image_edit');
     Route::post('/{id}/image/{image}/delete','backend\ProductCtrl@image_destroy')->name('image_delete');
+    Route::get('/reviews','backend\ProductCtrl@reviews')->name('reviews');
 
 });
 
@@ -89,7 +90,15 @@ Route::group(['middleware'=>'admin', 'prefix'=>'setting', 'as'=>'setting.'] , fu
 
     Route::get('/','backend\SettingController@index')->name('index');
     Route::get('/edit','backend\SettingController@edit')->name('edit');
-    //Route::post('/{id}/edit','backend\EditorController@update');
+});
+
+//states routes
+Route::group(['middleware'=>'admin', 'prefix'=>'states', 'as'=>'state.'] , function() {
+
+    Route::get('/','backend\StateController@index')->name('index');
+    Route::get('/create','backend\StateController@create')->name('create');
+    Route::post('/{id}/edit','backend\StateController@update')->name('update');
+    Route::post('/{id}/delete','backend\StateController@destroy')->name('delete')->middleware('admin.pages');
 });
 
 

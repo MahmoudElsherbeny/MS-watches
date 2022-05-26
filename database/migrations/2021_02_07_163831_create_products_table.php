@@ -19,10 +19,12 @@ class CreateProductsTable extends Migration
             $table->integer('category');
             $table->text('mini_description');
             $table->text('description');
-            $table->float('price');
-            $table->float('sale');
+            $table->integer('price');
+            $table->integer('old_price');
             $table->string('body_color');
             $table->string('mina_color');
+            $table->float('rate');
+            $table->string('tags');
             $table->string('status');
             $table->integer('published_by');
             $table->timestamps();

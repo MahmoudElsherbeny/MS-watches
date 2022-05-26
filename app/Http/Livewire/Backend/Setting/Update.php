@@ -16,6 +16,7 @@ class Update extends Component
     public $facebook;
     public $twitter;
     public $instagram;
+    public $about;
 
     protected $rules = [
         'name' => 'required|max:8|regex:/^[a-zA-Z0-9 ]+$/',
@@ -25,6 +26,7 @@ class Update extends Component
         'facebook' => 'required|url',
         'twitter' => 'required|url',
         'instagram' => 'required|url',
+        'about' => 'required',
     ];
 
     public function mount() {
@@ -35,6 +37,7 @@ class Update extends Component
         $this->facebook = Setting::getSettingValue('facebook');
         $this->twitter = Setting::getSettingValue('twitter');
         $this->instagram = Setting::getSettingValue('instagram');
+        $this->about = Setting::getSettingValue('about');
     }
 
     public function update() {
@@ -48,6 +51,7 @@ class Update extends Component
         Setting::Where('name','facebook')->update(['value' => $this->facebook]);
         Setting::Where('name','twitter')->update(['value' => $this->twitter]);
         Setting::Where('name','instagram')->update(['value' => $this->instagram]);
+        Setting::Where('name','about')->update(['value' => $this->about]);
 
         //logs stored when updated by category observer in app\observers
 
