@@ -5,32 +5,19 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 use App\Product;
 use App\Product_image;
 use App\Product_review;
-use Session;
-use Redirect;
 
 class ProductCtrl extends Controller
 {
     //function index - show products page and products live search
-    public function index(Request $request)
+    public function index()
     {
-        
-        if($request->ajax())
-        {
-            $products = Product::where('name','LIKE','%'.$request->prod_search."%")->orderBY('created_at','DESC')->paginate(30);
-            $prodCount = $products->total();
-            $returnProducts = view('backend.product.search')->with('products',$products)->render();
-            return Response()->json(['data'=>$returnProducts, 'count'=>$prodCount]);
-        }
-        else {
-            $prodAllCount = Product::count();
-            $products = Product::orderBY('created_at','DESC')->paginate($prodAllCount);
-            return view('backend.product.list')->with('products',$products);
-        }
-        
+        return view('backend.product.list');        
     }
 
     //function creat - show create new product page
@@ -38,22 +25,17 @@ class ProductCtrl extends Controller
         return view('backend.product.create');
     }
 
-    //function store - store product data into database by livewire
-
-
-
-    //delete function - delete product data and it's images
-    public function destroy($id) {
+    //function edit - show edit product page
+    public function edit($id)
+    {
         $product = Product::findOrFail($id);
-        $product_images = Product::findOrFail($id)->product_images;
-        foreach($product_images as $img) {
-            Storage::Delete('public/products/'.$img->image);
-        }
-        $product->delete();
-        $product_images->each->delete();
-        return Redirect::route('product.index');
+        return view('backend.product.update')->with('product', $product);
     }
 
+    //store, update, delete and update price for product data with livewire components in livewire/backend/product
+
+
+    /******************    product detailes    ******************/
     // product function - show product page with all product's data
     public function product($id) {
         $product = Product::findOrFail($id);
@@ -61,7 +43,36 @@ class ProductCtrl extends Controller
         return view('backend.product.product')->with(['product' => $product, 'product_images' => $product_images]);
     }
 
-    // image update function - update product image
+    // image add function - add new product image in image table
+    public function image_add(Request $request,$prod_id) {
+        $validatedData = $request->validate([
+            'image' => 'required|max:8000|mimes:jpeg,bmp,png,jpg,mp4,webm,wmv,mpeg',
+        ]);
+
+        try {
+            $image = $request->file('image');
+            if($image) {
+                $filename = 'products/watche_'.$image->getClientOriginalName();
+                $imageExist = Product_image::Where(['product_id' => $prod_id, 'image' => $filename])->first();
+                if(!$imageExist) {
+                    $filename = 'watche_'.$image->getClientOriginalName();
+                    $path = $image->storeAs('products',$filename);
+                    
+                    Product_image::create([
+                        'product_id' => $prod_id,
+                        'image' => $path,
+                        'order' => 1,
+                    ]);
+                }
+            }
+            return Redirect::back();
+
+        } catch (EXTENSION $e) {
+            Session::flash('error','Error:'.$e);
+        }
+    }
+
+    // image update function - update product image in image table
     public function image_update(Request $request,$id,$image) {
         $validatedData = $request->validate([
             'order' => 'required|numeric|max:10'
@@ -81,7 +92,7 @@ class ProductCtrl extends Controller
         }
     }
 
-    //delete function - delete product data and it's images
+    //delete function - delete product image in images in table
     public function image_destroy($id,$image) {
         $product_image = Product_image::find($image);
 
@@ -90,33 +101,10 @@ class ProductCtrl extends Controller
         return Redirect::back();
     }
 
-    //sale function - make discount on product price
-    public function sale(Request $request, $id) {
-        $validatedData = $request->validate([
-            'new_price' => 'required|numeric|gt:0',
-        ]);
-
-        try {
-            $product = Product::find($id);
-            if($product) {
-                $product->old_price = $product->price;
-                $product->price = $request->input('new_price')*100;
-                $product->save();
-            }
-
-            //logs stored when created by product observer in app\observers
-        } catch (EXTENSION $e) {
-            Session::flash('error','Error:'.$e);
-        }
-
-        return Redirect::back();
-    }
-
     //function reviews - show products reviews page
     public function reviews()
     {
-        $products_reviews = Product_review::orderBY('rate','DESC')->get();
-        return view('backend.product.reviews')->with('products_reviews',$products_reviews);
+        return view('backend.product.reviews');
     }
 
 }

@@ -53,7 +53,7 @@
                 </div>
                 <div class="review__details">
                     <div class="review__info">
-                        <h4><a href="#">{{ App\User::getUserName($review->user) }}</a></h4>
+                        <h4><a href="#">{{ $review->user->name }}</a></h4>
                         <ul class="rating">
 
                             @php $user_rate = $review->rate @endphp
@@ -77,7 +77,7 @@
                     <p>{{ $review->review }}</p>
                 </div>
 
-                @if(Auth::check() && Auth::user()->id == $review->user)
+                @if(Auth::check() && Auth::user()->id == $review->user_id)
                 <div class="review__control dropdown">
                     <a href="#" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
                     <ul class="dropdown-menu">

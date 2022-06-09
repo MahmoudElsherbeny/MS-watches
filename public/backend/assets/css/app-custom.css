@@ -101,12 +101,48 @@ select {
 /*************************************/
 /*  ******   product page   ******  */
 /************************************/
+.product_images .prod_image {
+    position: relative;
+}
+.product-video-overlay {
+    background-color: #444;
+    height: 230px;
+    width: 89%;
+    position: absolute;
+    top: 0;
+    opacity: 0.1;
+}
+.product-video-overlay:hover {
+    opacity: 0.4;
+}
+.product-video {
+    top: 74px;
+    left: 124px;
+    position: absolute;
+    content: "";
+    z-index: 9;
+}
+.product-video a {
+    color: #fff;
+    font-size: 44px;
+    display: inline-block;
+}
+.product-video a i {
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+    margin-top: 4px;
+}
 
 .product_page .product_info h2,
 .product_page .product_info .cel1,
 .product_page .product_info .price,
 .product_page .product_description h2 {
     font-weight: 500;
+}
+.product_page .mini_description {
+    height: 117px;
+    overflow: hidden;
 }
 
 .product_page .product_info .price {

@@ -15,14 +15,14 @@
 
                         @foreach ($slides as $slide)
                             <!-- Start Single Slide -->
-                            <div class="slide slider__full--screen slider-height-inherit slider-text-right" style="background: url('storage/slides/{{ $slide->image }}') no-repeat scroll center center / cover ;">
+                            <div class="slide slider__full--screen slider-height-inherit slider-text-right" style="background: url('{{ asset('storage/'.$slide->image) }}') no-repeat scroll center center / cover ;">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-10 col-lg-9 col-md-offset-2 col-lg-offset-3 col-sm-12 col-xs-12">
                                             <div class="slider__inner">
                                                 <h1>{{ $slide->title }} <span class="text--theme">{{ $slide->sub_title }}</span></h1>
                                                 <div class="slider__btn">
-                                                    <a class="htc__btn" href="#">shop now</a>
+                                                    <a class="htc__btn" href="@if($slide->link == 'shop') {{ route('shop') }} @else {{ route('category_page',['id' => $slide->link]) }} @endif">shop now</a>
                                                 </div>
                                             </div>
                                         </div>

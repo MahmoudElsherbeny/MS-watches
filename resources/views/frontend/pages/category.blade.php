@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title')  {{ $category->name }} @endsection
+@section('title')  Category | {{ $category->name }} @endsection
 
 @section('content')
 
@@ -24,16 +24,20 @@
     </div>
     <!-- End Bradcaump area -->
     <!-- Start Our Product Area -->
-    <section class="htc__product__area shop__page pt--50 pb--50 bg__white">
-        <div class="htc__product__container">
-            <div class="row">
-                <div class="product__list another-product-style">
-                    <!-- Start Single Product -->
-                    @include('frontend.product.card', ['products' => $products])
-                    <!-- End Single Product -->
-                    <!-- QUICKVIEW PRODUCT -->
-                    @include('frontend.product.quickview', ['products' => $products])
-                    <!-- END QUICKVIEW PRODUCT -->
+    <section class="htc__product__area shop__page ptb--50 bg__white">
+        <div class="container">
+            <div class="htc__product__container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product__list another-product-style fix">
+                            <!-- Start Single Product -->
+                            @include('frontend.product.card', ['products' => $products])
+                            <!-- End Single Product -->
+                            <!-- QUICKVIEW PRODUCT -->
+                            @include('frontend.product.quickview', ['products' => $products])
+                            <!-- END QUICKVIEW PRODUCT -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

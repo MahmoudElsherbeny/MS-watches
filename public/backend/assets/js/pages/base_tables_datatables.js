@@ -5,26 +5,7 @@ Description: Custom JS code used in Tables Datatables Page
 
 var BaseTableDatatables = function() {
 
-	// Init simple DataTable for products list: https://www.datatables.net/
-	var initDataTableProduct = function() {
-		jQuery( '#ProductsTable' ).dataTable({
-			columnDefs: [ 
-				{ orderable: false, targets: [ 5,9 ] }, 
-			],
-			pageLength: 30,
-			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
-			pagingType: "full_numbers",
-			searching: false,
-			oLanguage: {
-				sLengthMenu: ''
-			},
-			dom:
-				"<'row'<'col-sm-12'tr>>" +
-				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
-		});
-	};
-
-	// Init simple DataTable for categories list
+	// Init simple DataTable for categories list: https://www.datatables.net/
 	var initDataTableCategory = function() {
 		jQuery( '#CategoriesTable' ).dataTable({
 			columnDefs: [ 

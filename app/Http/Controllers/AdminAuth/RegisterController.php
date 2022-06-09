@@ -4,8 +4,9 @@ namespace App\Http\Controllers\AdminAuth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
-use Redirect;
 use App\Admin;
 
 class RegisterController extends Controller

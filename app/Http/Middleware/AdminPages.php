@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Redirect;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminPages
 {

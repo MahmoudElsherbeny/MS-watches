@@ -2,32 +2,23 @@
 
 namespace App\Http\Livewire\Backend\Slider;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Session;
 
 use Livewire\Component;
 use App\Slide;
 use App\Category;
 
-use Session;
-use Redirect;
-
 class Create extends Component
 {
     use WithFileUploads;
 
-    public $title;
-    public $subtitle;
-    public $order;
-    public $status;
-    public $link;
-    public $image;
-
-    public $filename;
+    public $title, $subtitle, $order, $status, $link, $image;
 
     protected $rules = [
         'title' => 'required|max:100|min:3',
         'subtitle' => 'required',
         'order' => 'required|numeric|gt:0',
-        'image' => 'required|max:5000',
+        'image' => 'required|max:8000|mimes:jpeg,bmp,png,jpg',
     ];
 
     public function mount() {
@@ -39,10 +30,10 @@ class Create extends Component
         
         $this->validate();
         //store slide
-        $this->filename = 'slide'.time().'.'.$this->image->getClientOriginalExtension();
-        $this->image->storeAs('public/slides',$this->filename);
+        $filename = 'slide_'.$this->image->getClientOriginalName();
+        $path = $this->image->storeAs('slides',$filename);
         Slide::create([
-            'image' => $this->filename,
+            'image' => $path,
             'title' => $this->title,
             'sub_title' => $this->subtitle,
             'order' => $this->order,

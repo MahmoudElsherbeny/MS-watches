@@ -146,6 +146,10 @@
 .product__inner {
     position: relative;
 }
+.pro__thumb img {
+    width: 100%;
+    height: 260px;
+}
 .product__action {
     display: flex;
     height: 46px;
@@ -413,28 +417,6 @@
 .is-affixed .inner-wrapper-sticky {
     padding-left: 15px;
 }
-.product-video-position {
-    position: relative;
-}
-.product-video {
-    bottom: 0;
-    left: 0;
-    padding: 0 0 50px 20px;
-    position: absolute;
-    content: "";
-    z-index: 99;
-}
-.product-video a {
-    border: 1px solid #ddd;
-    display: inline-block;
-    padding: 7px 20px 4px;
-}
-.product-video a i {
-    display: inline-block;
-    float: left;
-    margin-right: 5px;
-    margin-top: 4px;
-}
 .on-sale {
     content: "";
     position: absolute;
@@ -450,8 +432,6 @@
     padding: 5px 9px;
     text-transform: capitalize;
 }
-
-
 
 .product-categories-title > h3 {
     border-left: 1px solid rgba(129, 129, 129, 0.2);
@@ -1402,22 +1382,18 @@ h3.widget-title-modal {
     opacity: 1;
     top: 0;
 }
-.product__list {
+.product__shop__list {
     box-sizing: border-box;
-    padding-right: 15px;
+    padding-right: 10px;
     width: 100%;
     overflow: hidden;
 }
+.product__shop__list .single__pro,
 .product__list .single__pro {
-    padding: 0 6px;
-    width: 25%;
-    float: left;
-    overflow: hidden;
+    padding-left: 8px;
+    padding-right: 8px;
 }
-.popular__product__container {
-    margin-right: -15px;
-    margin-left: -15px;
-}
+
 .popular__product--2 .product {
     margin-top: 30px;
 }
@@ -1447,7 +1423,7 @@ h3.widget-title-modal {
     margin-left: -15px;
     margin-right: -15px;
 }
-.pro__thumb a img {
+.product__shop__list .pro__thumb a img {
     width: 250px;
     height: 240px;
 }
@@ -1810,9 +1786,8 @@ product__style--7
     background: #fff none repeat scroll 0 0;
     border-radius: 100%;
     font-size: 46px;
-    height: 60px;
     line-height: 59px;
-    padding-left: 4px;
+    padding-left: 3px;
     text-align: center;
     width: 60px;
 }
@@ -1844,6 +1819,10 @@ product__style--7
 }
 .choose__icon {
     min-width: 37px;
+}
+.choose__details {
+    height: 106px;
+    overflow: hidden;
 }
 .choose__details h4 {
     color: #505050;
@@ -2285,6 +2264,12 @@ select.select-color {
     margin: auto;
     padding: 88px 32px;
 }
+.contact_container {
+    height: 534px;
+    width: 100%;
+    margin: auto;
+    padding: 18px 28px;
+}
 .contact__details p {
     color: #666666;
     font-size: 18px;
@@ -2374,22 +2359,72 @@ select.select-color {
 .product__details__container {
     display: flex;
 }
+.product-video-position {
+    position: relative;
+}
+.product-video-overlay {
+    background-color: #444;
+    height: 126px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    opacity: 0.1;
+}
+.product-video-overlay:hover {
+    opacity: 0.4;
+}
+.product-video {
+    color: #fff;
+    top: 48px;
+    left: 46px;
+    position: absolute;
+    font-size: 30px;
+    content: "";
+    z-index: 9;
+}
+.product-video a {
+    border: 1px solid #ddd;
+    display: inline-block;
+    padding: 7px 20px 4px;
+}
+.product-video a i {
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+    margin-top: 4px;
+}
 .product__small__images {
     min-width: 20%;
     padding-right: 10px;
 }
 .product__big__images {
     max-width: 80%;
+    position: relative;
+}
+
+.product-big-video {
+    color: #eee;
+    cursor: pointer;
+    top: 224px;
+    left: 216px;
+    position: absolute;
+    font-size: 64px;
+    content: "";
+    z-index: 9;
+}
+.product-big-video:hover {
+    color: #fff;
 }
 .pot-small-img a {
     display: block;
 }
 .pot-small-img a img {
     width: 120px;
-    height: 140px;
+    height: 126px;
 }
 .pot-small-img {
     margin-top: 10px;
+    position: relative;
 }
 .product__small__images {
     margin-top: -10px;
@@ -2544,8 +2579,6 @@ select.select-color {
     margin-right: 18px;
     text-transform: capitalize;
 }
-.rating__list .rating {
-}
 .rating__list input.star {
     display: none;
 }
@@ -2688,14 +2721,18 @@ input.star:checked ~ label.star:before {
     border: 1px solid #ff4136;
     color: #fff;
 }
-.pro__dtl__btn li.buy__now__btn a {
+.pro__dtl__btn li.buy__now__btn button {
+    background-color: #fff;
+    border: 1px solid #eee;
     color: #4b4b4b;
     font-size: 14px;
     text-transform: uppercase;
     width: 175px;
+    height: 45px;
+    line-height: 38px;
     transition: 0.3s;
 }
-.pro__dtl__btn li.buy__now__btn a:hover {
+.pro__dtl__btn li.buy__now__btn button:hover {
     color: #fff;
     background: #ff4136;
     border: 1px solid #ff4136;
@@ -2730,7 +2767,9 @@ input.star:checked ~ label.star:before {
     line-height: 26px;
 }
 .pro__details {
-    margin-top: 20px;
+    margin-top: 18px;
+    height: 118px;
+    overflow: hidden;
 }
 .pro__choose__size {
     display: flex;
@@ -3936,7 +3975,7 @@ a.shipping-calculator-button:hover {
 
 .portfolio-full-image .tab-pane.fade img {
     width: 600px;
-    height: 590px;
+    height: 542px;
 }
 .htc__store__area .section__title.section__title--2 p {
     width: 53%;

@@ -10,17 +10,7 @@ class Category extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'category', 'id');
+        return $this->hasMany(Product::class);
     }
-
-    //get category name
-    static public function getCategoryName($id) {
-        $category = Self::find($id);
-        if($category) {
-            return $category->name;
-        }
-        else {
-            return 'Not Found';
-        }
-    }
+    
 }

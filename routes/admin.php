@@ -36,15 +36,17 @@ Route::group(['middleware'=>'admin', 'prefix'=>'category', 'as'=>'category.'] , 
 Route::group(['middleware'=>'admin', 'prefix'=>'products', 'as'=>'product.'] , function() {
 
     Route::get('/','backend\ProductCtrl@index')->name('index');
+    Route::get('/reviews','backend\ProductCtrl@reviews')->name('reviews');
+    Route::post('/{id}/add_as_website_review','backend\ProductCtrl@add_to_website')->name('add_to_website');
     Route::get('/create','backend\ProductCtrl@create')->name('create');
     Route::get('/{id}/edit','backend\ProductCtrl@edit')->name('edit');
     Route::post('/{id}/edit','backend\ProductCtrl@update');
     Route::post('/{id}/delete','backend\ProductCtrl@destroy')->name('delete');
     Route::get('/{id}','backend\ProductCtrl@product')->name('info');
     Route::post('/{id}/sale','backend\ProductCtrl@sale')->name('sale');
+    Route::post('/{id}/image/add','backend\ProductCtrl@image_add')->name('image_add');
     Route::post('/{id}/image/{image}/edit','backend\ProductCtrl@image_update')->name('image_edit');
     Route::post('/{id}/image/{image}/delete','backend\ProductCtrl@image_destroy')->name('image_delete');
-    Route::get('/reviews','backend\ProductCtrl@reviews')->name('reviews');
 
 });
 
@@ -90,6 +92,13 @@ Route::group(['middleware'=>'admin', 'prefix'=>'setting', 'as'=>'setting.'] , fu
 
     Route::get('/','backend\SettingController@index')->name('index');
     Route::get('/edit','backend\SettingController@edit')->name('edit');
+    Route::get('/website_reviews','backend\SettingController@website_reviews')->name('reviews');
+    Route::post('/website_reviews/{id}/edit','backend\SettingController@review_update')->name('review_update');
+    Route::post('/website_reviews/{id}/delete','backend\SettingController@review_destroy')->name('review_delete');
+    Route::get('/website_brands','backend\SettingController@website_brands')->name('brands');
+    Route::get('/website_brands/create','backend\SettingController@brand_create')->name('brand_create');
+    Route::get('/website_brands/{id}/edit','backend\SettingController@brand_edit')->name('brand_edit');
+    Route::post('/website_brands/{id}/delete','backend\SettingController@brand_destroy')->name('brand_delete');
 });
 
 //states routes

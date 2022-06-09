@@ -26,7 +26,7 @@ class Create extends Component
         $this->product = Product::findOrFail($this->productId);
         if(Auth::check()) {
             $this->user = Auth::user()->id;
-            $this->reviews = $this->product->product_reviews()->orderByRaw("user = $this->user DESC")
+            $this->reviews = $this->product->product_reviews()->orderByRaw("user_id = $this->user DESC")
                                                               ->OrderBy('created_at','DESC')->get();
         }
         else {
@@ -41,8 +41,8 @@ class Create extends Component
         
         //store product
         Product_review::create([
-            'user' => $this->user,
-            'product' => $this->productId,
+            'user_id' => $this->user,
+            'product_id' => $this->productId,
             'review' => $this->review,
             'rate' => $this->rate,
         ]);
@@ -50,7 +50,7 @@ class Create extends Component
         //rate average stored when review created by ProductReview observer in app\observers
 
         //show user review after submit
-        $this->reviews = $this->product->product_reviews()->orderByRaw("user = $this->user DESC")
+        $this->reviews = $this->product->product_reviews()->orderByRaw("user_id = $this->user DESC")
                                                           ->OrderBy('created_at','DESC')->get();
 
         return Redirect::back();

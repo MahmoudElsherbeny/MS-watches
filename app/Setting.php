@@ -14,8 +14,5 @@ class Setting extends Model
         if($setting) {
             return $setting->value;
         }
-        else {
-            return 'None';
-        }
     }
 }

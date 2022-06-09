@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Observers;
+use Illuminate\Support\Facades\Auth;
 
 use App\Setting;
 use App\Dashboard_log;
-use Auth;
 
 class SettingObserver
 {
@@ -22,8 +22,8 @@ class SettingObserver
             //$setting_name = $setting->getOriginal('name');
             if ($attribute != 'updated_at') {
                 Dashboard_log::create([
-                    'user' => Auth::guard('admin')->user()->id,
-                    'log' => 'Update Setting '.$setting->name.' '.$attribute.' to '.$new_value,
+                    'admin_id' => Auth::guard('admin')->user()->id,
+                    'log' => 'Update Website Setting '.$setting->name.' '.$attribute.' to '.$new_value,
                 ]);
             }
 

@@ -7,12 +7,15 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <h4 class="m-a-0 m-t-xs">Editors (<span id="editor_count">@if($editors){{count($editors)}}@endif</span>)</h4>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
+                <div class="col-md-7">
+                    <div class="form-group col-md-9">
                         <input class="form-control" type="text" name="search" id="editor_search" placeholder="Editor Search..." />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <a href="{{ route('editor.create') }}" class="btn btn-success">Create New Editor</a>
                     </div>
                 </div>
             </div>

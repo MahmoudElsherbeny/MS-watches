@@ -1233,6 +1233,11 @@ a.card:not(.bg-inverse):hover {
 	margin: 0 auto;
 }
 
+.card-header .form-group {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
 /* Card actions bar */
 .card-actions {
 	float: right;

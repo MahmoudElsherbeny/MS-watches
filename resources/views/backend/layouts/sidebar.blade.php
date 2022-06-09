@@ -120,10 +120,19 @@
                         <ul class="nav nav-subnav">
 
                             <li>
-                                <a href="{{ route('setting.index') }}">All Setting</a>
+                                <a href="{{ route('setting.index') }}">Website Setting</a>
                             </li>
                             <li>
-                                <a href="{{ route('setting.edit') }}">Edit Setting</a>
+                                <a href="{{ route('setting.edit') }}">Edit Website Setting</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('setting.reviews') }}">Website Reviews</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('setting.brands') }}">Website Brands</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('setting.brand_create') }}">Add Website Brand</a>
                             </li>
 
                         </ul>
