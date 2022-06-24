@@ -194,7 +194,7 @@
                 </div>
                 <ul class="shoping__total">
                     <li class="subtotal">Subtotal:</li>
-                    <li class="total__price">£{{ Cart::instance('cart')->subtotal() }}</li>
+                    <li class="total__price">£{{ Cart::instance('cart')->subtotalfloat() / 100 }}</li>
                 </ul>
                 <ul class="shopping__btn">
                     <li><a href="{{ route('cart.index') }}" class="ms-btn transparent-btn">View Cart</a></li>

@@ -3,7 +3,7 @@
 
 @section('content')
     
-    <!-- Create Category Form -->
+    <!-- Update Editor Form -->
     <div class="card">
         <div class="card-header">
             <h4 class="text-capitalize">Update Editor {{ $editor->name }} Permission</h4>
@@ -50,6 +50,6 @@
             {!! Form::Close() !!}
         </div>
     </div>
-    <!-- End Create Category Form -->
+    <!-- End Update Editor Form -->
 
 @endsection

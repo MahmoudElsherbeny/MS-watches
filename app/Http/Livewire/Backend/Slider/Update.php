@@ -43,6 +43,7 @@ class Update extends Component
             if($this->image) {
                 $filename = 'slides/slide_'.$this->image->getClientOriginalName();
                 $existInStorage = Storage::exists($filename);
+                //check if there isn't anthoer slide in storage with same name
                 if(!$existInStorage) {
                     $this->validate(['image' => 'max:8000|mimes:jpeg,bmp,png,jpg',]);
                     Storage::Delete($this->slide->image);

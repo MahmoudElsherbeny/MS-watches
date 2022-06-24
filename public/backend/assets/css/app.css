@@ -1418,6 +1418,10 @@ a.card:not(.bg-inverse):hover {
 }
 
 /* Profile card (used in profile page) */
+.card-profile {
+	min-height: 130px;
+}
+
 .card-profile-img {
 	height: 240px;
 }
@@ -1428,15 +1432,17 @@ a.card:not(.bg-inverse):hover {
 
 .card-profile-block .img-avatar {
 	border-radius: 6px;
-	margin-top: -16px 24px 24px;
+	margin: 0 0 14px;
+	/*
 	-webkit-transform: translate(0, -50%);
 	        transform: translate(0, -50%);
+	*/
 }
 
 @media screen and (min-width: 768px) {
 	.card-profile-block .img-avatar {
 		position: absolute;
-		bottom: 24px;
+		/*bottom: 21px;*/
 		left: 24px;
 		-webkit-transform: none;
 		        transform: none;

@@ -95,7 +95,7 @@
                                 <a href="{{ route('editor.index') }}">All Editors</a>
                             </li>
                             <li>
-                                <a href="base_tables_responsive.html">h</a>
+                                <a href="{{ route('editor.create') }}">Create New Editor</a>
                             </li>
 
                         </ul>

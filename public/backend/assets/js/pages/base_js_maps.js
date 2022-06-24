@@ -40,9 +40,9 @@ var BaseJsMaps = function() {
 	// Init Geolocation Map
 	var initMapGeo = function() {
 		var gmapGeolocation = new GMaps({
-			div: '#js-map-geo',
-			lat: 0,
-			lng: 0,
+			div: '#store_map',
+			lat: 24.740691,
+			lng: 46.6528521,
 			scrollwheel: false
 		});
 
@@ -71,43 +71,6 @@ var BaseJsMaps = function() {
 		});
 	};
 
-	// Init Satellite Map
-	var initMapSatellite = function() {
-		new GMaps({
-			div: '#js-map-sat',
-			lat: 0,
-			lng: 0,
-			zoom: 1,
-			scrollwheel: false
-		}).setMapTypeId( google.maps.MapTypeId.SATELLITE );
-	};
-
-	// Init Terrain Map
-	var initMapTerrain = function() {
-		new GMaps({
-			div: '#js-map-ter',
-			lat: 0,
-			lng: 0,
-			zoom: 1,
-			scrollwheel: false
-		}).setMapTypeId( google.maps.MapTypeId.TERRAIN );
-	};
-
-	// Init Overlay Map
-	var initMapOverlay = function() {
-		new GMaps({
-			div: '#js-map-overlay',
-			lat: 37.7577,
-			lng: -122.4376,
-			zoom: 11,
-			scrollwheel: false
-		}).drawOverlay({
-			lat: 37.7577,
-			lng: -122.4376,
-			content: $( '#js-map-overlay-content' ).html()
-		});
-	};
-
 	// Init Markers Map
 	var initMapMarkers = function() {
 		new GMaps({
@@ -125,17 +88,6 @@ var BaseJsMaps = function() {
 		]);
 	};
 
-	// Init Street Map
-	var initMapStreet = function() {
-		new GMaps.createPanorama({
-			el: '#js-map-street',
-			lat: 37.809345,
-			lng: -122.475825,
-			pov: {heading: 340.91, pitch: 4},
-			scrollwheel: false
-		});
-	};
-
 	return {
 		init: function () {
 			// Gmaps.js: https://hpneo.github.io/gmaps/
@@ -145,11 +97,7 @@ var BaseJsMaps = function() {
 
 			// Init Example Maps
 			initMapGeo();
-			initMapTerrain();
-			initMapSatellite();
 			initMapMarkers();
-			initMapOverlay();
-			initMapStreet();
 		}
 	};
 }();

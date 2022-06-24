@@ -30,17 +30,27 @@ class LoginController extends Controller
              'password' => 'required',
          ]);
  
+         $editor = Admin::Where('email',$request->input('email'))->first();
+         $remember = ($request->input('remember_me')) ? true : false;
          try {
-
-            $remember = ($request->input('remember_me')) ? true : false;
-            if (Auth::guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')],$remember))
-            {
-                $user = Auth::guard('admin')->user();
-                return Redirect::route('dashboard');
-            }else{
-                Session::flash('error','email or password is wrong');
+            //check if user exist
+            if($editor) {
+                //check if his account active
+                if($editor->status == 'active') {
+                    if (Auth::guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')],$remember))
+                    {
+                        return Redirect::route('dashboard');
+                    }else{
+                        Session::flash('error','email or password is wrong');
+                    }
+                }
+                else {
+                    Session::flash('error','sorry you can\'t access your acount for now');
+                }
             }
-
+            else{
+                Session::flash('error','account doesn\'t exist');
+            }
          } catch (EXTENSION $e) {
              Session::flash('error','Error:'.$e);
          }

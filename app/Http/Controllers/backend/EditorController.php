@@ -6,25 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 use App\Admin;
 
 class EditorController extends Controller
 {
-    //function index - show categories page and categories live search
-    public function index(Request $request)
+    //function index - show editors page and editors live search
+    public function index()
     {
-        if($request->ajax())
-        {
-            $editors = Admin::where('name','LIKE','%'.$request->editor_search.'%')->where('email','!=','admin')->orderBY('created_at','DESC')->get();
-            $editorCount = count($editors);
-            $returnEditors = view('backend.editors.search')->with('editors',$editors)->render();
-            return Response()->json(['data'=>$returnEditors, 'count'=>$editorCount]);
-        }
-        else {
-            $editors = Admin::Where('email','!=','admin')->orderBY('created_at','DESC')->get();
-            return view('backend.editors.list')->with('editors',$editors);
-        }
+        return view('backend.editors.list');
+    }
+
+    //function create - show create new editor page
+    public function create() {
+        return view('backend.editors.create');
     }
 
     //function edit - show edit editor page
@@ -39,17 +35,20 @@ class EditorController extends Controller
         try {
             
             $editor = Admin::find($id);
-            if($editor != null) {
+            if($editor && $editor->name != 'admin') {
                 $editor->role = $request->input('role');
                 $editor->status = $request->input('status');
-                $editor->save();
 
-                Session::flash('success','Editor Permissions Updated Successfully');
-                return Redirect::back();
+                if($editor->isDirty()) {
+                    $editor->save();
+                    Session::flash('success','Editor Permissions Updated Successfully');
+                }
+                else {
+                    Session::flash('error','No Changes To Update');
+                }
             }
-            else {
-                Session::flash('error','Editor Not Exist');
-            }
+
+            return Redirect::back();
             
         } catch (EXTENSION $e) {
             Session::flash('error','Error:'.$e);
@@ -61,7 +60,13 @@ class EditorController extends Controller
     //function destroy - delete editor and his data
     public function destroy($id) {
         $editor = Admin::find($id);
-        $editor->delete();
+        if($editor && $editor->name != 'admin') {
+            if($editor->image) {
+                $existInStorage = Storage::exists($editor->image);
+                $existInStorage ? Storage::Delete($editor->image) : '';
+            }
+            $editor->delete();
+        }
 
         return Redirect::route('editor.index');
     }

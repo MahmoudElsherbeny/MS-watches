@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\Slide;
+use App\User;
 use App\Website_brand;
 use App\Website_review;
 use View;

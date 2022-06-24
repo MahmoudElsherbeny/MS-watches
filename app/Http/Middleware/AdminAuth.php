@@ -21,6 +21,6 @@ class AdminAuth
             return $next($request);
         }
         
-        return Redirect::to('dashboard/login');
+        return Redirect::route('AdminAuth.LoginForm');
     }
 }

@@ -17,7 +17,7 @@ class AdminPages
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::guard('admin')->user() && Auth::guard('admin')->user()->role == 'admin'){
+        if(Auth::guard('admin')->user()->role == 'admin'){
             return $next($request);
         }
 
