@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,4 +13,5 @@ class DashController extends Controller
     public function dashboard() {
         return view("backend.dashboard");
     }
+
 }

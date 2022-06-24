@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Observers;
+use Illuminate\Support\Facades\Auth;
 
 use App\Slide;
 use App\Dashboard_log;
-use Auth;
 
 class SliderObserver
 {
@@ -19,7 +19,7 @@ class SliderObserver
         //store logs when slide created
         if ($slide->wasRecentlyCreated == true) {
             Dashboard_log::create([
-                'user' => Auth::guard('admin')->user()->id,
+                'admin_id' => Auth::guard('admin')->user()->id,
                 'log' => 'create new slide '.$slide->image,
             ]);
         }
@@ -31,11 +31,11 @@ class SliderObserver
         // search for changes
         foreach ($slide->getChanges() as $attribute => $new_value) {
 
-            $slide_name = $slide->getOriginal('image');
+            $slide_name = $slide->getOriginal('title');
             if ($attribute != 'updated_at') {
                 Dashboard_log::create([
-                    'user' => Auth::guard('admin')->user()->id,
-                    'log' => 'Update slide '.$slide_name.' '.$attribute.' to '.$new_value,
+                    'admin_id' => Auth::guard('admin')->user()->id,
+                    'log' => 'Update slide ('.$slide_name.') '.$attribute.' to '.$new_value,
                 ]);
             }
         }
@@ -46,7 +46,7 @@ class SliderObserver
     {
         //store logs when slide deleted
         Dashboard_log::create([
-            'user' => Auth::guard('admin')->user()->id,
+            'admin_id' => Auth::guard('admin')->user()->id,
             'log' => 'Delete slide '.$slide->image,
         ]);
     }

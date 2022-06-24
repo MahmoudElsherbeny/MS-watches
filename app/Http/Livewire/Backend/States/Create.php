@@ -3,11 +3,9 @@
 namespace App\Http\Livewire\Backend\States;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 use App\State;
-use Session;
-use Redirect;
-use Auth;
 
 class Create extends Component
 {

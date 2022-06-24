@@ -13,7 +13,7 @@
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" href="{{ url('backend/assets/img/apple-touch-icon.png') }}" />
-        <link rel="icon" href="{{ url('backend/assets/img/favicon.ico') }}" />
+        <link rel="icon" href="{{ asset('storage/'.App\Setting::getSettingValue('logo') ) }}" />
 
         <!-- Google fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
@@ -107,6 +107,7 @@
      <script src="{{ url('backend/assets/js/app-custom.js') }}"></script>
 
      <!-- Page Plugins -->
+     <script src="{{ url('backend/assets/js/plugins/plugins.js') }}"></script>
      <script src="{{ url('backend/assets/js/plugins/slick/slick.min.js') }}"></script>
      <script src="{{ url('backend/assets/js/plugins/chartjs/Chart.min.js') }}"></script>
      <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.min.js') }}"></script>
@@ -128,6 +129,14 @@
              App.initHelpers('slick');
          });
      </script>
+     <script type="text/javascript">
+        $('.DeleteFormModal').submit(function() {
+            $('.modal').removeClass('in');
+            $('.modal').css("display", "none");
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+        });
+    </script>
 
      <!--  livewire  -->
      @livewireScripts

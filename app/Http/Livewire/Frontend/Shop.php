@@ -9,6 +9,7 @@ class Shop extends Component
 {
 
     public $products;
+    public $search_for;
     public $filter_count;
     public $products_count = 64;
     public $filters = [
@@ -22,6 +23,7 @@ class Shop extends Component
         
     }
     
+    //check on filters array if it empty or not
     public function filtersNotEmpty(): bool {
         foreach($this->filters as $key => $value) {
             if(!empty($value)) {
@@ -49,18 +51,49 @@ class Shop extends Component
 
     public function render()
     {
+        //check if there filter values
         if($this->filtersNotEmpty()) {
-            $this->products = Product::Where('status','active')
-                                     ->WithFilters($this->filters)
-                                     ->limit($this->products_count)->get();
+            //check if there search value in website search
+            if(!$this->search_for) {
+                //if there not value then display default products and enable filters
+                $this->products = Product::Where('status','active')
+                                        ->WithFilters($this->filters)
+                                        ->limit($this->products_count)->get();
+            }
+            else {
+                //if there value then display results and enable filters
+                $this->products = Product::Where('status','active')
+                                        ->Where('name','like','%'.$this->search_for.'%')
+                                        ->OrWhere('mini_description','like','%'.$this->search_for.'%')
+                                        ->OrWhere('description','like','%'.$this->search_for.'%')
+                                        ->OrWhere('tags','like','%'.$this->search_for.'%')
+                                        ->OrWhere('body_color','like','%'.$this->search_for.'%')
+                                        ->OrWhere('mina_color','like','%'.$this->search_for.'%')
+                                        ->WithFilters($this->filters)
+                                        ->limit($this->products_count)->get();
+            }
         }
-        else {
-            $this->products = Product::Where('status','active')
-                                     ->orderBy('id','DESC')
-                                     ->limit($this->products_count)->get();
+        else { // if there is no filters
+            if(!$this->search_for) { //check if there search value in website search
+                //if there not value then display default products
+                $this->products = Product::Where('status','active')
+                                        ->orderBy('id','DESC')
+                                        ->limit($this->products_count)->get();
+            }
+            else {
+                 //if there value then display results and enable filters
+                $this->products = Product::Where('status','active')
+                                        ->Where('name','like','%'.$this->search_for.'%')
+                                        ->OrWhere('mini_description','like','%'.$this->search_for.'%')
+                                        ->OrWhere('description','like','%'.$this->search_for.'%')
+                                        ->OrWhere('tags','like','%'.$this->search_for.'%')
+                                        ->OrWhere('body_color','like','%'.$this->search_for.'%')
+                                        ->OrWhere('mina_color','like','%'.$this->search_for.'%')
+                                        ->limit($this->products_count)->get();
+            }
         }
 
-        return view('livewire.frontend.shop');
+        return view('livewire.frontend.shop')->with('products',$this->products);
     }
 
 }

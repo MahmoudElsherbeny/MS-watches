@@ -48,6 +48,10 @@
 /*------------------
   01. Reset
 --------------------*/
+title {
+  text-transform: capitalize;
+}
+
 *,
 h1,
 h2,
@@ -67,6 +71,9 @@ a {
 ------------------------*/
 .fix {
     overflow: hidden
+}
+.hidden {
+  display: none;
 }
 .browserupgrade {
     margin: 0.2em 0;

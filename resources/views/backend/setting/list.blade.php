@@ -8,7 +8,10 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h4 class="m-a-0 m-t-xs">Setting (<span>{{count($settings)}}</span>)</h4>
+                    <h4 class="m-a-0 m-t-sm">Website Setting (<span>{{count($settings)}}</span>)</h4>
+                </div>
+                <div class="text-right col-md-6 col-sm-6">
+                    <a href="{{ route('setting.edit') }}" class="btn btn-success">Update Setting</a>
                 </div>
             </div>
         </div>

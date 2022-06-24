@@ -10,10 +10,7 @@ use Redirect;
 class Create extends Component
 {
 
-    public $name;
-    public $icon;
-    public $order;
-    public $status;
+    public $name, $icon, $order, $status;
 
     protected $rules = [
         'name' => 'required|max:40|min:3|regex:/^[a-zA-Z0-9 ]+$/',

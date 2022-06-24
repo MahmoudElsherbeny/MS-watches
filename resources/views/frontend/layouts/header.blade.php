@@ -18,7 +18,7 @@
                             <li><a href="{{ route('home') }}">Home</a></li>
                             <li><a href="{{ route('shop') }}">Shop</a></li>
                             <li><a href="{{ route('aboutus') }}">About Us</a></li>
-                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                            <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
                             <li><a href="{{ route('cart.index') }}">Cart</a></li>
                             <li><a href="{{ route('wishlist.index') }}">Whishlist</a></li>
                             <li class="drop"><a href="#">pages</a>
@@ -36,15 +36,17 @@
                                 <li><a href="{{ route('home') }}">Home</a></li>
                                 <li><a href="{{ route('shop') }}">Shop</a></li>
                                 <li><a href="{{ route('aboutus') }}">About Us</a> </li>
-                                <li><a href="{{ route('contact') }}">Contact Us</a> </li>
-                                <li><a href="#">pages</a>
+                                <li><a href="{{ route('contact.index') }}">Contact Us</a> </li>
+                                <li><a href="{{ route('cart.index') }}">Cart</a></li>
+                                <li><a href="{{ route('wishlist.index') }}">Whishlist</a></li>
+                                <li>
+                                    <a href="#">pages</a>
                                     <ul>
                                         <li><a href="cart.html">cart</a></li>
                                         <li><a href="wishlist.html">wishlist</a></li>
                                         <li><a href="checkout.html">checkout</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ route('cart.index') }}">Cart</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -80,6 +82,7 @@
 <!--  end header  -->
 
 <div class="body__overlay"></div>
+
 <!-- Start Offset Wrapper -->
 <div class="offset__wrapper">
     <!-- Start Search Popap -->
@@ -88,10 +91,10 @@
             <div class="row" >
                 <div class="col-md-12" >
                     <div class="search__inner">
-                        <form action="#" method="get">
-                            <input placeholder="Search here... " type="text">
+                        {!! Form::open(['url' => route('shop'), 'method' => 'get']) !!}
+                            <input type="text" name="site_search" placeholder="Search here... ">
                             <button type="submit"></button>
-                        </form>
+                        {!! Form::close() !!}
                         <div class="search__close__btn">
                             <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
                         </div>
@@ -191,7 +194,7 @@
                 </div>
                 <ul class="shoping__total">
                     <li class="subtotal">Subtotal:</li>
-                    <li class="total__price">£{{ Cart::instance('cart')->subtotal() }}</li>
+                    <li class="total__price">£{{ Cart::instance('cart')->subtotalfloat() / 100 }}</li>
                 </ul>
                 <ul class="shopping__btn">
                     <li><a href="{{ route('cart.index') }}" class="ms-btn transparent-btn">View Cart</a></li>

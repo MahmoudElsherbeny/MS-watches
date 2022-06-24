@@ -24,7 +24,7 @@
                                 <i class="zmdi zmdi-email"></i>
                             </div>
                             <div class="address-text">
-                                <a href="">{{ App\Setting::getSettingValue('email') }}</a>
+                                <a href="{{ route('contact.index') }}">{{ App\Setting::getSettingValue('email') }}</a>
                             </div>
                         </li>
                         <li>
@@ -53,7 +53,7 @@
                 @foreach ($categories->split($categories->count()/5) as $row)
                     <ul class="footer-categories col-md-5">
                         @foreach ($row as $category)
-                            <li><a href="shop-sidebar.html" class="text-capitalize">{{ $category->name }}</a></li>
+                            <li><a href="{{ route('category_page', ['id' => $category->id]) }}" class="text-capitalize">{{ $category->name }}</a></li>
                         @endforeach
                     </ul>
                 @endforeach
@@ -68,7 +68,7 @@
                     <li><a href="{{ route('home') }}">Home</a></li>
                     <li><a href="{{ route('shop') }}">Shop</a></li>
                     <li><a href="{{ route('aboutus') }}">About Us</a></li>
-                    <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                    <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
                     <li><a href="{{ route('cart.index') }}">Cart</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>

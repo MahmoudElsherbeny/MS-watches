@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Backend\Slider;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Livewire\WithFileUploads;
 
@@ -9,19 +10,12 @@ use Livewire\Component;
 use App\Slide;
 use App\Category;
 
-use Session;
-use Redirect;
-
 class Update extends Component
 {
     use WithFileUploads;
 
     public $slide;
-    public $title;
-    public $subtitle;
-    public $order;
-    public $status;
-    public $link;
+    public $title, $subtitle, $order, $status, $link, $image;
 
     protected $rules = [
         'title' => 'required|max:100|min:3',
@@ -40,22 +34,41 @@ class Update extends Component
     public function update() {
         
         $this->validate();
-        if($this->slide != null) {
+        if($this->slide) {
             $this->slide->title = $this->title;
             $this->slide->sub_title = $this->subtitle;
             $this->slide->order = $this->order;
             $this->slide->status = $this->status;
             $this->slide->link = $this->link;
-            $this->slide->save();
+            if($this->image) {
+                $filename = 'slides/slide_'.$this->image->getClientOriginalName();
+                $existInStorage = Storage::exists($filename);
+                //check if there isn't anthoer slide in storage with same name
+                if(!$existInStorage) {
+                    $this->validate(['image' => 'max:8000|mimes:jpeg,bmp,png,jpg',]);
+                    Storage::Delete($this->slide->image);
+                    $filename = 'slide_'.$this->image->getClientOriginalName();
+                    $path = $this->image->storeAs('slides', $filename);
+                    $this->slide->image = $path;
+                }
+                else {
+                    Session::flash('error','there are slide image with the same name');
+                }
+            }
+
+            if($this->slide->isDirty()) {
+                $this->slide->save();
+                Session::flash('success','Slide Updated Successfully');
+            }
+            else {
+                Session::flash('error','No Changes To Update');
+            }
 
             //logs stored when updated by slider observer in app\observers
-
-            Session::flash('success','Slide Updated Successfully');
         }
         else {
             Session::flash('error','Slide Not Exist');
         }
-        return Redirect::route('slider.edit', ['id' => $this->slide->id]);
         
     }
 

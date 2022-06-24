@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    {!! Form::Open(['wire:submit.prevent' => 'update']) !!}
+    {!! Form::Open(['wire:submit.prevent' => 'update', 'files' => true ]) !!}
         <div class="form-group">
             <label>Name:</label>
             <input class="form-control @error('name') input-error @enderror" type="text" name="name" wire:model="name" />
@@ -40,6 +40,13 @@
             @enderror
         </div>
         <div class="form-group">
+            <label>About US Paragraph:</label>
+            <input class="form-control @error('about') input-error @enderror" type="text" name="about" wire:model="about" />
+            @error('about')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group">
             <label>Facebook Link:</label>
             <input class="form-control @error('facebook') input-error @enderror" type="text" name="facebook" wire:model="facebook" />
             @error('facebook')
@@ -61,15 +68,29 @@
             @enderror
         </div>
         <div class="form-group">
-            <label>about US Paragraph:</label>
-            <input class="form-control @error('about') input-error @enderror" type="text" name="about" wire:model="about" />
-            @error('about')
+            <label>Website Logo:</label>
+            <input class="@error('logo') input-error @enderror" type="file" name="logo" wire:model="logo" accept="image/*" />
+            @error('logo')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group">
+            <label>Website Image:</label>
+            <input class="@error('image') input-error @enderror" type="file" name="image" wire:model="image" accept="image/*" />
+            @error('image')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group">
+            <label>Website Video:</label>
+            <input class="@error('video') input-error @enderror" type="file" name="video" wire:model="video" accept="video/*" />
+            @error('video')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group m-b-0">
             <button class="btn btn-success" type="submit">Update</button>
-            <a href="{{ route('category.index') }}" class="btn btn-app">Back</a>
+            <a href="{{ route('setting.index') }}" class="btn btn-app">Back</a>
         </div>
     {!! Form::Close() !!}
 

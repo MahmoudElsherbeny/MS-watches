@@ -101,13 +101,13 @@
     </div>
 
     <div class="col-md-9">
-        @if(count($this->products))
-            <div class="product__list another-product-style">
+        @if(count($products))
+            <div class="product__shop__list another-product-style">
                 <!-- Start Single Product -->
-                @include('frontend.product.card', ['products' => $this->products])
+                @include('frontend.product.card', ['products' => $products])
                 <!-- End Single Product -->
                 <!-- QUICKVIEW PRODUCT -->
-                @include('frontend.product.quickview', ['products' => $this->products])
+                @include('frontend.product.quickview', ['products' => $products])
                 <!-- END QUICKVIEW PRODUCT -->
             </div>
         @else

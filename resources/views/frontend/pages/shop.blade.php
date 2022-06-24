@@ -30,7 +30,7 @@
                 <div class="row">
 
                     <!--   livewire/frontend/shop.blade.php   -->
-                    @livewire('frontend.shop')
+                    @livewire('frontend.shop', ['search_for' => $search_for])
 
                 </div>
 

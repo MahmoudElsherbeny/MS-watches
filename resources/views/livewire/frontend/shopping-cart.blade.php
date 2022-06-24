@@ -56,7 +56,7 @@
                 <div class="cart_totals">
                     <div class="order_total">
                         <span class="title">Subtotal:</span>
-                        <span class="amount">£{{ Cart::instance('cart')->subtotal() }}</span>
+                        <span class="amount">£{{ Cart::instance('cart')->subtotalfloat() / 100 }}</span>
                     </div>
                     <div class="wc-proceed-to-checkout">
                         <a href="{{ route('cart.checkout_page') }}">Proceed to Checkout</a>

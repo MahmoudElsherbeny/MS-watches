@@ -3,62 +3,83 @@
 namespace App\Http\Livewire\Backend\Setting;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
+
 use App\Setting;
-use Session;
-use Redirect;
 
 class Update extends Component
 {
-    public $name;
-    public $address;
-    public $phone;
-    public $email;
-    public $facebook;
-    public $twitter;
-    public $instagram;
-    public $about;
+    use WithFileUploads;
+
+    public $name, $address, $phone, $email, $about;
+    public $facebook, $twitter, $instagram;
+    public $logo, $image, $video;
+
+    private $update_values = ['name', 'address', 'phone', 'email', 'about', 'facebook', 'twitter', 'instagram'];
 
     protected $rules = [
         'name' => 'required|max:8|regex:/^[a-zA-Z0-9 ]+$/',
         'address' => 'required|max:50',
         'phone' => 'required|numeric',
         'email' => 'required|email',
+        'about' => 'required',
         'facebook' => 'required|url',
         'twitter' => 'required|url',
         'instagram' => 'required|url',
-        'about' => 'required',
     ];
 
     public function mount() {
-        $this->name = Setting::getSettingValue('name');
-        $this->address = Setting::getSettingValue('address');
-        $this->phone = Setting::getSettingValue('phone');
-        $this->email = Setting::getSettingValue('email');
-        $this->facebook = Setting::getSettingValue('facebook');
-        $this->twitter = Setting::getSettingValue('twitter');
-        $this->instagram = Setting::getSettingValue('instagram');
-        $this->about = Setting::getSettingValue('about');
+        foreach($this->update_values as $value) {
+            $this->$value = Setting::getSettingValue($value);
+        }
     }
 
-    public function update() {
+    public function update(Setting $setting) {
         
         $this->validate();
+       
+        foreach($this->update_values as $value) {
+            Setting::Where('name',$value)->update(['value' => $this->$value]);
+        }
+        if($this->logo) {
+            $filename = 'setting/logo.'.$this->logo->getClientOriginalExtension();
+            $existInStorage = Storage::exists($filename);
+            if($existInStorage) {
+                Storage::Delete($filename);
+            }
+            $this->validate(['logo' => 'max:4000|mimes:jpeg,bmp,png,jpg,ico']);
+            $filename = 'logo.'.$this->logo->getClientOriginalExtension();
+            $path = $this->logo->storeAs('setting', $filename);
+            Setting::Where('name','logo')->update(['value' => $path]);
+        }
+        if($this->image) {
+            $filename = 'setting/image.'.$this->image->getClientOriginalExtension();
+            $existInStorage = Storage::exists($filename);
+            if($existInStorage) {
+                Storage::Delete($filename);
+            }
+            $this->validate(['image' => 'max:8000|mimes:jpeg,bmp,png,jpg']);
+            $filename = 'image.'.$this->image->getClientOriginalExtension();
+            $path = $this->image->storeAs('setting', $filename);
+            Setting::Where('name','image')->update(['value' => $path]);
+        }
+        if($this->video) {
+            $filename = 'setting/video.'.$this->video->getClientOriginalExtension();
+            $existInStorage = Storage::exists($filename);
+            if($existInStorage) {
+                Storage::Delete($filename);
+            }
+            $this->validate(['video' => 'max:8000|mimes:mp4,webm,mvp']);
+            $filename = 'video.'.$this->video->getClientOriginalExtension();
+            $path = $this->video->storeAs('setting', $filename);
+            Setting::Where('name','video')->update(['value' => $path]);
+        }
 
-        Setting::Where('name','name')->update(['value' => $this->name]);
-        Setting::Where('name','address')->update(['value' => $this->address]);
-        Setting::Where('name','phone')->update(['value' => $this->phone]);
-        Setting::Where('name','email')->update(['value' => $this->email]);
-        Setting::Where('name','facebook')->update(['value' => $this->facebook]);
-        Setting::Where('name','twitter')->update(['value' => $this->twitter]);
-        Setting::Where('name','instagram')->update(['value' => $this->instagram]);
-        Setting::Where('name','about')->update(['value' => $this->about]);
+        //logs stored when updated by settingObserver in app\observers
+        Session::flash('success','Website Setting Updated Successfully');
 
-        //logs stored when updated by category observer in app\observers
-
-        Session::flash('success','Setting Updated Successfully');
-        
-        return Redirect::route('setting.edit');
-        
     }
 
     public function render()

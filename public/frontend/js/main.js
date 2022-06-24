@@ -57,27 +57,6 @@ $('.mobile-menu nav').meanmenu({
   02. wow js active
 --------------------------------------------- */
   new WOW().init();
-    
-    
-/*-------------------------------------------
-  03. Product  Masonry (width)
---------------------------------------------- */ 
-$('.htc__product__container').imagesLoaded( function() {
-  
-    // filter items on button click
-    $('.product__menu').on( 'click', 'button', function() {
-      var filterValue = $(this).attr('data-filter');
-      $grid.isotope({ filter: filterValue });
-    }); 
-
-});
-
-$('.product__menu button').on('click', function(event) {
-    $(this).siblings('.is-checked').removeClass('is-checked');
-    $(this).addClass('is-checked');
-    event.preventDefault();
-});
-
 
 
 /*-------------------------------------------
@@ -122,15 +101,6 @@ $('[data-toggle="tooltip"]').tooltip({
     window.sr = ScrollReveal({ duration: 800 , reset: true });
     sr.reveal('.foo');
     sr.reveal('.bar');
-    
-    
-/*-------------------------------------------------------
-  08. Fixed Footer bottom script ( Newsletter )
---------------------------------------------------------
-
-var $newsletter_height = $(".htc__foooter__area");
-$('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
-*/
 
 /*------------------------------------    
   09. Search Bar
@@ -284,7 +254,20 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
       }
     });
     
-    
+/*-----------------------------------------------
+  15. Popular Product Wrap
+-------------------------------------------------*/
+$('.video_play').on('click', function() {
+  if ($('.product_video').paused) {
+    $('.product_video').play();
+    $('.video_play').addClass('hidden');
+  }
+  else {
+    $('.product_video').pause();
+    $('.video_play').removeClass('hidden');
+  } 
+});
+
 /*-----------------------------------------------
   16.  product-slider-active
 -------------------------------------------------*/
@@ -344,7 +327,7 @@ $('.fixed__footer').css({'margin-bottom': $newsletter_height.height() + 'px'});
           items:4
         },
         1200:{
-          items:5
+          items:4
         },
         1400:{
           items:5

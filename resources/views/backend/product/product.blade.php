@@ -12,8 +12,21 @@
                         <div class="product_images">
                             <div class="row">
                                 @foreach ($product_images as $image)
-                                    <div class="col-md-6 m-b">
-                                        <img src="{{ url('storage/products/'.$image->image) }}" width="100%" height="230px" />
+                                    <div class="col-md-6 m-b prod_image">
+                                    @if (App\Product_image::isImage($image->image))
+                                        <img src="{{ asset('storage/' . $image->image) }}" width="100%" height="230px" />
+                                    @elseif (App\Product_image::isVideo($image->image))
+                                        <video class="product_video" width="100%" height="230">
+                                            <source src="{{ url('storage/products/'.$image->image) }}">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <div class="product-video-overlay"></div>
+                                        <div class="product-video">
+                                            <a class="video-popup" href="{{ url('storage/products/'.$image->image) }}">
+                                                <i class="ion-ios-play"></i>
+                                            </a>
+                                        </div>
+                                    @endif
                                     </div>
                                 @endforeach
                             </div>
@@ -32,7 +45,7 @@
                             </div>
                             <div class="product_category m-y-sm">
                                 <span class="cel1">Category: </span>
-                                <span class="text-capitalize p-x-sm">{{ App\Category::getCategoryName($product->category) }}</span>
+                                <span class="text-capitalize p-x-sm">{{ $product->category->name }}</span>
                             </div>
                             <div class="mini_description m-y">{{ $product->mini_description }}</div>
                             <div class="product_color m-b">
@@ -51,7 +64,7 @@
                             </div>
                             <div class="publisher m-y">
                                 <span class="cel1">Published By: </span>
-                                <span class="text-capitalize p-x-sm">{{ App\Admin::getAdminName($product->published_by) }} </span>
+                                <span class="text-capitalize p-x-sm">{{ $product->published_by->name }} </span>
                             </div>
                             <div class="product_date m-y-sm">
                                 <div class="created m-b-xs">
@@ -73,8 +86,46 @@
                 </div>
 
                 <div class="product_images m-y-lg">
-                    <h4 class="p-x-sm">Product Images ({{ count($product_images) }})</h4>
-                    <!-- DataTables init on table by adding .js-dataTable-simple class, functionality initialized in js/pages/base_tables_datatables.js -->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <h4 class="m-a-0 m-t-sm">Product Images ({{ count($product_images) }})</h4>
+                        </div>
+                        <div class="text-right col-md-6 col-sm-6">
+                            <button class="btn btn-success" data-toggle="modal" data-target="#AddNewImage">Add New Image</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="AddNewImage" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-card-header">
+                                            <div class="row">
+                                                <h4 class="col-md-11 text-left">Add New Product Image</h4>
+                                                <ul class="card-actions col-md-1 p-t-md">
+                                                    <li>
+                                                        <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {!! Form::Open(['url' => route('product.image_add', ['id' => $product->id]), 'files' => true ]) !!}
+                                        <div class="card-block text-left">
+                                            <label>Order:</label>
+                                            <input class="form-control @error('image') input-error @enderror" type="file" name="image" accept="image/*, video/*" />
+                                            @error('image')
+                                                <div class="msg-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="modal-footer">
+                                                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                                                <button class="btn btn-success" type="submit"> Add</button>
+                                        </div>
+                                        {!! Form::Close() !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Modal -->
+                        </div>
+                    </div>
+                            <!-- DataTables init on table by adding .js-dataTable-simple class, functionality initialized in js/pages/base_tables_datatables.js -->
                     <table class="table table-striped table-vcenter js-dataTable-simple">
                         <thead>
                             <tr>

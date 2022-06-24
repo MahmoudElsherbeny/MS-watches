@@ -75,9 +75,41 @@ select {
     width: 100%;
 }
 
+
+/************************************/
+/*  *******  verify page   *******  */
+/***********************************/
+.verify_after_register {
+    padding: 58px 8px;
+    align-items: center;
+}
+
+.verify_after_register .register_success_icon,
+.verify_after_register .register_error_icon {
+    font-size: 42px;
+}
+.verify_after_register .register_success_icon { color: #38bf56; }
+.verify_after_register .register_error_icon { color: #d82118; }
+
+.verify_after_register .register_success_content {
+    font-size: 26px;
+    margin-bottom: 44px;
+}
+
+.verify_after_register .register_success_links a,
+.verify_after_register .register_success_links button {
+    background: none;
+    border: none;
+    color: #ff4136;
+    font-size: 14px;
+    margin: 0 8px;
+    text-decoration: underline;
+}
+
+
 /************************************/
 /*  *******  items list   *******  */
-/***********************************/
+/**********************************/
 
 .js-dataTable-simple {
     font-size: 14px;
@@ -100,7 +132,39 @@ select {
 
 /*************************************/
 /*  ******   product page   ******  */
-/************************************/
+/***********************************/
+.product_images .prod_image {
+    position: relative;
+}
+.product-video-overlay {
+    background-color: #444;
+    height: 230px;
+    width: 89%;
+    position: absolute;
+    top: 0;
+    opacity: 0.1;
+}
+.product-video-overlay:hover {
+    opacity: 0.4;
+}
+.product-video {
+    top: 74px;
+    left: 124px;
+    position: absolute;
+    content: "";
+    z-index: 9;
+}
+.product-video a {
+    color: #fff;
+    font-size: 44px;
+    display: inline-block;
+}
+.product-video a i {
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+    margin-top: 4px;
+}
 
 .product_page .product_info h2,
 .product_page .product_info .cel1,
@@ -108,7 +172,41 @@ select {
 .product_page .product_description h2 {
     font-weight: 500;
 }
+.product_page .mini_description {
+    height: 117px;
+    overflow: hidden;
+}
 
 .product_page .product_info .price {
     color: #ff4136;
+}
+
+/*************************************/
+/*  ******   profile page   ******  */
+/***********************************/
+.edit_profile_image {
+    position: relative;
+}
+
+.edit_profile_image img {
+    border: 1px solid #f3f3f3;
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+}
+
+.edit_profile_image .image_label {
+    color: #888;
+    font-size: 16px;
+    position: absolute;
+    top: 104px;
+    left: 106px;
+}
+
+.edit_profile_image .image_label:hover {
+    color: #444;
+}
+
+.edit_profile_image .image_input {
+    display: none;
 }

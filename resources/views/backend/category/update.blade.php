@@ -3,7 +3,7 @@
 
 @section('content')
     
-    <!-- Create Category Form -->
+    <!-- update Category Form -->
     <div class="card">
         <div class="card-header">
             <h4 class="text-capitalize">Update Category {{ $category->name }}</h4>
@@ -12,10 +12,10 @@
         <div class="card-block">
             
             <!-- update category form with livewire  -->
-            @livewire('backend.category.update', ['categoryId' => $category->id, 'category' => $category])
+            @livewire('backend.category.update', ['category' => $category])
 
         </div>
     </div>
-    <!-- End Create Category Form -->
+    <!-- End update Category Form -->
 
 @endsection

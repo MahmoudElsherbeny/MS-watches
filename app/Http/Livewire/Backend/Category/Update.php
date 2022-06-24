@@ -3,10 +3,11 @@
 namespace App\Http\Livewire\Backend\Category;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+
 use App\Category;
 use App\Product;
-use Session;
-use Redirect;
 
 class Update extends Component
 {
@@ -14,7 +15,6 @@ class Update extends Component
     public $icon;
     public $order;
     public $status;
-    public $categoryId;
     public $category;
 
     protected $rules = [
@@ -37,24 +37,29 @@ class Update extends Component
             $this->category->icon = $this->icon;
             $this->category->order = $this->order;
             $this->category->status = $this->status;
-            $this->category->save();
 
-            //update products status dependes on category status
-            if($this->status == 'not active') {
-                Product::Where('category', $this->categoryId)->update(['status' => 'not active']);
+            if($this->category->isDirty()) {
+                $this->category->save();
+
+                //update products status dependes on category status
+                if($this->status == 'not active') {
+                    Product::Where('category', $this->category->id)->update(['status' => 'not active']);
+                }
+                elseif($this->status == 'active') {
+                    Product::Where('category', $this->category->id)->update(['status' => 'active']);
+                }
+
+                Session::flash('success','Category Updated Successfully');
             }
-            elseif($this->status == 'active') {
-                Product::Where('category', $this->categoryId)->update(['status' => 'active']);
+            else {
+                Session::flash('error','No Changes To Update');
             }
 
             //logs stored when updated by category observer in app\observers
-
-            Session::flash('success','Category Updated Successfully');
         }
         else {
             Session::flash('error','Category Not Exist');
         }
-        return Redirect::route('category.edit', ['id' => $this->category]);
         
     }
 

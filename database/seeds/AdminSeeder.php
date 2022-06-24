@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -19,7 +20,6 @@ class AdminSeeder extends Seeder
                 'password' => Hash::make('123456'),
                 'role' => 'admin',
                 'status' => 'active',
-                'remember_token' => Str::random(10)
             ],
             [
                 'name' => 'editor',
@@ -27,7 +27,6 @@ class AdminSeeder extends Seeder
                 'password' => Hash::make('123456'),
                 'role' => 'editor',
                 'status' => 'active',
-                'remember_token' => Str::random(10)
             ]
 
         ]);

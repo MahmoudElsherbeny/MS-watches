@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('category');
+            $table->integer('category_id');
             $table->text('mini_description');
             $table->text('description');
             $table->integer('price');
@@ -26,7 +26,7 @@ class CreateProductsTable extends Migration
             $table->float('rate');
             $table->string('tags');
             $table->string('status');
-            $table->integer('published_by');
+            $table->integer('admin_id');
             $table->timestamps();
         });
     }

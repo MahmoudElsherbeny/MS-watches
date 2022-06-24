@@ -20,7 +20,7 @@ class StateObserver
         //store logs when state created
         if ($state->wasRecentlyCreated == true) {
             Dashboard_log::create([
-                'user' => Auth::guard('admin')->user()->id,
+                'admin_id' => Auth::guard('admin')->user()->id,
                 'log' => 'create new state '.$state->state,
             ]);
         }
@@ -35,7 +35,7 @@ class StateObserver
             $state_name = $state->getOriginal('state');
             if ($attribute != 'updated_at') {
                 Dashboard_Log::create([
-                    'user' => Auth::guard('admin')->user()->id,
+                    'admin_id' => Auth::guard('admin')->user()->id,
                     'log' => 'Update state '.$state_name.' '.$attribute.' to '.$new_value,
                 ]);
             }
@@ -47,7 +47,7 @@ class StateObserver
     {
         //store logs when state deleted
         Dashboard_log::create([
-            'user' => Auth::guard('admin')->user()->id,
+            'admin_id' => Auth::guard('admin')->user()->id,
             'log' => 'Delete state '.$state->state,
         ]);
     }

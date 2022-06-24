@@ -8,7 +8,10 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h4 class="m-a-0 m-t-xs">Slides (<span>{{count($slides)}}</span>)</h4>
+                    <h4 class="m-a-0 m-t-sm">Slides (<span>{{count($slides)}}</span>)</h4>
+                </div>
+                <div class="col-md-6 text-right">
+                   <a href="{{ route('slider.create') }}" class="btn btn-success">Create New Slide</a>
                 </div>
             </div>
         </div>
@@ -35,7 +38,7 @@
                         <tr>
                             <td class="text-center">{{ $key+1 }}</td>
                             <td class="text-center text-capitalize">
-                                <img src="{{ url('storage/slides/'.$slide->image) }}" width="60" height="60" />
+                                <img src="{{ asset('storage/'.$slide->image) }}" width="68" height="60" />
                             </td>
                             <td class="text-center hidden-xs">{{ $slide->title }}</td>
                             <td class="text-center">{{ $slide->sub_title }}</td>

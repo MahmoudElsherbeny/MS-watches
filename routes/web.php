@@ -22,9 +22,15 @@ Route::get('/', 'frontend\HomeController@index')->name('home');
 Route::get('/category/{id}', 'frontend\HomeController@category')->name('category_page');
 Route::get('/shop', 'frontend\HomeController@shopPage')->name('shop');
 Route::get('/about', 'frontend\HomeController@aboutus')->name('aboutus');
-Route::get('/contact', 'frontend\HomeController@contact')->name('contact');
 Route::get('/login', 'frontend\HomeController@login')->name('login');
-Route::get('/register_success', 'frontend\HomeController@register_success')->name('register_success');
+
+//contact routes
+Route::group(['prefix'=>'contact', 'as'=>'contact.'] , function() {
+
+    Route::get('/', 'frontend\ContactController@index')->name('index');
+    Route::POST('/', 'frontend\ContactController@send')->name('send');
+
+});
 
 //product routes
 Route::get('product/{id}/details', 'frontend\productCtrl@product_detailes')->name('product_detailes');
@@ -48,7 +54,6 @@ Route::group(['prefix'=>'wishlist', 'as'=>'wishlist.'] , function() {
     Route::get('add/{id}', 'frontend\WishlistController@addToWishlist')->name('add');
 
 });
-
 
 
 Auth::routes(['verify' => true]);

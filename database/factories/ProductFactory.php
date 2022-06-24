@@ -13,19 +13,19 @@ use Faker\Generator as Faker;
 $factory->define(Product::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'category' => function() {
+        'category_id' => function() {
             return Category::all()->random();
         },
         'mini_description' => $faker->paragraph,
         'description' => $faker->paragraph,
-        'price' => $faker->numberBetween(100, 2000),
+        'price' => $faker->numberBetween(50000, 200000),
         'old_price' => 0,
         'body_color' => 'silver',
         'mina_color' => 'white',
         'rate' => $faker->numberBetween(1, 4.9),
-        'tags' => $faker->word,
+        'tags' => $faker->randomElement(['men', 'women', 'kids']),
         'status' => 'active',
-        'published_by' => function() {
+        'admin_id' => function() {
             return Admin::all()->random();
         },
     ];

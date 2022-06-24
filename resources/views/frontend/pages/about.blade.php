@@ -33,7 +33,7 @@
                         <p>{{ App\Setting::getSettingValue('about') }}</p>
                     </div>
                     <div class="store__btn">
-                        <a href="{{ route('contact') }}">contact us</a>
+                        <a href="{{ route('contact.index') }}">contact us</a>
                     </div>
                 </div>
             </div>
@@ -45,11 +45,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                    <div class="video__wrap bg--3" data--black__overlay="5">
+                    <div class="video__wrap" data--black__overlay="5" style="background: rgba(0, 0, 0, 0) url({{ asset('storage/'.App\Setting::getSettingValue('image')) }}) no-repeat scroll center center / cover ;">
                         <div class="video__inner">
-                            <a class="video__trigger video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                <i class="zmdi zmdi-play"></i>
-                            </a>
+                            @if (App\Setting::getSettingValue('video'))
+                                <a class="video__trigger video-popup" href="{{ asset('storage/'.App\Setting::getSettingValue('video') ) }}">
+                                    <i class="zmdi zmdi-play"></i>
+                                </a> 
+                            @endif                            
                         </div>
                     </div>
                 </div>
@@ -167,51 +169,23 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="testimonial__wrap owl-carousel owl-theme clearfix">
+                    @foreach ($reviews as $review)
                         <!-- Start Single Testimonial -->
                         <div class="testimonial">
                             <div class="testimonial__thumb">
                                 <img src="{{ url('frontend/images/test/client/1.png') }}" alt="testimonial images">
                             </div>
                             <div class="testimonial__details">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod teincidi dunt ut labore et dolore gna aliqua. Ut enim ad minim veniam,</p>
+                                <p>{{ $review->product_review->review }}</p>
                                 <div class="test__info">
-                                    <span><a href="#">Robiul siddikee</a></span>
+                                    <span><a href="#">{{ $review->product_review->user->name }}</a></span>
                                     <span> - </span>
                                     <span>Customer</span>
                                 </div>
                             </div>
                         </div>
                         <!-- End Single Testimonial -->
-                        <!-- Start Single Testimonial -->
-                        <div class="testimonial">
-                            <div class="testimonial__thumb">
-                                <img src="{{ url('frontend/images/test/client/2.png') }}" alt="testimonial images">
-                            </div>
-                            <div class="testimonial__details">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod teincidi dunt ut labore et dolore gna aliqua. Ut enim ad minim veniam,</p>
-                                <div class="test__info">
-                                    <span><a href="#">Robiul siddikee</a></span>
-                                    <span> - </span>
-                                    <span>Customer</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Testimonial -->
-                        <!-- Start Single Testimonial -->
-                        <div class="testimonial">
-                            <div class="testimonial__thumb">
-                                <img src="{{ url('frontend/images/test/client/3.png') }}" alt="testimonial images">
-                            </div>
-                            <div class="testimonial__details">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod teincidi dunt ut labore et dolore gna aliqua. Ut enim ad minim veniam,</p>
-                                <div class="test__info">
-                                    <span><a href="#">Robiul siddikee</a></span>
-                                    <span> - </span>
-                                    <span>Customer</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Testimonial -->
+                    @endforeach
                     </div>
                 </div>
             </div>
@@ -224,21 +198,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="brand__list">
-                        <li><a href="#">
-                            <img src="{{ url('frontend/images/brand/1.png') }}" alt="brand images">
-                        </a></li>
-                        <li><a href="#">
-                            <img src="{{ url('frontend/images/brand/2.png') }}" alt="brand images">
-                        </a></li>
-                        <li><a href="#">
-                            <img src="{{ url('frontend/images/brand/3.png') }}" alt="brand images">
-                        </a></li>
-                        <li><a href="#">
-                            <img src="{{ url('frontend/images/brand/4.png') }}" alt="brand images">
-                        </a></li>
-                        <li class="hidden-sm"><a href="#">
-                            <img src="{{ url('frontend/images/brand/5.png') }}" alt="brand images">
-                        </a></li>
+                    @foreach ($brands as $brand)
+                        <li>
+                            <a href="{{ $brand->link }}">
+                                <img src="{{ asset('storage/' . $brand->image) }}" alt="brand images">
+                            </a>
+                        </li>
+                    @endforeach
                     </ul>
                 </div>
             </div>

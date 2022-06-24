@@ -5,43 +5,25 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use Hash;
-
 class Admin extends Authenticatable
 {
     protected $fillable = [
-        'name', 'email', 'role', 'status'
+        'image', 'name', 'email', 'password', 'role', 'status', 'hash'
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'hash'
     ];
 
-    //password hash
-    public function setPasswordAttribute($password)
+    protected $dates = [
+        'updated_at',
+        'created_at',
+        'email_verified_at'
+    ];
+
+    public function dashboard_logs()
     {
-        $this->attributes['password'] = Hash::make($password);
+        return $this->hasMany(Dashboard_log::class);
     }
-
-    //get user name
-    static public function getAdminName($id) {
-        $admin = Self::find($id);
-        if($admin) {
-            return $admin->name;
-        }
-        else {
-            return 'Not Found';
-        }
-    }
-
-    //get user role
-    static public function getAdminRole($id) {
-        $admin = Self::find($id);
-        if($admin) {
-            return $admin->role;
-        }
-        else {
-            return 'Not Found';
-        }
-    }
+    
 }

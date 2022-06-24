@@ -1,10 +1,10 @@
 @foreach ($products as $product)
-   <div class="col single__pro cat--1">
+   <div class="col-md-3 single__pro col-lg-3 col-sm-4 col-xs-12 cat--1">
         <div class="product">
             <div class="product__inner">
                 <div class="pro__thumb">
                     <a href="#">
-                        <img src="{{ url(App\Product_image::ProductMainImage($product->id)) }}" alt="product images">
+                        <img src="{{ App\Product_image::ProductMainImage($product->id) }}" alt="product images">
                     </a>
                 </div>
                 <div class="product__hover__info">

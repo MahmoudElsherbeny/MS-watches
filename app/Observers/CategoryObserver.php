@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Observers;
+use Illuminate\Support\Facades\Auth;
 
 use App\Category;
 use App\Dashboard_log;
-use Auth;
 
 class CategoryObserver
 {
@@ -20,7 +20,7 @@ class CategoryObserver
         //store logs when category created
         if ($category->wasRecentlyCreated == true) {
             Dashboard_log::create([
-                'user' => Auth::guard('admin')->user()->id,
+                'admin_id' => Auth::guard('admin')->user()->id,
                 'log' => 'create new category '.$category->name,
             ]);
         }
@@ -35,7 +35,7 @@ class CategoryObserver
             $category_name = $category->getOriginal('name');
             if ($attribute != 'updated_at') {
                 Dashboard_log::create([
-                    'user' => Auth::guard('admin')->user()->id,
+                    'admin_id' => Auth::guard('admin')->user()->id,
                     'log' => 'Update category '.$category_name.' '.$attribute.' to '.$new_value,
                 ]);
             }
@@ -47,8 +47,8 @@ class CategoryObserver
     {
         //store logs when category deleted
         Dashboard_log::create([
-            'user' => Auth::guard('admin')->user()->id,
-            'log' => 'Delete category '.$category->name,
+            'admin_id' => Auth::guard('admin')->user()->id,
+            'log' => 'Delete category ('.$category->name.') with it\'s products',
         ]);
     }
 

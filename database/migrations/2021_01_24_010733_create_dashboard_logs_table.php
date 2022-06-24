@@ -15,7 +15,7 @@ class CreateDashboardLogsTable extends Migration
     {
         Schema::create('dashboard_logs', function (Blueprint $table) {
             $table->id();
-            $table->integer('user');
+            $table->integer('admin_id');
             $table->text('log');
             $table->timestamp('date');
         });

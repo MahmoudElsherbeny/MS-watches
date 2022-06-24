@@ -29,44 +29,52 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class="htc__contact__container">
+                <div class="contact_container">
                     <div class="contact-title">
                         <h2 class="contact__title">Get In Touch</h2>
                     </div>
-                    <form id="contact-form" action="mail.php" method="post">
+                    {!! Form::open(['url' => route('contact.send'), 'id' => 'contact-form']) !!}
                         <div class="single-contact-form">
-                            <div class="contact-box name">
-                                <input type="text" name="name" placeholder="Your Name*">
+                            <div class="contact-box">
+                                <input class="@error('name') app__input__error @enderror" type="text" name="name" placeholder="Your Name*">
+                                @error('name')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="single-contact-form">
-                            <div class="contact-box name">
-                                <input type="email" name="email" placeholder="Mail*">
+                            <div class="contact-box">
+                                <input class="@error('email') app__input__error @enderror" type="email" name="email" placeholder="Mail*">
+                                @error('email')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="single-contact-form">
                             <div class="contact-box subject">
-                                <input type="text" name="subject" placeholder="Subject*">
+                                <input class="@error('subject') app__input__error @enderror" type="text" name="subject" placeholder="Subject*">
+                                @error('subject')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="single-contact-form">
                             <div class="contact-box message">
-                                <textarea name="message"  placeholder="Massage*"></textarea>
+                                <textarea class="@error('message') app__input__error @enderror" name="message"  placeholder="Massage*"></textarea>
+                                @error('message')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="contact-btn">
                             <button type="submit" class="fv-btn">SEND</button>
                         </div>
-                    </form>
-                </div> 
-                <div class="form-output">
-                    <p class="form-messege"></p>
-                </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div>
-                    <img src="url('frontend/images/product/big-img/1.jpg')" />
+                <div class="contact_container">
+                    <img src="{{ asset('storage/'.App\Setting::getSettingValue('image') ) }}" width="100%" height="100%" />
                 </div>
             </div>
         </div>

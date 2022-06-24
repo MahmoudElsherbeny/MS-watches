@@ -39,6 +39,12 @@ class SettingSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s')
             ],
             [
+                'name' => 'about',
+                'value' => 'ms watches is a store which has all watches you want, you can find your type here.',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
                 'name' => 'facebook',
                 'value' => 'https://www.facebook.com',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -55,7 +61,26 @@ class SettingSeeder extends Seeder
                 'value' => 'https://www.instagram.com',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
-            ]
+            ],
+            [
+                'name' => 'logo',
+                'value' => 'setting/logo.ico',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'name' => 'image',
+                'value' => 'setting/image.png',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'name' => 'video',
+                'value' => 'setting/video.mp4',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+
         ]);
     }
 }

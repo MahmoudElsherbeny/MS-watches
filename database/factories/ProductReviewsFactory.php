@@ -9,13 +9,13 @@ use Faker\Generator as Faker;
 
 $factory->define(Product_review::class, function (Faker $faker) {
     return [
-        'user' => function() {
+        'user_id' => function() {
             return User::all()->random();
         },
-        'product' => function() {
+        'product_id' => function() {
             return Product::all()->random();
         },
         'review' => $faker->paragraph,
-        'price' => $faker->numberBetween(1, 5),
+        'rate' => $faker->numberBetween(1, 5),
     ];
 });

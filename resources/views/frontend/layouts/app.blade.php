@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url('frontend/images/icons/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/'.App\Setting::getSettingValue('logo') ) }}">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
 

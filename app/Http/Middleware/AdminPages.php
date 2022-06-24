@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Redirect;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminPages
 {
@@ -17,7 +17,7 @@ class AdminPages
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::guard('admin')->user() && Auth::guard('admin')->user()->role == 'admin'){
+        if(Auth::guard('admin')->user()->role == 'admin'){
             return $next($request);
         }
 

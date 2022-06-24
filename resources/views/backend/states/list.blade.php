@@ -7,8 +7,13 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-6">
-                    <h4 class="m-a-0 m-t-xs">States (<span>{{count($states)}}</span>)</h4>
+                <div class="col-md-5">
+                    <h4 class="m-a-0 m-t-sm">States (<span>{{count($states)}}</span>)</h4>
+                </div>
+                <div class="col-md-7">
+                    <div class="text-right">
+                        <a href="{{ route('state.create') }}" class="btn btn-success">Create New State</a>
+                    </div>
                 </div>
             </div>
         </div>

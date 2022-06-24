@@ -5202,19 +5202,20 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 
 .pagination > li > a,
+.pagination > li > button,
 .pagination > li > span {
 	position: relative;
-	float: left;
-	padding: 6px 12px;
-	line-height: 1.5;
+	padding: 6px 10px;
+	line-height: 1.2;
 	text-decoration: none;
 	color: inherit;
 	background-color: #fff;
 	border: 1px solid #eee;
-	margin-left: -1px;
+	margin-left: -4px;
 }
 
 .pagination > li:first-child > a,
+.pagination > li:first-child > button,
 .pagination > li:first-child > span {
 	margin-left: 0;
 	border-bottom-left-radius: 3px;
@@ -5222,12 +5223,14 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 
 .pagination > li:last-child > a,
+.pagination > li:last-child > button,
 .pagination > li:last-child > span {
 	border-bottom-right-radius: 3px;
 	border-top-right-radius: 3px;
 }
 
 .pagination > li > a:hover, .pagination > li > a:focus,
+.pagination > li > button:hover, .pagination > li > button:focus,
 .pagination > li > span:hover,
 .pagination > li > span:focus {
 	color: inherit;
@@ -5236,6 +5239,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 
 .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus,
+.pagination > .active > button, .pagination > .active > button:hover, .pagination > .active > button:focus,
 .pagination > .active > span,
 .pagination > .active > span:hover,
 .pagination > .active > span:focus {

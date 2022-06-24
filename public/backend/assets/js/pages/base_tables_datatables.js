@@ -9,7 +9,7 @@ var BaseTableDatatables = function() {
 	var initDataTableProduct = function() {
 		jQuery( '#ProductsTable' ).dataTable({
 			columnDefs: [ 
-				{ orderable: false, targets: [ 5,9 ] }, 
+				{ orderable: false, targets: [ 9 ] }, 
 			],
 			pageLength: 30,
 			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
@@ -24,7 +24,7 @@ var BaseTableDatatables = function() {
 		});
 	};
 
-	// Init simple DataTable for categories list
+	// Init simple DataTable for categories list: https://www.datatables.net/
 	var initDataTableCategory = function() {
 		jQuery( '#CategoriesTable' ).dataTable({
 			columnDefs: [ 
@@ -78,10 +78,10 @@ var BaseTableDatatables = function() {
 	};
 
 	// Init simple DataTable for editors list
-	var initDataTableState = function() {
+	var initDataTableEditor = function() {
 		jQuery( '#EditorsTable' ).dataTable({
 			columnDefs: [ 
-				{ orderable: false, targets: [ 2,7 ] }, 
+				{ orderable: false, targets: [ 8 ] }, 
 			],
 			pageLength: 30,
 			searching: false,
@@ -254,6 +254,7 @@ var BaseTableDatatables = function() {
 			initDataTableCategory();
 			initDataTableSlide();
 			initDataTableState();
+			initDataTableEditor();
 		}
 	};
 }();

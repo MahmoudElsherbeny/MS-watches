@@ -31,7 +31,7 @@ class RegisterController extends Controller
      */
 
     //protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = '/register_success';
+    protected $redirectTo = '/email/verify';
 
 
     /**

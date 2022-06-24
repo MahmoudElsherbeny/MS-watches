@@ -37,11 +37,4 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    
-    //get user name
-    static public function getUserName($id) {
-        $user = Self::find($id);
-        return $user->name;
-    }
-
 }

@@ -4,32 +4,22 @@ namespace App\Http\Livewire\Backend\Product;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 use App\Product;
 use App\Product_image;
 use App\Category;
-use Session;
-use Auth;
 
 class Create extends Component
 {
     use WithFileUploads;
 
-    public $name;
-    public $category;
-    public $mini_description;
-    public $description;
-    public $price;
-    public $body_color;
-    public $mina_color;
-    public $tags;
-    public $status;
-    public $editorId;
+    public $name, $category, $mini_description, $description, $price;
+    public $body_color, $mina_color, $tags, $status, $editorId;
     public $images = [];
 
     public $product;
-    public $filename;
-    public $order = 1;
 
     protected $rules = [
         'name' => 'required|max:100|min:3|regex:/^[a-zA-Z0-9-\s]+$/',
@@ -39,7 +29,7 @@ class Create extends Component
         'body_color' => 'required|alpha',
         'mina_color' => 'required|alpha',
         'images' => 'required|array|max:4',
-        'images.*' => 'max:8000'    //mimetypes:image/*,video/*|
+        'images.*' => 'max:8000|mimes:image/*,video/*',
     ];
 
     public function mount() {
@@ -55,27 +45,27 @@ class Create extends Component
         //store product
         $this->product = Product::create([
             'name' => $this->name,
-            'category' => $this->category,
+            'category_id' => $this->category,
             'mini_description' => $this->mini_description,
             'description' => $this->description,
             'price' => $this->price*100,
             'old_price' => 0,
             'body_color' => $this->body_color,
             'mina_color' => $this->mina_color,
+            'rate' => 0,
             'tags' => $this->tags,
             'status' => $this->status,
-            'published_by' => $this->editorId,
+            'admin_id' => $this->editorId,
         ]);
 
-
         foreach ($this->images as $key => $image) {
-            $this->filename = 'watche'.$this->product->id.($key+1).'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/products',$this->filename);
+            $filename = 'watche_'.$image->getClientOriginalName();
+            $path = $image->storeAs('products',$filename);
             
             Product_image::create([
-                'product' => $this->product->id,
-                'image' => $this->filename,
-                'order' => $this->order,
+                'product_id' => $this->product->id,
+                'image' => $path,
+                'order' => 1,
             ]);
         }            
 
@@ -87,6 +77,7 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.backend.product.create')->with('categories', Category::orderBY('name')->get());
+        $categories = Category::Where('status','active')->OrderBY('name')->get();
+        return view('livewire.backend.product.create')->with('categories', $categories);
     }
 }

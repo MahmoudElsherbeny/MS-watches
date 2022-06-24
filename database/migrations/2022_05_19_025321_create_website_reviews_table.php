@@ -15,7 +15,7 @@ class CreateWebsiteReviewsTable extends Migration
     {
         Schema::create('website_reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('review_id');
+            $table->integer('product_review_id');
             $table->string('status');
             $table->timestamps();
         });

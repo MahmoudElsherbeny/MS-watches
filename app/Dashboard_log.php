@@ -11,14 +11,14 @@ class Dashboard_log extends Model
     protected $dates = ['date'];
 
     protected $fillable = [
-        'user', 'log'
+        'admin_id', 'log'
     ];
 
     protected $guarded = [];
 
-    public function user()
+    public function admin()
     {
-        return $this->belongsTo(Admin::class, 'user', 'id');
+        return $this->belongsTo(Admin::class, 'admin_id');
     }
 
 }

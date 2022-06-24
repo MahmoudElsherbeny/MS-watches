@@ -34,7 +34,19 @@
                             @foreach ($product_images as $key => $product_image)
                                 <li role="presentation" class="pot-small-img">
                                     <a href="#prodimg-tab-{{ ($key+1) }}" role="tab" data-toggle="tab">
-                                        <img src="{{ url('storage/products/'.$product_image->image) }}" alt="product-image">
+                                        @if (App\Product_image::isImage($product_image->image))
+                                            <img src="{{ url('storage/products/'.$product_image->image) }}" alt="product-image">
+                                            <div class="product-video-overlay"></div>
+                                        @elseif (App\Product_image::isVideo($product_image->image))
+                                            <video width="104" height="126">
+                                                <source src="{{ url('storage/products/'.$product_image->image) }}">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                            <div class="product-video-overlay"></div>
+                                            <div class="product-video">
+                                                <i class="zmdi zmdi-play"></i>
+                                            </div>
+                                        @endif
                                     </a>
                                 </li>
                             @endforeach
@@ -44,19 +56,17 @@
                             <div class="portfolio-full-image tab-content">
                                 @foreach ($product_images as $key => $product_image)
                                     <div role="tabpanel" class="tab-pane fade @if($key==0) in active @endif" id="prodimg-tab-{{ ($key+1) }}">
-                                        <img src="{{ url('storage/products/'.$product_image->image) }}" alt="full-image">
+                                        @if (App\Product_image::isImage($product_image->image))
+                                            <img src="{{ url('storage/products/'.$product_image->image) }}" alt="full-image">
+                                        @elseif (App\Product_image::isVideo($product_image->image))
+                                            <video class="product_video" width="454" height="544" controls>
+                                                <source src="{{ url('storage/products/'.$product_image->image) }}">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        @endif
                                     </div>
                                 @endforeach
 
-                                
-                                <div role="tabpanel" class="tab-pane fade product-video-position" id="img-tab-4">
-                                    <img src="{{ url('frontend/images/product-details/big-img/12.jpg') }}" alt="full-image">
-                                    <div class="product-video">
-                                        <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
-                                            <i class="zmdi zmdi-videocam"></i> View Video
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

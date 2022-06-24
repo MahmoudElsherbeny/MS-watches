@@ -74,7 +74,10 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right my-profile-dropdown">
                             <li>
-                                <a href="base_pages_profile.html">Profile</a>
+                                <a href="{{ route('profile.index', ['id' => Auth::guard('admin')->user()->id, 'name' => Auth::guard('admin')->user()->name]) }}">Profile</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('profile.edit', ['id' => Auth::guard('admin')->user()->id, 'name' => Auth::guard('admin')->user()->name]) }}">Edit Profile</a>
                             </li>
                             {!! Form::Open(['url'=>route('AdminAuth.logout')]) !!}
                             <li>

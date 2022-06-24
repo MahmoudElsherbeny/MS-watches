@@ -49,11 +49,22 @@
             </select>
         </div>
         <div class="form-group">
-            <img src="{{ url('storage/slides/'.$slide->image) }}" width="450px" height="280px" />
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Image:</label>
+                    <input class="@error('image') input-error @enderror" type="file" name="image" wire:model="image" accept="image/*" />
+                    @error('image')
+                        <div class="msg-error">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-7">
+                    <img src="{{ asset('storage/'.$slide->image) }}" width="400px" height="240px" />
+                </div>
+            </div>
         </div>
         <div class="form-group m-b-0">
             <button class="btn btn-success" type="submit">Update</button>
-            <a href="{{ route('category.index') }}" class="btn btn-app">Back</a>
+            <a href="{{ route('slider.index') }}" class="btn btn-app">Back</a>
         </div>
     {!! Form::Close() !!}
 

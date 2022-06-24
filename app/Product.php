@@ -8,27 +8,27 @@ class Product extends Model
 {
     
     protected $fillable = [
-        'name', 'category', 'mini_description', 'description', 'price', 'old_price', 'body_color', 'mina_color', 'rate', 'tags', 'status', 'published_by',
+        'name', 'category_id', 'mini_description', 'description', 'price', 'old_price', 'body_color', 'mina_color', 'rate', 'tags', 'status', 'admin_id',
     ];
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category', 'id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function published_by()
     {
-        return $this->belongsTo(Admin::class, 'published_by', 'id');
+        return $this->belongsTo(Admin::class, 'admin_id');
     }
 
     public function product_images()
     {
-        return $this->hasMany(Product_image::class, 'product', 'id');
+        return $this->hasMany(Product_image::class);
     }
 
     public function product_reviews()
     {
-        return $this->hasMany(Product_review::class, 'product', 'id');
+        return $this->hasMany(Product_review::class);
     }
     
 

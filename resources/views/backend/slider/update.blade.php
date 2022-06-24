@@ -6,7 +6,7 @@
     <!-- Create Category Form -->
     <div class="card">
         <div class="card-header">
-            <h4 class="text-capitalize">Update Slide {{ $slide->id }}</h4>
+            <h4 class="text-capitalize">Update Slide</h4>
         </div>
 
         <div class="card-block">
