@@ -17,8 +17,8 @@ class ProductSeeder extends Seeder
     {
         Product::flushEventListeners();
         factory(Product::class, 400)->create()->each(function ($product) {
-            factory(Product_image::class, 4)->create();
-            factory(Product_review::class, 8)->create();
+            $product->product_images()->save(factory(Product_image::class, 4)->make());
+            $product->product_reviews()->save(factory(Product_review::class, 8)->make());
         });
     }
 }

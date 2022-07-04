@@ -55,5 +55,16 @@ Route::group(['prefix'=>'wishlist', 'as'=>'wishlist.'] , function() {
 
 });
 
+//user profile routes
+Route::group(['prefix'=>'profile', 'as'=>'UserProfile.'] , function() {
+
+    Route::get('/{id}/{name}/', 'frontend\ProfileController@index')->name('profile');
+    Route::get('/{id}/{name}/edit', 'frontend\ProfileController@edit')->middleware(['auth'])->name('edit');
+    Route::post('/{id}/{name}/edit', 'frontend\ProfileController@update')->middleware(['auth','verified']);
+    Route::get('/{id}/{name}/change_password', 'frontend\ProfileController@ShowChangePasswordForm')->middleware(['auth'])->name('change_password');
+    Route::post('/{id}/{name}/change_password', 'frontend\ProfileController@ChangePassword')->middleware(['auth','verified']);
+
+});
+
 
 Auth::routes(['verify' => true]);

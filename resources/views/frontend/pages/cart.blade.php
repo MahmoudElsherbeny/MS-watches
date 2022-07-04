@@ -24,7 +24,7 @@
     </div>
     <!-- End Bradcaump area -->
     <!-- cart-main-area start -->
-    <div class="cart-main-area ptb--120 bg__white">
+    <div class="cart-main-area ptb--80 bg__white">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">

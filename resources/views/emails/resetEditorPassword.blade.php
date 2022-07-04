@@ -16,14 +16,14 @@
                                 <td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 0px; padding-bottom: 0px; border: 0px;" width="100%">
                                     <div style="font-family: sans-serif;padding:16px 30px;">
                                         <div class="txtTinyMce-wrapper" style="mso-line-height-alt: 25.2px; color: #737487; line-height: 1.8; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
-                                            <p style="margin: 0; font-size: 18px; text-align: center;">Your account successfully created at MS watches store. You now have to verify it and start your work.@if($temp_pass > 0) your password: {{ $temp_pass }} .@endif</p>
+                                            <p style="margin: 0; font-size: 18px; text-align: center;">Click button bellow to reset your new password. link will be expire after 60 minutes!</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td style="padding:20px 15px;text-align:center;">
                                     <div align="center">
-                                        <a href="{{ route('AdminAuth.verify', ['id' => $editor->id, 'hash' => $editor->hash]) }}" style="display:inline-block;color:#fff;cursor:pointer;background-color:#ff4136;border-radius:4px;border:1px solid #ff4136;font-size: 18px;padding:12px 54px;font-family:Arial, Helvetica, sans-serif;text-decoration: none;text-align:center;mso-border-alt:none;word-break:keep-all;">
-                                            Verify Now
+                                        <a href="{{ route('AdminPassword.reset', ['hash' => $editor->hash, 'email' => $editor->email]) }}" style="display:inline-block;color:#fff;cursor:pointer;background-color:#ff4136;border-radius:4px;border:1px solid #ff4136;font-size: 18px;padding:12px 54px;font-family:Arial, Helvetica, sans-serif;text-decoration: none;text-align:center;mso-border-alt:none;word-break:keep-all;">
+                                            Reset Password
                                         </a>
                                     </div>
                                 </td>

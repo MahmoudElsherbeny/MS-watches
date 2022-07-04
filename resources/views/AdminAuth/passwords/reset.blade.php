@@ -2,10 +2,10 @@
 
 @section('content')
 
-<!-- Start Login Area -->
+<!-- Start reset password Area -->
 <div class="card w-40 m-y-lg m-x-auto">
     <div class="card-header">
-        <h2 class="text-center" style="font-weight: 400; font-size: 36px;">Login</h2>
+        <h2 class="text-center" style="font-weight: 400; font-size: 36px;">Reset Password</h2>
     </div>
 
     @if(Session::has('error'))
@@ -22,37 +22,29 @@
         {!! Form::Open() !!}
             <div class="form-group">
                 <label>Email</label>
-                <input class="form-control @error('email') input-error @enderror" type="text" name="email" value="{{ old('email') }}" placeholder="Enter email..." />
-                @error('email')
-                    <div class="msg-error">{{ $message }}</div>
-                @enderror
+                <input class="form-control" type="text" name="email" value="{{ $editor->email }}" readonly />
             </div>
             <div class="form-group">
-                <label>Password</label>
+                <label>New Password</label>
                 <input class="form-control @error('password') input-error @enderror" type="password" name="password" placeholder="Enter Password.." />
                 @error('password')
                     <div class="msg-error">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <div class="row">
-                    <div class="col-md-9">
-                        <label for="login_remember" class="css-input switch switch-sm switch-app">
-                            <input type="checkbox" name="remember_me" id="login_remember"><span></span> Remember me
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="{{ route('AdminPassword.forgot') }}" style="font-size: 12px;">Forget Password?</a>
-                    </div>
-                </div>
+                <label>Confirm Password</label>
+                <input class="form-control @error('confirm_password') input-error @enderror" type="password" name="confirm_password" placeholder="confirm Password.." />
+                @error('confirm_password')
+                    <div class="msg-error">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group m-b-0 text-center">
-                <button class="btn btn-app p-x-md" type="submit">Login</button>
+                <button class="btn btn-app p-x-md" type="submit">Reset Password</button>
             </div>
             {!! Form::Close() !!}
     </div>
 </div>
 
-<!-- End Login Register Area -->
+<!-- End reset password Area -->
 
 @endsection

@@ -13,7 +13,7 @@ $factory->define(Product_review::class, function (Faker $faker) {
             return User::all()->random();
         },
         'product_id' => function() {
-            return Product::all()->random();
+            return factory(App\Product::class)->create()->id;
         },
         'review' => $faker->paragraph,
         'rate' => $faker->numberBetween(1, 5),

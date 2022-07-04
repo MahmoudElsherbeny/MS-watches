@@ -4,7 +4,7 @@
 @section('content')
 
     <!-- Start Bradcaump area -->
-    <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(frontend/images/bg/2.jpg) no-repeat scroll center center / cover ;">
+    <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(../frontend/images/bg/2.jpg) no-repeat scroll center center / cover ;">
         <div class="ht__bradcaump__wrap">
             <div class="container">
                 <div class="row">
@@ -24,7 +24,7 @@
     </div>
     <!-- End Bradcaump area -->
     <!-- Start Checkout Area -->
-    <section class="our-checkout-area ptb--120 bg__white">
+    <section class="our-checkout-area ptb--100 bg__white">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-lg-8">
@@ -35,34 +35,41 @@
                             <div class="checkout-form-inner">
                                 <div class="single-checkout-box">
                                     <label>Name: </label>
-                                    <span>{{ Auth::user()->name }}</span>
+                                    <span class="text-capitalize">{{ $user->name }}</span>
                                 </div>
                                 <div class="single-checkout-box">
                                     <label>Email: </label>
-                                    <span>{{ Auth::user()->email }}</span>
+                                    <span>{{ $user->email }}</span>
                                 </div>
                                 <div class="single-checkout-box">
                                     <label>Phone: </label>
-                                    <span></span>
-                                </div>
-                                <div class="single-checkout-box">
-                                    <label>Country: </label>
-                                    <span></span>
+                                    <span>@if($user->user_info) {{ $user->user_info->phone }} @endif</span>
                                 </div>
                                 <div class="single-checkout-box">
                                     <label>State: </label>
-                                    <span></span>
+                                    <span class="text-capitalize">@if($user->user_info) {{ $user->user_info->state->state }} @endif</span>
                                 </div>
                                 <div class="single-checkout-box">
                                     <label>Address: </label>
-                                    <span></span>
+                                    <span>@if($user->user_info) {{ $user->user_info->address }} @endif</span>
+                                </div>
+                                <div class="single-checkout-box">
+                                    <label>Watches: </label>
+                                    <span>{{ Cart::instance('cart')->content()->count() }}</span>
+                                </div>
+                                <div class="single-checkout-box">
+                                    <label>Quantity: </label>
+                                    <span>{{ Cart::instance('cart')->count() }}</span>
                                 </div>
                                 <div class="single-checkout-box">
                                     <label>Total: </label>
-                                    <span></span>
+                                    <span>£ {{ Cart::instance('cart')->subtotalfloat() / 100 + $user->user_info->state->delivery }}</span>
                                 </div>
-                                <div class="single-checkout-box checkbox">
-                                    <button data-toggle="modal" data-target="#ChangeAdress" class="ms-btn black-btn">Change Address</button>
+                                <div class="single-checkout-box buttons mt--40">
+                                        <button data-toggle="modal" data-target="#ChangeAdress" class="ms-btn black-btn">Change Address</button>
+                                    {!! Form::open() !!}
+                                        <button type="submit" class="ms-btn black-btn">Confirm Order</button>
+                                    {!! Form::close() !!}
                                 </div>
                                 <!-- Modal -->
                                 <div class="modal fade" id="ChangeAdress" tabindex="-1" role="dialog" aria-hidden="true">
@@ -70,8 +77,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <div class="row">
-                                                    <h4 class="col-md-11 text-left">Change Address</h4>
-                                                    <ul class="card-actions col-md-1 p-t-md">
+                                                    <h5 class="col-md-11 col-sm-9 col-xs-9 text-left">Change Address</h5>
+                                                    <ul class="card-actions col-md-1 col-sm-3 col-xs-3 text-right">
                                                         <li>
                                                             <button data-dismiss="modal" type="button" class="close"><i class="ion-close"></i></button>
                                                         </li>
@@ -80,19 +87,30 @@
                                             </div>
                                         {!! Form::Open(['url' => '' ]) !!} 
                                             <div class="modal-body">
-                                                <p>Write a new address to deliver your order to.</p>
-                                                <div class="single-checkout-box">
-                                                    <label>your address: </label>
-                                                    <input type="text" value="" readonly>
+                                                <div class="card-block text-left mb--20">
+                                                    <p>Write a new address you want to deliver your order to.</p>
+                                                    <p>Notice: if you don't add your main address we will this the main address.</p>
                                                 </div>
-                                                <div class="single-checkout-box">
-                                                    <label>new address: </label>
-                                                    <input type="text" placeholder="write new address">
+                                                <div class="modal-checkout-box mb--20">
+                                                    <label>New Phone: </label>
+                                                    <input type="text" name="new_phone" value="" placeholder="write new phone">
+                                                </div>
+                                                <div class="modal-checkout-box mb--20">
+                                                    <label>New State: </label>
+                                                    <select name="new_state">
+                                                        @foreach ($states as $state)
+                                                            <option value="{{ $state->id }}">{{ $state->state }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="modal-checkout-box mb--20">
+                                                    <label>New Address: </label>
+                                                    <input name="new_address" type="text" placeholder="write new address">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
-                                                <button class="btn btn-app" type="submit"> Confirm</button>
+                                                <button class="btn btn-success" type="submit"> Confirm</button>
                                             </div>
                                         {!! Form::Close() !!}
                                         </div>
@@ -103,43 +121,6 @@
                             </div>
                         </div>
                         <!-- End Checkbox Area -->
-                        <!-- Start Payment Box -->
-                        <div class="payment-form">
-                            <h2 class="section-title-3">payment details</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur kgjhyt</p>
-                            <div class="payment-form-inner">
-                                <div class="single-checkout-box">
-                                    <input type="text" placeholder="Name on Card*">
-                                    <input type="text" placeholder="Card Number*">
-                                </div>
-                                <div class="single-checkout-box select-option">
-                                    <select>
-                                        <option>Date*</option>
-                                        <option>Date</option>
-                                        <option>Date</option>
-                                        <option>Date</option>
-                                        <option>Date</option>
-                                    </select>
-                                    <input type="text" placeholder="Security Code*">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Payment Box -->
-                        <!-- Start Payment Way -->
-                        <div class="our-payment-sestem">
-                            <h2 class="section-title-3">We  Accept :</h2>
-                            <ul class="payment-menu">
-                                <li><a href="#"><img src="{{ url('frontend/images/payment/1.jpg') }}" alt="payment-img"></a></li>
-                                <li><a href="#"><img src="{{ url('frontend/images/payment/2.jpg') }}" alt="payment-img"></a></li>
-                                <li><a href="#"><img src="{{ url('frontend/images/payment/3.jpg') }}" alt="payment-img"></a></li>
-                                <li><a href="#"><img src="{{ url('frontend/images/payment/4.jpg') }}" alt="payment-img"></a></li>
-                                <li><a href="#"><img src="{{ url('frontend/images/payment/5.jpg') }}" alt="payment-img"></a></li>
-                            </ul>
-                            <div class="checkout-btn">
-                                <a class="ts-btn btn-light btn-large hover-theme" href="#">CONFIRM & BUY NOW</a>
-                            </div>    
-                        </div>
-                        <!-- End Payment Way -->
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4">

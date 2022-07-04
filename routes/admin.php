@@ -124,6 +124,16 @@ Route::group(['as'=>'AdminAuth.'] , function() {
 
 });
 
+//admin auth forget password routes
+Route::group(['prefix'=>'password', 'as'=>'AdminPassword.'] , function() {
+
+    Route::get('/forgot', 'AdminAuth\ForgotPasswordController@forgotPasswordForm')->name('forgot');
+    Route::post('/forgot', 'AdminAuth\ForgotPasswordController@sendResetLink')->name('email');
+    Route::get('/reset/{hash}/{email}', 'AdminAuth\ResetPasswordController@resetPasswordForm')->name('reset');
+    Route::post('/reset/{hash}/{email}', 'AdminAuth\ResetPasswordController@resetPassword');
+
+});
+
 //admin auth verify email
 Route::group(['prefix'=>'email', 'as'=>'AdminAuth.'] , function() {
 

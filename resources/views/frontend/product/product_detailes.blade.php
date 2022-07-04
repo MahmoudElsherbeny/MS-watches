@@ -76,7 +76,7 @@
                         <div class="pro__detl__title">
                             <h2>{{ $product->name }}</h2>
                         </div>
-                        <div class="pro__dtl__rating">
+                        <div class="pro__dtl__rating mt--10">
                             <ul class="pro__rating">
                                 @php $rating = App\Product_review::getProductRate($product->id); @endphp
 

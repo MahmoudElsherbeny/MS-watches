@@ -46,7 +46,7 @@ class Create extends Component
                 Mail::to($editor->email)->send(new newEditorMail($editor,$this->password));
             }
 
-            //logs stored when created by category observer in app\observers
+            //logs stored when created by  observer in app\observers
 
             Session::flash('success','user added successfully');
         }

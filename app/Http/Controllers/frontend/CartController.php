@@ -4,14 +4,14 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 use App\Category;
 use App\Product;
 use App\Product_image;
-use Redirect;
-use Session;
+use App\State;
 use View;
 
 class CartController extends Controller
@@ -60,7 +60,14 @@ class CartController extends Controller
      //checkout page function - display checkout page
      public function checkout_page()
      {
-        return view("frontend.pages.checkout");
+        if(Cart::instance('cart')->count()) {
+            $user = Auth::user();
+            $states = State::OrderBy('state')->get();
+            return view("frontend.pages.checkout")->with(['user' => $user, 'states' => $states]);
+        }
+        else {
+            return Redirect::back();
+        }
      }
 
 }

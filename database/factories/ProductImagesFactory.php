@@ -2,14 +2,14 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model;
 use App\Product;
+use App\Product_image;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Product_image::class, function (Faker $faker) {
     return [
         'product_id' => function() {
-            return Product::all()->random();
+            return factory(App\Product::class)->create()->id;
         },
         'image' => 'products/product_image.png',
         'order' => $faker->numberBetween(1, 4),
