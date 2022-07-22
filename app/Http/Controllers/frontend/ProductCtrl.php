@@ -26,11 +26,19 @@ class ProductCtrl extends Controller
         $product = Product::Where('status', 'active')->findOrFail($id);
         $product_images = $product->product_images()->orderBy('order')->get();
         $product_reviews = $product->product_reviews()->OrderBy('created_at','DESC')->get();
+        $related_products = Product::Where(['status' => 'active', 'tags' => $product->tags, 'category_id' => $product->category_id])
+                                   ->Where('id', '!=', $product->id)
+                                   ->Where(function($query) use($product) {
+                                           $query->Where('name', 'like', '%'.$product->name.'%')
+                                               ->orWhere('body_color', 'like', '%'.$product->body_color.'%')
+                                               ->orWhere('mina_color', 'like', '%'.$product->mina_color.'%');
+                                   })->inRandomOrder()->limit(15)->get();
  
         return view("frontend.product.product_detailes")->with([
                     'product' => $product,
                     'product_images' => $product_images,
-                    'product_reviews' => $product_reviews
+                    'product_reviews' => $product_reviews,
+                    'related_products' => $related_products
                 ]);
     }
 

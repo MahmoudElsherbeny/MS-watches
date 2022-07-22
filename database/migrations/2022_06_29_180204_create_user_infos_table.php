@@ -20,6 +20,7 @@ class CreateUserInfosTable extends Migration
             $table->text('cover')->nullable();
             $table->string('phone');
             $table->integer('state_id');
+            $table->string('city');
             $table->string('address');
             $table->timestamps();
         });

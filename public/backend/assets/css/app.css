@@ -1216,7 +1216,7 @@ a.card:not(.bg-inverse):hover {
 	display: table;
 	width: 100%;
 	margin: 0;
-	padding: 24px 18px 12px;
+	padding: 18px 14px 12px;
 	border-bottom: 1px solid transparent;
 	border-top-right-radius: 3px;
 	border-top-left-radius: 3px;
@@ -1227,6 +1227,8 @@ a.card:not(.bg-inverse):hover {
 	display: table-cell;
 	vertical-align: middle;
 }
+
+.card-header h4 { font-size: 20px; }
 
 .card.text-center .card-header > *,
 .card-header.text-center > * {

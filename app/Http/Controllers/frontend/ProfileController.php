@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 use App\Category;
+use App\Order;
 use App\State;
 use App\User;
 use App\User_info;
@@ -57,6 +58,7 @@ class ProfileController extends Controller
             'image' => 'nullable|max:8000|mimes:jpeg,bmp,png,jpg',
             'name' => 'required|max:30|min:3|regex:/^[a-zA-Z0-9 ]+$/',
             'phone' => 'required|min:11|numeric',
+            'city' => 'required|regex:/^[a-zA-Z0-9 ]+$/',
             'address' => 'required'
         ]);
 
@@ -68,6 +70,7 @@ class ProfileController extends Controller
                 if($user->user_info) {
                     $user->user_info->phone = $request->input('phone');
                     $user->user_info->state_id = $request->input('state');
+                    $user->user_info->city = $request->input('city');
                     $user->user_info->address = $request->input('address');
                 }
                 else {
@@ -75,6 +78,7 @@ class ProfileController extends Controller
                         'user_id' => $id,
                         'phone' => $request->input('phone'),
                         'state_id' => $request->input('state'),
+                        'city' => $request->input('city'),
                         'address' => $request->input('address'),
                     ]);
                 }
@@ -160,6 +164,19 @@ class ProfileController extends Controller
 
         } catch (EXTENSION $e) {
             Session::flash('error','Error:'.$e);
+        }
+    }
+
+    //function orders - show user orders page
+    public function orders($id)
+    {
+        $user = User::findOrFail($id);
+        $orders = Order::Where('user_id',$user->id)->orderBy('created_at','Desc')->get();
+        if($user) {
+            return view('frontend.profile.orders')->with(['user' => $user, 'orders' => $orders]);
+        }
+        else {
+            return Redirect::back();
         }
     }
 

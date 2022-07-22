@@ -27,6 +27,8 @@ class CreateProductsTable extends Migration
             $table->string('tags');
             $table->string('status');
             $table->integer('admin_id');
+            $table->integer('all_quantity');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

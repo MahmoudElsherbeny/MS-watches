@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\frontend;
 
+use App\Ad;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,7 @@ class HomeController extends Controller
     //show home page function
     public function index() {
         $slides = Slide::Where('status','active')->OrderBy('order')->get();
+        $ads = Ad::Where('status','active')->OrderBy('created_at','DESC');
 
         $toprate_products = Product::Where('status', 'active')
                                    ->Where('rate', '>',0)
@@ -33,6 +35,7 @@ class HomeController extends Controller
 
         return view("frontend.index")->with([
                                     'slides' => $slides,
+                                    'ads' => $ads,
                                     'toprate' => $toprate_products
                                     ]);
     }

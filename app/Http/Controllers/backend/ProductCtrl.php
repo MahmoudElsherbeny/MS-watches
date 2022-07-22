@@ -32,6 +32,22 @@ class ProductCtrl extends Controller
         return view('backend.product.update')->with('product', $product);
     }
 
+    //delete function - delete product data and it's images, reviews
+    public function destroy($id) {
+        $product = Product::findOrFail($id);
+        $product_images = $product->product_images;
+        $product_reviews = $product->product_reviews;
+        foreach($product_images as $img) {
+            Storage::Delete($img->image);
+        }
+        $product->delete();
+        $product_images->each->delete();
+        $product_reviews->each->delete();
+
+        //logs stored when deleted by ProductObserver in app\observers
+        return Redirect::back();
+    }
+
     //store, update, delete and update price for product data with livewire components in livewire/backend/product
 
 
@@ -39,8 +55,7 @@ class ProductCtrl extends Controller
     // product function - show product page with all product's data
     public function product($id) {
         $product = Product::findOrFail($id);
-        $product_images = $product->product_images()->orderBy('order')->get();
-        return view('backend.product.product')->with(['product' => $product, 'product_images' => $product_images]);
+        return view('backend.product.product')->with(['product' => $product]);
     }
 
     // image add function - add new product image in image table

@@ -27,118 +27,106 @@
     <section class="our-checkout-area ptb--100 bg__white">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-lg-8">
+                <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
                     <div class="ckeckout-left-sidebar">
                         <!-- Start Checkbox Area -->
-                        <div class="checkout-form">
-                            <h2 class="section-title-3">Billing details</h2>
-                            <div class="checkout-form-inner">
+                        <div class="checkout-form mb--100">
+                        {!! Form::Open(['url' => route('UserOrder.store') ]) !!} 
+                            <h2 class="section-title-3">Delivering Detailes</h2>
+                            <div class="checkout-form-inner mb--50">
                                 <div class="single-checkout-box">
-                                    <label>Name: </label>
-                                    <span class="text-capitalize">{{ $user->name }}</span>
-                                </div>
-                                <div class="single-checkout-box">
-                                    <label>Email: </label>
-                                    <span>{{ $user->email }}</span>
+                                    <p>Your info will be used automaticaly as order address, you can enter another address to deliver.</p>
+                                    <p class="mb--30">All fields are required if you add new address.</p>
                                 </div>
                                 <div class="single-checkout-box">
-                                    <label>Phone: </label>
-                                    <span>@if($user->user_info) {{ $user->user_info->phone }} @endif</span>
+                                    <input class="mb--10" name="name" type="text" placeholder="name*" value="{{ $user->name }}">
+                                    @error('name')
+                                        <div class="msg-error">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="single-checkout-box">
-                                    <label>State: </label>
-                                    <span class="text-capitalize">@if($user->user_info) {{ $user->user_info->state->state }} @endif</span>
+                                    <input class="mb--10" name="email" type="text" placeholder="email*" value="{{ $user->email }}" readonly>
                                 </div>
                                 <div class="single-checkout-box">
-                                    <label>Address: </label>
-                                    <span>@if($user->user_info) {{ $user->user_info->address }} @endif</span>
+                                    <input class="mb--10" name="phone" type="text" placeholder="phone*" value="@if($user->user_info) {{ $user->user_info->phone }} @else {{ old('phone') }} @endif">
+                                    @error('phone')
+                                        <div class="msg-error">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="single-checkout-box">
-                                    <label>Watches: </label>
-                                    <span>{{ Cart::instance('cart')->content()->count() }}</span>
+                                    <select class="mb--10" name="state">
+                                        <option>choose state</option>
+                                        @foreach ($states as $state)
+                                            <option value="{{ $state->id }}" @if($user->user_info && $user->user_info->state_id == $state->id) selected @endif>{{ $state->state }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('state')
+                                        <div class="msg-error">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="single-checkout-box">
-                                    <label>Quantity: </label>
-                                    <span>{{ Cart::instance('cart')->count() }}</span>
+                                    <input class="mb--10" name="city" type="text" placeholder="city*" value="@if($user->user_info) {{ $user->user_info->city }} @else {{ old('city') }} @endif">
+                                    @error('city')
+                                        <div class="msg-error">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <div class="single-checkout-box">
-                                    <label>Total: </label>
-                                    <span>£ {{ Cart::instance('cart')->subtotalfloat() / 100 + $user->user_info->state->delivery }}</span>
+                                <div class="single-checkout-box mb--30">
+                                    <input name="address" type="text" placeholder="address*" value="@if($user->user_info) {{ $user->user_info->address }} @else {{ old('address') }} @endif">
+                                    @error('address')
+                                        <div class="msg-error">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <div class="single-checkout-box buttons mt--40">
-                                        <button data-toggle="modal" data-target="#ChangeAdress" class="ms-btn black-btn">Change Address</button>
-                                    {!! Form::open() !!}
-                                        <button type="submit" class="ms-btn black-btn">Confirm Order</button>
-                                    {!! Form::close() !!}
+                                <div class="single-checkout-box buttons text-center mt--30">
+                                    <button type="submit" class="ms-btn black-btn">Confirm Order</button>
                                 </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="ChangeAdress" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="row">
-                                                    <h5 class="col-md-11 col-sm-9 col-xs-9 text-left">Change Address</h5>
-                                                    <ul class="card-actions col-md-1 col-sm-3 col-xs-3 text-right">
-                                                        <li>
-                                                            <button data-dismiss="modal" type="button" class="close"><i class="ion-close"></i></button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        {!! Form::Open(['url' => '' ]) !!} 
-                                            <div class="modal-body">
-                                                <div class="card-block text-left mb--20">
-                                                    <p>Write a new address you want to deliver your order to.</p>
-                                                    <p>Notice: if you don't add your main address we will this the main address.</p>
-                                                </div>
-                                                <div class="modal-checkout-box mb--20">
-                                                    <label>New Phone: </label>
-                                                    <input type="text" name="new_phone" value="" placeholder="write new phone">
-                                                </div>
-                                                <div class="modal-checkout-box mb--20">
-                                                    <label>New State: </label>
-                                                    <select name="new_state">
-                                                        @foreach ($states as $state)
-                                                            <option value="{{ $state->id }}">{{ $state->state }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="modal-checkout-box mb--20">
-                                                    <label>New Address: </label>
-                                                    <input name="new_address" type="text" placeholder="write new address">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
-                                                <button class="btn btn-success" type="submit"> Confirm</button>
-                                            </div>
-                                        {!! Form::Close() !!}
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- END Modal -->
-
                             </div>
+                        {!! Form::close() !!}
                         </div>
                         <!-- End Checkbox Area -->
                     </div>
                 </div>
-                <div class="col-md-4 col-lg-4">
+                <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
                     <div class="checkout-right-sidebar">
+                        <div class="table-content table-responsive mb--70">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><span class="nobr">Product</span></th>
+                                        <th><span class="nobr">Price </span></th>
+                                        <th><span class="nobr">Qty</span></th>
+                                        <th class="product-price"><span class="nobr">Total</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($cart_items as $key => $prod)
+                                        <tr>
+                                            <td><a href="{{ route('product_detailes', ['id' => $prod->id]) }}">{{ $prod->name }}</a></td>
+                                            <td>£ {{ $prod->price / 100 }}</td>
+                                            <td>{{ $prod->qty }}</td>
+                                            <td class="product-price"><span class="amount">£ {{ $prod->price*$prod->qty / 100 }}</span></td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <th colspan="4">Total</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ Cart::instance('cart')->content()->count() }}</td>
+                                        <td>-</td>
+                                        <td>{{ Cart::instance('cart')->count() }}</td>
+                                        <td class="product-price"><span class="amount">£ {{ Cart::instance('cart')->subtotalfloat() / 100 + $user->user_info->state->delivery }}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
                         <div class="our-important-note">
                             <h2 class="section-title-3">Note :</h2>
-                            <p class="note-desc">Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut laborekf et dolore magna aliqua.</p>
+                            <p class="note-desc">You should read this notes before confirming order:</p>
                             <ul class="important-note">
-                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
-                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
-                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
-                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
-                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
+                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Can't cancel order after delivering.</a></li>
+                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Be sure from your address.</a></li>
+                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Order won't be delivering before contact and confirm with you.</a></li>
+                                <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>If you want to edit or cancel order contact with us.</a></li>
                             </ul>
-                        </div>
-                        <div class="puick-contact-area mt--60">
-                            <h2 class="section-title-3">Quick Contract</h2>
-                            <a href="phone:+8801722889963">+012 345 678 102 </a>
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Category;
 use App\Product;
 use App\Product_image;
-use App\State;
+use Illuminate\Support\Facades\Session;
 use View;
 
 class CartController extends Controller
@@ -33,7 +33,8 @@ class CartController extends Controller
     public function addToCart(Request $request, $product_id)
     {
         $product = Product::findOrFail($product_id);
-        $image = url(Product_image::ProductMainImage($product_id));
+        $image = url(Product_image::ProductMainImage($product->id));
+        $cart_item = Cart::instance('cart')->content()->where('id', $product->id)->first();
         if($request->input('qty')) {
             $quantity = $request->input('qty');
         }
@@ -41,7 +42,17 @@ class CartController extends Controller
             $quantity = 1 ;
         }
 
-        Cart::instance('cart')->add([
+        if($cart_item) {
+            if(($quantity + $cart_item->qty) > $product->quantity) {
+                Session::flash('error', $product->name.' doesn\'t have enough quantity in stock');
+            }
+            else {
+                Cart::instance('cart')->update($cart_item->rowId, ($quantity + $cart_item->qty));
+            }
+        }
+        else {
+            if($quantity <= $product->quantity) {
+                Cart::instance('cart')->add([
                     'id' => $product->id,
                     'name' => $product->name,
                     'qty' => $quantity,
@@ -49,25 +60,13 @@ class CartController extends Controller
                     'weight' => 0,
                     'options' => ['image' => $image]
                 ]);
+            }
+        }
 
         return Redirect::back();
     }
 
     //upadte product quantity in cart by livewire shoppin-cart 
     //remove from cart in livewire shoppin-cart 
-    
-
-     //checkout page function - display checkout page
-     public function checkout_page()
-     {
-        if(Cart::instance('cart')->count()) {
-            $user = Auth::user();
-            $states = State::OrderBy('state')->get();
-            return view("frontend.pages.checkout")->with(['user' => $user, 'states' => $states]);
-        }
-        else {
-            return Redirect::back();
-        }
-     }
 
 }

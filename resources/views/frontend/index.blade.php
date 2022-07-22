@@ -87,10 +87,14 @@
     </div>
 </section>
 <!-- End Our Product Area Top Rated -->
-<div class="only-banner ptb--90 bg__white">
+<div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            <a href="shop-sidebar.html"><img src="{{ url('frontend/images/new-product/6.jpg') }}" alt="new product"></a>
+            @if($ads->first())
+            <a href="{{ route('product_detailes', ['id' => $ads->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$ads->first()->image) }}" alt="ad banner">
+            </a>
+            @endif
         </div>
     </div>
 </div>
@@ -121,10 +125,14 @@
     </div>
 </section>
 <!-- End Our Product Area Best Sale -->
-<div class="only-banner ptb--90 bg__white">
+<div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            <a href="shop-sidebar.html"><img src="{{ url('frontend/images/new-product/7.jpg') }}" alt="new product"></a>
+            @if($ads->skip(1)->take(1)->first())
+            <a href="{{ route('product_detailes', ['id' => $ads->skip(1)->take(1)->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$ads->skip(1)->take(1)->first()->image) }}" alt="ad banner">
+            </a>
+            @endif
         </div>
     </div>
 </div>
@@ -155,10 +163,14 @@
     </div>
 </section>
 <!-- End Our Product Area On Sale -->
-<div class="only-banner ptb--90 bg__white">
+<div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            <a href="shop-sidebar.html"><img src="{{ url('frontend/images/new-product/7.jpg') }}" alt="new product"></a>
+            @if($ads->skip(2)->take(1)->first())
+            <a href="{{ route('product_detailes', ['id' => $ads->skip(1)->take(1)->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$ads->skip(2)->take(1)->first()->image) }}" alt="ad banner">
+            </a>
+            @endif
         </div>
     </div>
 </div>

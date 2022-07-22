@@ -14,4 +14,9 @@ class State extends Model
         return $this->hasMany(User_info::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(State::class);
+    }
+
 }

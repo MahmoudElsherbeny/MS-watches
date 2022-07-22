@@ -64,6 +64,15 @@
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="{{ url('frontend/js/main.js') }}"></script>
 
+    <script type="text/javascript">
+        $('.DeleteFormModal').submit(function() {
+            $('.modal').removeClass('in');
+            $('.modal').css("display", "none");
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+        });
+    </script>
+
     @livewireScripts
     
     @yield('js_code')

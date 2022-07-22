@@ -7,6 +7,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ShoppingCart extends Component
 {
@@ -25,10 +26,16 @@ class ShoppingCart extends Component
      }
  
     //update product quantity in cart
-    public function updateCart($row_id, $value)
+    public function updateCart($row_id, $quantity)
     {
-        Cart::instance('cart')->update($row_id, $value);
-        
+        $cart_item = Cart::instance('cart')->get($row_id);
+        $product = Product::Where('id',$cart_item->id)->first();
+        if($quantity <= $product->quantity) {
+            Cart::instance('cart')->update($row_id, $quantity);
+        }
+        else {
+            Session::flash('error', $product->name.' doesn\'t have enough quantity in stock');
+        }
     }
 
     //remove product from cart

@@ -59,7 +59,9 @@ class Productslist extends Component
 
     public function render()
     {
-        $products = Product::Where('name', 'like', '%'.$this->product_search.'%')->OrderBy('created_at','DESC')->paginate(30);
+        $products = Product::select('id','name','category_id','price','old_price','status','admin_id','quantity','created_at','updated_at')
+                           ->Where('name', 'like', '%'.$this->product_search.'%')
+                           ->OrderBy('created_at','DESC')->get();
         return view('livewire.backend.product.productslist')->with('products',$products);
     }
 }

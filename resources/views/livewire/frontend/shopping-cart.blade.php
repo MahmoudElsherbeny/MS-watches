@@ -1,5 +1,15 @@
 <div>
 
+    @if(Session::has('error'))
+        <div class="alert alert-danger text-capitalize text-center w-75 m-x-auto" role="alert">
+            {{Session::get('error')}}
+        </div>
+    @elseif(Session::has('success'))
+        <div class="alert alert-success text-capitalize text-center w-75 m-x-auto" role="alert">
+            {{Session::get('success')}}
+        </div>
+    @endif
+
     <!--  check if cart session is empty or not  -->
     @if($cart_items->count() > 0)
         <div class="cart__products__container mb--70">
@@ -101,7 +111,7 @@
                         </div>
                     @endif
                     <div class="wc-proceed-to-checkout">
-                        <a href="{{ route('cart.checkout_page') }}">Proceed to Checkout</a>
+                        <a href="{{ route('UserOrder.checkout_page') }}">Proceed to Checkout</a>
                     </div>
                 </div>
             </div>

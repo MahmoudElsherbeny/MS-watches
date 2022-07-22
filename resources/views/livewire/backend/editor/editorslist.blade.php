@@ -44,7 +44,7 @@
                         </td>
                         <td class="text-center text-capitalize"> 
                             <span class="status btn btn-sm btn-pill @if($editor->email_verified_at) btn-primary @else btn-warning @endif">
-                                @if($editor->created_at->diffInHours(now()) > 0) expired @else Not Verify @endif
+                                @if($editor->email_verified_at) verified @else Not Verify @endif
                             </span> 
                         </td>
                         <td class="text-center">{{ $editor->created_at->format("Y-m-d g:i a") }}</td>

@@ -62,7 +62,7 @@
                                     <li><a href="{{ route('UserProfile.profile', ['id' => Auth::user()->id, 'name' => Auth::user()->name]) }}">{{ Auth::user()->name }}</a></li>
                                     <li><a href="{{ route('UserProfile.edit', ['id' => Auth::user()->id, 'name' => Auth::user()->name]) }}">Edit Profile</a></li>
                                     <li><a href="{{ route('UserProfile.change_password', ['id' => Auth::user()->id, 'name' => Auth::user()->name]) }}">Change Password</a></li>
-                                    <li><a href="">Orders</a></li>
+                                    <li><a href="{{ route('UserProfile.orders', ['id' => Auth::user()->id, 'name' => Auth::user()->name]) }}">Orders</a></li>
                                     <li><a href="">Favorite Products</a></li>
                                     <li>
                                         {!! Form::Open(['url' => route('logout')]) !!}
@@ -208,7 +208,7 @@
                 </ul>
                 <ul class="shopping__btn">
                     <li><a href="{{ route('cart.index') }}" class="ms-btn transparent-btn">View Cart</a></li>
-                    <li class="shp__checkout"><a href="{{ route('cart.checkout_page') }}" class="ms-btn black-btn">Checkout</a></li>
+                    <li class="shp__checkout"><a href="{{ route('UserOrder.checkout_page') }}" class="ms-btn black-btn">Checkout</a></li>
                 </ul>
             @else
                 <div class="shp__cart__wrap">

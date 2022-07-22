@@ -21,14 +21,14 @@
     </div>
     <div class="card-block">
         <!-- DataTables init on table by adding .js-dataTable-simple class, functionality initialized in js/pages/base_tables_datatables.js -->
-        <table id="CategoriesTable" class="table table-striped table-vcenter js-dataTable-simple">
+        <table id="DashlogsTable" class="table table-striped table-vcenter js-dataTable-simple">
             <thead>
                 <tr>
-                    <th class="text-center w-5">#</th>
-                    <th class="text-center">User</th>
-                    <th class="text-center hidden-xs">User Role</th>
+                    <th class="text-center w-5"></th>
+                    <th>User</th>
+                    <th class="hidden-xs">User Role</th>
                     <th class="text-center">Log</th>
-                    <th class="text-center">Date</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>

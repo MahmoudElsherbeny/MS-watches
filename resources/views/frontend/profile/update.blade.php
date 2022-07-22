@@ -79,6 +79,14 @@
                         </div>
                         <div class="mt--30">
                             <div class="edit_profile_box">
+                                <input class="@error('city') app__input__error @enderror" type="text" name="city" value="@if($user->user_info) {{ $user->user_info->city }} @endif" placeholder="City*">
+                                @error('city')
+                                    <div class="msg-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mt--30">
+                            <div class="edit_profile_box">
                                 <input class="@error('address') app__input__error @enderror" type="text" name="address" value="@if($user->user_info) {{ $user->user_info->address }} @endif" placeholder="Address*">
                                 @error('address')
                                     <div class="msg-error">{{ $message }}</div>

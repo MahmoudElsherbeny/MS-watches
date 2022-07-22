@@ -69,27 +69,45 @@
                                         <div class="prod__color" style="background-color: {{ $product->mina_color }}"></div>
                                     </div>
                                 </div>
-                                <div class="select__quantity">
-                                    <h2>Quantity :</h2>
-                                    <div class="product__quantity">
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="productqty" value="1">
+
+                                @if($product->quantity > 0)
+                                    {!! Form::Open(['url' => route('cart.add',['id' => $product->id]), 'method' => 'GET' ]) !!}
+                                    <div class="select__quantity">
+                                        <h2>Quantity :</h2>
+                                        <div class="product__quantity">
+                                            <div class="cart-plus-minus">
+                                                <input class="cart-plus-minus-box" type="text" name="qty" min="1" value="1">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="addtocart-btn">
+                                        <button type="submit" class="ms-btn black-btn">Add to cart</button>
+                                    </div>
+                                    {!! Form::Close() !!}
+                                @else
+                                    <div class="select__quantity">
+                                        <h2>Quantity :</h2>
+                                        <div class="product__quantity">
+                                            <div class="cart-plus-minus">
+                                                <input class="cart-plus-minus-box" type="text" value="0" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="addtocart-btn">
+                                        <button class="ms-btn black-btn">Out Of Stock</button>
+                                    </div>
+                                @endif
+
                                 <div class="social-sharing">
                                     <div class="widget widget_socialsharing_widget">
-                                        <h3 class="widget-title-modal">Share this product</h3>
-                                        <ul class="social-icons mt--20">
+                                        <h3 class="widget-title-modal">Share Product:</h3>
+                                        <ul class="social-icons">
                                             <li><a target="_blank" title="facebook" href="#" class="facebook social-icon"><i class="zmdi zmdi-facebook"></i></a></li>
                                             <li><a target="_blank" title="twitter" href="#" class="twitter social-icon"><i class="zmdi zmdi-twitter"></i></a></li>
                                             <li><a target="_blank" title="instagram" href="#" class="instagram social-icon"><i class="zmdi zmdi-instagram"></i></a></li>
                                             <li><a target="_blank" title="whatsapp" href="#" class="whatsapp social-icon"><i class="zmdi zmdi-whatsapp"></i></a></li>
                                         </ul>
                                     </div>
-                                </div>
-                                <div class="addtocart-btn">
-                                    <a href="{{ route('cart.add', ['id' => $product->id]) }}">Add to cart</a>
                                 </div>
                             </div><!-- .product-info -->
                         </div><!-- .modal-product -->

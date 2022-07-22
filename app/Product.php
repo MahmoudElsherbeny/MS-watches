@@ -8,7 +8,7 @@ class Product extends Model
 {
     
     protected $fillable = [
-        'name', 'category_id', 'mini_description', 'description', 'price', 'old_price', 'body_color', 'mina_color', 'rate', 'tags', 'status', 'admin_id',
+        'name', 'category_id', 'mini_description', 'description', 'price', 'old_price', 'body_color', 'mina_color', 'rate', 'tags', 'status', 'admin_id', 'all_quantity', 'quantity',
     ];
 
     public function category()
@@ -23,14 +23,28 @@ class Product extends Model
 
     public function product_images()
     {
-        return $this->hasMany(Product_image::class);
+        return $this->hasMany(Product_image::class)->OrderBy('order');
     }
 
     public function product_reviews()
     {
         return $this->hasMany(Product_review::class);
     }
+
+    public function products_stores()
+    {
+        return $this->hasMany(Products_store::class)->OrderBy('updated_at','Desc');
+    }
     
+    public function product_orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function ads()
+    {
+        return $this->hasMany(Ad::class);
+    }
 
     //products filters
     public function scopeWithFilters($query,$filters) {
@@ -41,6 +55,9 @@ class Product extends Model
                 ->when($filters['sort'], function ($query) use ($filters) {
                     if($filters['sort'] == 'price') {
                         $query->OrderBy('price','ASC');
+                    }
+                    elseif($filters['sort'] == 'name') {
+                        $query->OrderBy('name','ASC');
                     }
                     else {
                         $query->OrderBy($filters['sort'],'Desc');

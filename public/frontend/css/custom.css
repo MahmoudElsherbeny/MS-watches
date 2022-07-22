@@ -10,7 +10,7 @@
 	You can put your custom css code here: 
 -------------------------------------------------------*/
 .ms-btn {
-  border: 1px solid #000;
+  border: 1px solid #111;
   box-shadow: 1px 1px 2px #a3a3a3;
   color: #fff;
   font-size: 14px;
@@ -25,7 +25,7 @@
 }
 
 .black-btn {
-  background-color: #000;
+  background-color: #111;
 }
 .transparent-btn {
   background-color: transparent;
