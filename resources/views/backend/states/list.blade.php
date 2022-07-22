@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="card-block text-left">
                                             <p>Are you sure, you want to delete state (<span class="text-capitalize">{{ $state->state }}</span>) ?</p>
-                                            <p> <b>Notice:</b>  be sure that there is no bussinsess related to it before deleting.</p>
+                                            <p> <b>Notice:</b>  be sure that there is no orders related to it before deleting.</p>
                                         </div>
                                         <div class="modal-footer">
                                             {!! Form::Open(['url' => route('state.delete', ['id' => $state->id]) ]) !!}                                                

@@ -27,7 +27,7 @@
         </div>
         <div class="form-group">
             <label>Password:</label>
-            <input class="form-control @error('password') input-error @enderror" type="text" name="password" wire:model="password" placeholder="Enter password..." />
+            <input class="form-control @error('password') input-error @enderror" type="password" name="password" wire:model="password" placeholder="Enter password..." />
             @error('password')
                 <div class="msg-error">{{ $message }}</div>
             @enderror

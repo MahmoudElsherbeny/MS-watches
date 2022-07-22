@@ -11,7 +11,7 @@
                     <div class="col-md-6">
                         <div class="product_images">
                             <div class="row">
-                                @foreach ($product_images as $image)
+                                @foreach ($product->product_images as $image)
                                     <div class="col-md-6 m-b prod_image">
                                     @if (App\Product_image::isImage($image->image))
                                         <img src="{{ asset('storage/' . $image->image) }}" width="100%" height="230px" />
@@ -58,9 +58,13 @@
                                     <span class="text-capitalize p-x-sm">{{ $product->mina_color }} </span>
                                 </div>
                             </div>
-                            <div class="product_status m-b">
+                            <div class="product_status">
                                 <span class="cel1">Status: </span>
                                 <span class="text-capitalize p-x-sm">{{ $product->status }} </span>
+                            </div>
+                            <div class="product_status m-b">
+                                <span class="cel1">Quantity: </span>
+                                <span class="text-capitalize p-x-sm">{{ $product->quantity }} </span>
                             </div>
                             <div class="publisher m-y">
                                 <span class="cel1">Published By: </span>
@@ -88,7 +92,7 @@
                 <div class="product_images m-y-lg">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <h4 class="m-a-0 m-t-sm">Product Images ({{ count($product_images) }})</h4>
+                            <h4 class="m-a-0 m-t-sm">Product Images ({{ count($product->product_images) }})</h4>
                         </div>
                         <div class="text-right col-md-6 col-sm-6">
                             <button class="btn btn-success" data-toggle="modal" data-target="#AddNewImage">Add New Image</button>
@@ -108,7 +112,7 @@
                                         </div>
                                         {!! Form::Open(['url' => route('product.image_add', ['id' => $product->id]), 'files' => true ]) !!}
                                         <div class="card-block text-left">
-                                            <label>Order:</label>
+                                            <label>Image:</label>
                                             <input class="form-control @error('image') input-error @enderror" type="file" name="image" accept="image/*, video/*" />
                                             @error('image')
                                                 <div class="msg-error">{{ $message }}</div>
@@ -125,8 +129,9 @@
                             <!-- End Modal -->
                         </div>
                     </div>
-                            <!-- DataTables init on table by adding .js-dataTable-simple class, functionality initialized in js/pages/base_tables_datatables.js -->
-                    <table class="table table-striped table-vcenter js-dataTable-simple">
+
+                    <!--  product images table  -->
+                    <table class="table table-striped table-vcenter js-dataTable-simple m-b-lg">
                         <thead>
                             <tr>
                                 <th class="text-center w-5">#</th>
@@ -139,7 +144,7 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($product_images as $key=>$image)
+                            @foreach ($product->product_images as $key=>$image)
                                 <tr>
                                     <td class="text-center">{{ $key+1 }}</td>
                                     <td class="text-center">{{ $image->image }}</td>
@@ -219,6 +224,7 @@
                         
                         </tbody>
                     </table>
+                    
                 </div>
 
             </div>
@@ -226,6 +232,7 @@
             <div class="form-group m-b-0 p-x-sm">
                 <a href="{{ route('product.edit',['id' => $product->id]) }}" class="btn btn-success">Edit</a>
                 <button class="btn btn-app" data-toggle="modal" data-target="#product{{ $product->id }}">Delete</button>
+                <a href="{{ route('ProductStore.product_history',['prod_id' => $product->id, 'prod_name' => $product->name]) }}" class="btn btn-info">Show Store History</a>
                 <a href="{{ route('product.index') }}" class="btn btn-primary">Back</a>
             </div>
             <!-- Modal -->

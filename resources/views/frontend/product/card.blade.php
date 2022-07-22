@@ -9,8 +9,12 @@
                 </div>
                 <div class="product__hover__info">
                     <ul class="product__action">
-                        <li><a data-toggle="modal" data-target="#watche{{ $product->id }}" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                        <li><a title="Add TO Cart" href="{{ route('cart.add',['id' => $product->id]) }}"><span class="ti-shopping-cart"></span></a></li>
+                        <li><a data-toggle="modal" data-target="#watche{{ $product->id }}" title="Quick View" class="quick-view modal-view detail-link" href=""><span class="ti-plus"></span></a></li>
+                        @if($product->quantity > 0)
+                            <li><a title="Add TO Cart" href="{{ route('cart.add',['id' => $product->id]) }}"><span class="ti-shopping-cart"></span></a></li>
+                        @else
+                            <li><span class="ti-shopping-cart"></span></li>
+                        @endif
                         <li><a title="Wishlist" href="{{ route('wishlist.add',['id' => $product->id]) }}"><span class="ti-heart"></span></a></li>
                     </ul>
                 </div>

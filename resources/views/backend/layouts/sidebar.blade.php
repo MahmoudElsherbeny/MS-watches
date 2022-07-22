@@ -12,7 +12,7 @@
         <nav class="drawer-main">
             <ul class="nav nav-drawer">
 
-            <li class="nav-item nav-item-has-subnav">
+                <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Slider</a>
                     <ul class="nav nav-subnav">
 
@@ -21,6 +21,20 @@
                         </li>
                         <li>
                             <a href="{{ route('slider.create') }}">Create New Slide</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Home Ads</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="{{ route('AdsBanner.index') }}">All Ads</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('AdsBanner.create') }}">Create New Ad</a>
                         </li>
 
                     </ul>
@@ -51,9 +65,14 @@
                         <li>
                             <a href="{{ route('product.reviews') }}">Products Reviews</a>
                         </li>
+                    @if(Auth::guard('admin')->user()->role == 'admin')
                         <li>
-                            <a href="{{ route('product.create') }}">Product Report</a>
+                            <a href="{{ route('ProductStore.index') }}">Products Store</a>
                         </li>
+                        <li>
+                            <a href="{{ route('ProductStore.add') }}">Add Product Quantity</a>
+                        </li>
+                    @endif
 
                     </ul>
                 </li>

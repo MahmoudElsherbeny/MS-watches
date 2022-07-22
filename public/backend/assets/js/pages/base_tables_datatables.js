@@ -9,7 +9,62 @@ var BaseTableDatatables = function() {
 	var initDataTableProduct = function() {
 		jQuery( '#ProductsTable' ).dataTable({
 			columnDefs: [ 
-				{ orderable: false, targets: [ 9 ] }, 
+				{ orderable: false, targets: [ 10 ] }, 
+			],
+			pageLength: 30,
+			lengthMenu: [[10, 20, 30, 40], [10, 20, 30, 40]],
+			pagingType: "full_numbers",
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
+		});
+	};
+
+	var initDataTableProductsStoreTable = function() {
+		jQuery( '#ProductsStoreTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 5 ] }, 
+			],
+			pageLength: 30,
+			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
+			pagingType: "full_numbers",
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
+		});
+	};
+
+	var initDataTableProductStoreHistory = function() {
+		jQuery( '#ProductStoreList' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 1,7 ] }, 
+			],
+			pageLength: 30,
+			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
+			pagingType: "full_numbers",
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
+		});
+	};
+
+	// Init simple DataTable for products list: https://www.datatables.net/
+	var initDataTableOrder = function() {
+		jQuery( '#OrdersTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 2,8 ] }, 
 			],
 			pageLength: 30,
 			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
@@ -77,11 +132,45 @@ var BaseTableDatatables = function() {
 		});
 	};
 
+	// Init simple DataTable for ads list
+	var initDataTableAds = function() {
+		jQuery( '#AdsTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 6 ] }, 
+			],
+			pageLength: 30,
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
+		});
+	};
+
 	// Init simple DataTable for editors list
 	var initDataTableEditor = function() {
 		jQuery( '#EditorsTable' ).dataTable({
 			columnDefs: [ 
 				{ orderable: false, targets: [ 8 ] }, 
+			],
+			pageLength: 30,
+			searching: false,
+			oLanguage: {
+				sLengthMenu: ''
+			},
+			dom:
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-6'i><'col-sm-6'p>>"
+		});
+	};
+
+	// Init simple DataTable for dashboard logs list
+	var initDataTableEditor = function() {
+		jQuery( '#DashlogsTable' ).dataTable({
+			columnDefs: [ 
+				{ orderable: false, targets: [ 3 ] }, 
 			],
 			pageLength: 30,
 			searching: false,
@@ -251,10 +340,15 @@ var BaseTableDatatables = function() {
 			// Init Datatables
 			bsDataTables();
 			initDataTableProduct();
+			initDataTableProductStoreHistory();
+			initDataTableProductsStoreTable();
+			initDataTableOrder();
 			initDataTableCategory();
 			initDataTableSlide();
 			initDataTableState();
+			initDataTableAds();
 			initDataTableEditor();
+			initDataTableDashlogs();
 		}
 	};
 }();

@@ -9,6 +9,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#notifiation-dropdown" aria-expanded="false">
+                    <span class="sr-only">Toggle notificatio</span>
+                    <span><i class="ion-ios-bell"></i> <span class="badge">3</span></span>
+                </button>
                 <button class="pull-left hidden-lg hidden-md navbar-toggle" type="button" data-toggle="layout" data-action="sidebar_toggle">
                     <span class="sr-only">Toggle drawer</span>
                     <span class="icon-bar"></span>
@@ -31,17 +35,6 @@
                     </div>
                 </form>
 
-                <ul id="main-menu" class="nav navbar-nav navbar-left">
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown">Pages <span class="caret"></span></a>
-
-                        <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)">Analytics</a></li>
-                            <li><a href="javascript:void(0)">Visits</a></li>
-                            <li><a href="javascript:void(0)">Changelog</a></li>
-                        </ul>
-                    </li>
-                </ul>
                 <!-- .navbar-left -->
 
                 <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
@@ -52,7 +45,7 @@
 
                     <li class="dropdown">
                         <a href="javascript:void(0)" data-toggle="dropdown"><i class="ion-ios-bell"></i> <span class="badge">3</span></a>
-                        <ul class="dropdown-menu dropdown-menu-right">
+                        <ul class="dropdown-menu dropdown-menu-right" id="notification-dropdown">
                             <li class="dropdown-header">Profile</li>
                             <li>
                                 <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">3</span> News </a>
@@ -88,6 +81,7 @@
                     </li>
                 </ul>
                 <!-- .navbar-right -->
+                
             </div>
         </div>
         <!-- .container-fluid -->

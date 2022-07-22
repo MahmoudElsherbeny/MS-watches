@@ -173,7 +173,7 @@ select {
     font-weight: 500;
 }
 .product_page .mini_description {
-    height: 117px;
+    height: 98px;
     overflow: hidden;
 }
 
@@ -184,8 +184,13 @@ select {
 /*************************************/
 /*  ******   profile page   ******  */
 /***********************************/
-.edit_profile_image {
+.edit_profile_image,
+.edit_banner_image {
     position: relative;
+}
+.edit_banner_image {
+    border: 1px solid #f3f3f3;
+    height: 160px;
 }
 
 .edit_profile_image img {
@@ -195,18 +200,40 @@ select {
     height: 130px;
 }
 
-.edit_profile_image .image_label {
+.edit_banner_image img {
+    width: 100%;
+    height: 100%;
+}
+
+.edit_profile_image .image_label,
+.edit_banner_image .image_label {
     color: #888;
     font-size: 16px;
     position: absolute;
+}
+.edit_profile_image .image_label{
     top: 104px;
     left: 106px;
 }
+.edit_banner_image .image_label{
+    top: 140px;
+    right: 0;
+}
 
-.edit_profile_image .image_label:hover {
+.edit_profile_image .image_label:hover,
+.edit_banner_image .image_label:hover {
     color: #444;
 }
 
-.edit_profile_image .image_input {
+.edit_profile_image .image_input,
+.edit_banner_image .image_input {
     display: none;
+}
+
+.order__detailes .order__header table {
+    width: 100%;
+}
+.order__detailes .order__header table td {
+    font-weight: 400;
+    padding: 3px 8px;
 }

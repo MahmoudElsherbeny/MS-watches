@@ -74,9 +74,9 @@
                 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
                     <div class="htc__product__details__inner">
                         <div class="pro__detl__title">
-                            <h2>{{ $product->name }}</h2>
+                            <h2>{{ $product->name }} <span>({{ $product->tags }})</span></h2>
                         </div>
-                        <div class="pro__dtl__rating">
+                        <div class="pro__dtl__rating mt--10">
                             <ul class="pro__rating">
                                 @php $rating = App\Product_review::getProductRate($product->id); @endphp
 
@@ -123,32 +123,57 @@
                                 </div>
                             </div>
                         </div>
-                        {!! Form::Open(['url' => route('cart.add',['id' => $product->id]), 'method' => 'GET' ]) !!}
+                        @if ($product->quantity > 0)
+                            {!! Form::Open(['url' => route('cart.add',['id' => $product->id]), 'method' => 'GET' ]) !!}
+                                <div class="product-action-wrap">
+                                    <div class="prodict-statas"><span>Quantity :</span></div>
+                                    <div class="product-quantity">
+                                        <div class="product-quantity">
+                                            <input class="cart-plus-minus-box" type="number" name="qty" min="1" value="1">
+                                            @if(Session::has('error'))
+                                                <div class="msg-error text-capitalize text-center">
+                                                    {{Session::get('error')}}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="pro__dtl__btn">
+                                    <li class="buy__now__btn">
+                                        <button type="submit">Buy Now</a>
+                                    </li>
+                                    <li>
+                                        <a title="Wishlist" href="{{ route('wishlist.add',['id' => $product->id]) }}"><span class="ti-heart"></span></a>
+                                    </li>
+                                    <li><a href="#"><span class="ti-email"></span></a></li>
+                                </ul>
+                            {!! Form::Close() !!}
+                        @else
                             <div class="product-action-wrap">
                                 <div class="prodict-statas"><span>Quantity :</span></div>
                                 <div class="product-quantity">
                                     <div class="product-quantity">
-                                        <input class="cart-plus-minus-box" type="number" name="qty" min="1" value="1">
+                                        <input class="cart-plus-minus-box" type="number" name="qty" value="0" readonly>
                                     </div>
                                 </div>
                             </div>
                             <ul class="pro__dtl__btn">
                                 <li class="buy__now__btn">
-                                    <button type="submit">Buy Now</a>
+                                    <button>Out Of Stock</button>
                                 </li>
                                 <li>
                                     <a title="Wishlist" href="{{ route('wishlist.add',['id' => $product->id]) }}"><span class="ti-heart"></span></a>
                                 </li>
                                 <li><a href="#"><span class="ti-email"></span></a></li>
                             </ul>
-                        {!! Form::Close() !!}
+                        @endif
                         <div class="pro__social__share">
                             <h2>Share :</h2>
                             <ul class="pro__soaial__link">
-                                <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a href="#"><i class="zmdi zmdi-instagram"></i></a></li>
-                                <li><a href="#"><i class="zmdi zmdi-whatsapp"></i></a></li>
+                                <li><a href="#" class="facebook"><i class="zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="zmdi zmdi-instagram"></i></a></li>
+                                <li><a href="#" class="whatsapp"><i class="zmdi zmdi-whatsapp"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -157,8 +182,9 @@
         </div>
     </section>
     <!-- End Product Details -->
+
     <!-- Start Product tab -->
-    <section class="htc__product__details__tab bg__white pb--120">
+    <section class="htc__product__details__tab bg__white pb--100">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
@@ -194,6 +220,34 @@
         </div>
     </section>
     <!-- End Product tab -->
+
+    <!--  Start related products Area  -->
+    <section class="htc__product__area bg__white mb--80">
+        <div class="container">
+            <div class="product-style-tab">
+                <div class="product-tab-list">
+                    <a href="#TopRated" class="active"> Related Products ({{ count($related_products) }}) </a>
+                </div>
+                <div class="tab-content another-product-style jump">
+                    <div class="tab-pane active" id="TopRated">
+                        <div class="row">
+                            <div class="product-slider-active owl-carousel">
+
+                            <!--   top rated products   -->
+                            @include('frontend.product.card', ['products' => $related_products])
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--   overview of top rated products   -->
+                @include('frontend.product.quickview', ['products' => $related_products])
+
+            </div>
+        </div>
+    </section>
+    <!--  End related products Area  -->
 
 @endsection
 

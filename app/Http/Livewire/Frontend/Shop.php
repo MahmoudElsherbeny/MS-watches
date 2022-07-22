@@ -63,13 +63,13 @@ class Shop extends Component
             else {
                 //if there value then display results and enable filters
                 $this->products = Product::Where('status','active')
-                                        ->Where('name','like','%'.$this->search_for.'%')
-                                        ->OrWhere('mini_description','like','%'.$this->search_for.'%')
-                                        ->OrWhere('description','like','%'.$this->search_for.'%')
-                                        ->OrWhere('tags','like','%'.$this->search_for.'%')
-                                        ->OrWhere('body_color','like','%'.$this->search_for.'%')
-                                        ->OrWhere('mina_color','like','%'.$this->search_for.'%')
                                         ->WithFilters($this->filters)
+                                        ->Where(function($query) {
+                                            $query->Where('name','like','%'.$this->search_for.'%')
+                                                ->OrWhere('tags','like','%'.$this->search_for.'%')
+                                                ->OrWhere('body_color','like','%'.$this->search_for.'%')
+                                                ->OrWhere('mina_color','like','%'.$this->search_for.'%');
+                                        })
                                         ->limit($this->products_count)->get();
             }
         }
@@ -83,13 +83,14 @@ class Shop extends Component
             else {
                  //if there value then display results and enable filters
                 $this->products = Product::Where('status','active')
-                                        ->Where('name','like','%'.$this->search_for.'%')
-                                        ->OrWhere('mini_description','like','%'.$this->search_for.'%')
-                                        ->OrWhere('description','like','%'.$this->search_for.'%')
-                                        ->OrWhere('tags','like','%'.$this->search_for.'%')
-                                        ->OrWhere('body_color','like','%'.$this->search_for.'%')
-                                        ->OrWhere('mina_color','like','%'.$this->search_for.'%')
-                                        ->limit($this->products_count)->get();
+                                         ->Where(function($query) {
+                                             $query->Where('name','like','%'.$this->search_for.'%')
+                                                 ->OrWhere('tags','like','%'.$this->search_for.'%')
+                                                 ->OrWhere('body_color','like','%'.$this->search_for.'%')
+                                                 ->OrWhere('mina_color','like','%'.$this->search_for.'%');
+                                         })
+                                         ->limit($this->products_count)->get();
+                                        
             }
         }
 

@@ -28,6 +28,10 @@
                                         <input type="radio" id="sort_new" name="sort_by" value="created_at" wire:model="filters.sort" />
                                         <label for="sort_new">New</label>
                                     </li>
+                                    <li>
+                                        <input type="radio" id="sort_name" name="sort_by" value="name" wire:model="filters.sort" />
+                                        <label for="sort_name">Name</label>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="single__filter">

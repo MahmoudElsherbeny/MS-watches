@@ -1,47 +1,48 @@
-@extends('layouts.app')
+@extends('frontend.layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+<!-- Start forget password Area -->
+<div class="htc__login__register bg__white ptb--70" style="background: rgba(0, 0, 0, 0) url(frontend/images/bg/5.jpg) no-repeat scroll center center / cover ;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="login__register__menu">
+                    <div class="title active">Reset Password</div>
+                </div>
+                @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            </div>
+        </div>
+        <!-- Start forget password Content -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="htc__login__register__wrap">
+                    <!-- Start Single Content -->
+                    <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                        {!! Form::Open(['url' => route('password.email'), 'class' => 'login']) !!}
+                            <div class="login__form__input">
+                                <input class="@error('email') app__input__error @enderror" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <div class="msg-error">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
+                            <div class="htc__login__btn">
+                                <button class="prl--20" type="submit">Send Reset Link</button>
                             </div>
-                        </div>
-                    </form>
+                        {!! Form::Close() !!}
+
+                    </div>
+                    <!-- End Single Content -->
                 </div>
             </div>
         </div>
+        <!-- End forget password Content -->
     </div>
 </div>
+<!-- End forget password Area -->
+        
 @endsection

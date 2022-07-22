@@ -22,7 +22,7 @@
         {!! Form::Open() !!}
             <div class="form-group">
                 <label>Email</label>
-                <input class="form-control @error('email') input-error @enderror" type="text" name="email" placeholder="Enter email..." />
+                <input class="form-control @error('email') input-error @enderror" type="text" name="email" value="{{ old('email') }}" placeholder="Enter email..." />
                 @error('email')
                     <div class="msg-error">{{ $message }}</div>
                 @enderror
@@ -42,7 +42,7 @@
                         </label>
                     </div>
                     <div class="col-md-3">
-                        <a href="" style="font-size: 12px;">Forget Password?</a>
+                        <a href="{{ route('AdminPassword.forgot') }}" style="font-size: 12px;">Forget Password?</a>
                     </div>
                 </div>
             </div>

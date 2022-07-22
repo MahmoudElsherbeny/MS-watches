@@ -636,6 +636,24 @@
         height: 264px;
         overflow-y: auto;
     }
+    .htc__profile__area .cover {
+        height: 210px !important;
+    }
+    .htc__profile__area .profile__image img {
+        width: 162px !important;
+        height: 160px !important;
+        top: -88px !important;
+        left: 38% !important;
+    }
+    .htc__profile__area .image {
+        padding-bottom: 28px !important;
+    }
+    .htc__profile__area .image .user__name {
+        margin-top: 78px !important;
+        text-align: center !important;
+    }
+
+    .order__bill { width: 85%; }
 }
 /* small mobile :320px. */
 
@@ -905,7 +923,6 @@
         margin-left: 0;
     }
     .single-checkout-box select {
-        margin-bottom: 40px;
         margin-right: 0px;
         width: 100%;
     }
@@ -1137,10 +1154,10 @@
         margin-top: -69px;
     }
     .header--3 .menu-extra {
-        height: 100px;
+        height: 70px;
     }
     .header--3 .logo {
-        height: 100px;
+        height: 70px;
     }
     .header--3 .mean-container .mean-bar {
         min-height: 0;
@@ -1186,17 +1203,18 @@
         width: 90%;
     }
     .modal-dialog.modal__container {
-        width: 290px;
+        width: 378px;
     }
     .modal-product {
         display: block;
     }
     .product-images {
         padding-right: 0;
-        margin-bottom: 24px;
+        margin-bottom: 26px;
     }
     .product-info {
-        padding-left: 0;
+        padding-left: 10px;
+        padding-right: 8px;
         width: 100%;
     }
     .color__list li + li {
@@ -1210,6 +1228,9 @@
     }
     .addtocart-btn {
         margin-top: 30px;
+    }
+    .addtocart-btn button {
+        width: 100%;
     }
     .header--3 .scroll-header .mean-container a.meanmenu-reveal {
         margin-top: -54px;
@@ -1401,6 +1422,26 @@
     .testimonial-3-name h3 {
       font-size: 20px;
     }
+
+    .htc__profile__area .cover {
+        height: 190px !important;
+    }
+    .htc__profile__area .profile__image img {
+        width: 142px !important;
+        height: 140px !important;
+        top: -88px !important;
+        left: 32% !important;
+    }
+    .htc__profile__area .image {
+        padding-bottom: 28px !important;
+    }
+    .htc__profile__area .image .user__name {
+        font-size: 24px !important;
+        margin-top: 58px !important;
+        text-align: center !important;
+    }
+
+    .order__bill { width: 100%; }
     
 }
 /* Large Mobile :480px. */
@@ -1447,4 +1488,25 @@
     .buttons-cart a {
         margin-top: 0px;
     }
+
+    .htc__profile__area .cover {
+        height: 190px !important;
+    }
+    .htc__profile__area .profile__image img {
+        width: 142px !important;
+        height: 140px !important;
+        top: -88px !important;
+        left: 35% !important;
+    }
+    .htc__profile__area .image {
+        padding-bottom: 28px !important;
+    }
+    .htc__profile__area .image .user__name {
+        font-size: 24px !important;
+        margin-top: 58px !important;
+        text-align: center !important;
+    }
+
+    .order__bill { width: 100%; }
+
 }

@@ -49,9 +49,9 @@
             <!-- Start Single Review -->
             <div class="pro__review mb--50">
                 <div class="review__thumb">
-                    <img src="{{ url('frontend/images/review/1.jpg') }}" alt="review images">
+                    <img src="@if($review->user->user_info && $review->user->user_info->image !=null) {{ asset('storage/'.$review->user->user_info->image) }} @else {{ asset('frontend/images/avatars/profile_avatar.png') }} @endif" alt="review images">
                 </div>
-                <div class="review__details">
+                <div class="review__details ptb--10">
                     <div class="review__info">
                         <h4><a href="#">{{ $review->user->name }}</a></h4>
                         <ul class="rating">

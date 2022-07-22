@@ -3,7 +3,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-md-5">
-                <h4 class="m-a-0 m-t-xs">Products (<span id="prod_count">@if($products){{ $products->total() }}@endif</span>)</h4>
+                <h4 class="m-a-0 m-t-xs">Products (<span id="prod_count">@if($products){{ $products->count() }}@endif</span>)</h4>
             </div>
             <div class="col-md-7">
                 <div class="form-group col-md-9">
@@ -24,7 +24,8 @@
                     <th class="">Category</th>
                     <th class="">Price(EGP)</th>
                     <th class="">Old Price</th>
-                    <th class="text-center">Status</th>
+                    <th>Status</th>
+                    <th>Quantity</th>
                     <th class="hidden-xs">Publisher</th>
                     <th class="">Created At</th>
                     <th class="">Last Update</th>
@@ -35,7 +36,7 @@
 
                 @foreach ($products as $key=>$product)
                     <tr>
-                        <td class="text-center">{{ $products->firstItem() + $key }}</td>
+                        <td class="text-center">{{ $key+1 }}</td>
                         <td class="text-center text-capitalize">
                             <a href="{{ route('product.info', ['id' => $product->id]) }}" style="text-decoration:underline;" target="_blank">{{ $product->name }}</a>
                         </td>
@@ -45,7 +46,14 @@
                         <td class="text-center text-capitalize"> 
                             <span class="status btn btn-sm btn-pill @if($product->status == 'active') btn-primary @else btn-warning @endif">{{ $product->status }}</span> 
                         </td>
-                        <td class="text-center hidden-xs">{{ $product->published_by->name }}</td>
+                        <td class="text-center">
+                            @if($product->quantity > 0) 
+                                {{ $product->quantity }}
+                            @else
+                                <span class="status btn btn-sm btn-pill btn-danger">Out Stock</span> 
+                            @endif
+                        </td>
+                        <td class="text-center text-capitalize hidden-xs">{{ $product->published_by->name }}</td>
                         <td class="text-center">{{ $product->created_at->format("Y-m-d g:i a") }}</td>
                         <td class="text-center">{{ $product->updated_at->format("Y-m-d g:i a") }}</td>
                         <td class="text-center">
@@ -127,8 +135,6 @@
                
             </tbody>
         </table>
-
-        {{ $products->links() }}
     </div>
 
 </div>

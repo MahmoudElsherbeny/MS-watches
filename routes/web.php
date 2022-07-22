@@ -43,7 +43,16 @@ Route::group(['prefix'=>'cart', 'as'=>'cart.'] , function() {
     Route::get('/', 'frontend\CartController@index')->name('index');
     Route::get('add/{id}', 'frontend\CartController@addToCart')->name('add');
     Route::get('update/{id}/{quantity}', 'frontend\CartController@updateCart')->name('update');
-    Route::get('checkout','frontend\CartController@checkout_page')->middleware(['auth','verified'])->name('checkout_page');
+
+});
+
+//order routes
+Route::group(['middleware'=>['auth','verified'], 'prefix'=>'order', 'as'=>'UserOrder.'] , function() {
+
+    Route::get('checkout','frontend\OrderController@checkout')->name('checkout_page');
+    Route::post('checkout','frontend\OrderController@order')->name('store');
+    Route::get('{id}/{name}/{user}','frontend\OrderController@order_detailes')->name('detailes');
+    Route::Post('{id}/{name}/{user}','frontend\OrderController@cancel')->name('cancel');
 
 });
 
@@ -52,6 +61,18 @@ Route::group(['prefix'=>'wishlist', 'as'=>'wishlist.'] , function() {
 
     Route::get('/', 'frontend\WishlistController@index')->name('index');
     Route::get('add/{id}', 'frontend\WishlistController@addToWishlist')->name('add');
+
+});
+
+//user profile routes
+Route::group(['prefix'=>'profile', 'as'=>'UserProfile.'] , function() {
+
+    Route::get('/{id}/{name}/', 'frontend\ProfileController@index')->name('profile');
+    Route::get('/{id}/{name}/edit', 'frontend\ProfileController@edit')->middleware(['auth'])->name('edit');
+    Route::post('/{id}/{name}/edit', 'frontend\ProfileController@update')->middleware(['auth','verified']);
+    Route::get('/{id}/{name}/change_password', 'frontend\ProfileController@ShowChangePasswordForm')->middleware(['auth'])->name('change_password');
+    Route::post('/{id}/{name}/change_password', 'frontend\ProfileController@ChangePassword')->middleware(['auth','verified']);
+    Route::get('/{id}/{name}/orders', 'frontend\ProfileController@orders')->middleware(['auth','verified'])->name('orders');
 
 });
 

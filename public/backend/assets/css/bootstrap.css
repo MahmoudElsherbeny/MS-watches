@@ -3430,13 +3430,11 @@ select[multiple].input-lg,
 
 @media (min-width: 768px) {
 	.form-inline .form-group {
-		display: inline-block;
 		margin-bottom: 0;
 		vertical-align: middle;
 	}
 	.form-inline .form-control {
 		display: inline-block;
-		width: auto;
 		vertical-align: middle;
 	}
 	.form-inline .form-control-static {
@@ -7521,10 +7519,6 @@ h4, h5, h6, .h4, .h5, .h6 {
 	letter-spacing: 0;
 }
 
-b, strong {
-	font-weight: 500;
-}
-
 th {
 	font-weight: 500;
 }
@@ -8633,7 +8627,7 @@ label {
 }
 
 .form-control {
-	font-size: 81.25%;
+	font-size: 94%;
 	box-shadow: none;
 }
 

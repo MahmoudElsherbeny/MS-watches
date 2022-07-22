@@ -7,6 +7,7 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
+use App\Ad;
 use App\Category;
 use App\Product;
 use App\Product_review;
@@ -46,5 +47,6 @@ class EventServiceProvider extends ServiceProvider
         State::observe(\App\Observers\StateObserver::class);
         Website_review::observe(\App\Observers\WebsiteReviewObserver::class);
         Website_brand::observe(\App\Observers\WebsiteBrandObserver::class);
+        Ad::observe(\App\Observers\AdObserver::class);
     }
 }
