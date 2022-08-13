@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Backend\Setting\Website_brands;
 
+use App\Traits\ImageFunctions;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 class Create extends Component
 {
 
-    use WithFileUploads;
+    use WithFileUploads, ImageFunctions;
 
     public $name, $link, $status, $image;
 
@@ -28,12 +29,10 @@ class Create extends Component
     public function store() {
         
         $this->validate();
-        $brandExist = Website_brand::Where('name',$this->name)
-                                   ->OrWhere('image', 'setting/brands/brand'.$this->image->getClientOriginalName())->first();
+        $brandExist = Website_brand::Where('name',$this->name)->first();
         if(!$brandExist) {
             //store brand
-            $filename = 'brand'.$this->image->getClientOriginalName();
-            $path = $this->image->storeAs('setting/brands', $filename);
+            $path = $this->store_image_path($this->image, 'setting/brands');
             Website_brand::create([
                 'name' => $this->name,
                 'link' => $this->link,
@@ -45,7 +44,7 @@ class Create extends Component
             Session::flash('success','brand added successfully');
         }
         else {
-            Session::flash('error','brand name or logo already exist');
+            Session::flash('error','brand already exist');
         }
         
     }

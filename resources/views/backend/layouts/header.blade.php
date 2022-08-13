@@ -44,19 +44,25 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown"><i class="ion-ios-bell"></i> <span class="badge">3</span></a>
-                        <ul class="dropdown-menu dropdown-menu-right" id="notification-dropdown">
-                            <li class="dropdown-header">Profile</li>
-                            <li>
-                                <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">3</span> News </a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">1</span> Messages </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="dropdown-header">More</li>
-                            <li>
-                                <a tabindex="-1" href="javascript:void(0)">Edit Profile..</a>
+                        <a href="javascript:void(0)" data-toggle="dropdown">
+                            <i class="ion-ios-bell"></i> 
+                            @if (count(Auth::guard('admin')->user()->unreadSubnotifications) > 0)
+                                <span class="badge notification-badge">{{ count(Auth::guard('admin')->user()->unreadSubnotifications) }}</span>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right notification-dropdown" id="notification-dropdown">
+                            @foreach(App\Admin::find(Auth::guard('admin')->user()->id)->Subnotifications->take(30) as $notify)
+                                <li class="notification @if(!$notify->read_at) unread @endif">
+                                    <a href="{{ route('AdminNotification.read', ['id' => $notify->id]) }}" class="mark_as_read">
+                                        <span class="title">{{ $notify->notification->data['title'] }}</span>
+                                        <span class="description">{{ $notify->notification->data['description'] }}</span>
+                                        <span class="date">{{ $notify->notification->created_at->diffForHumans() }}</span>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                            @endforeach
+                           <li class="dropdown-header text-center">
+                                <a href="{{ route('profile.index', ['id' => Auth::guard('admin')->user()->id, 'name' => Auth::guard('admin')->user()->name]) }}">More...</a>
                             </li>
                         </ul>
                     </li>

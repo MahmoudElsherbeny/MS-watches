@@ -78,7 +78,7 @@
                         </div>
                         <div class="pro__dtl__rating mt--10">
                             <ul class="pro__rating">
-                                @php $rating = App\Product_review::getProductRate($product->id); @endphp
+                                @php $rating = $product->rate; @endphp
 
                                 @foreach (range(1,5) as $i)
 
@@ -128,14 +128,15 @@
                                 <div class="product-action-wrap">
                                     <div class="prodict-statas"><span>Quantity :</span></div>
                                     <div class="product-quantity">
-                                        <div class="product-quantity">
-                                            <input class="cart-plus-minus-box" type="number" name="qty" min="1" value="1">
-                                            @if(Session::has('error'))
-                                                <div class="msg-error text-capitalize text-center">
-                                                    {{Session::get('error')}}
-                                                </div>
-                                            @endif
-                                        </div>
+                                        <input class="cart-plus-minus-box" type="number" name="qty" min="1" value="1">
+                                        @error('qty')  
+                                            <div class="msg-error text-capitalize text-center"> {{ $message }} </div>
+                                        @enderror
+                                        @if(Session::has('error'))
+                                            <div class="msg-error text-capitalize text-center">
+                                                {{Session::get('error')}}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <ul class="pro__dtl__btn">
@@ -210,7 +211,7 @@
                         <div role="tabpanel" id="reviews" class="product__tab__content fade">
                             
                             <!-- Start Rating and Reviews Area -->
-                            @livewire('frontend.reviews.create', ['productId' => $product->id])
+                            @livewire('frontend.reviews.review', ['productId' => $product->id])
                             
                         </div>
                         <!-- End Single Content -->
@@ -226,23 +227,22 @@
         <div class="container">
             <div class="product-style-tab">
                 <div class="product-tab-list">
-                    <a href="#TopRated" class="active"> Related Products ({{ count($related_products) }}) </a>
+                    <a href="#TopRated" class="active"> Related Products </a>
                 </div>
                 <div class="tab-content another-product-style jump">
                     <div class="tab-pane active" id="TopRated">
                         <div class="row">
                             <div class="product-slider-active owl-carousel">
 
-                            <!--   top rated products   -->
-                            @include('frontend.product.card', ['products' => $related_products])
+                            @foreach ($related_products as $product)
+                                <!--   related products   -->
+                                @livewire('frontend.product.card', ['product' => $product])
+                            @endforeach
 
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!--   overview of top rated products   -->
-                @include('frontend.product.quickview', ['products' => $related_products])
 
             </div>
         </div>

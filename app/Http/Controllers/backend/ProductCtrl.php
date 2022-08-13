@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Session;
 use App\Product;
 use App\Product_image;
 use App\Product_review;
+use App\Traits\ImageFunctions;
 
 class ProductCtrl extends Controller
 {
+    use ImageFunctions;
+
     //function index - show products page and products live search
     public function index()
     {
@@ -38,7 +41,7 @@ class ProductCtrl extends Controller
         $product_images = $product->product_images;
         $product_reviews = $product->product_reviews;
         foreach($product_images as $img) {
-            Storage::Delete($img->image);
+            $this->delete_if_exist($img->image);
         }
         $product->delete();
         $product_images->each->delete();
@@ -67,22 +70,21 @@ class ProductCtrl extends Controller
         try {
             $image = $request->file('image');
             if($image) {
-                $filename = 'products/watche_'.$image->getClientOriginalName();
-                $imageExist = Product_image::Where(['product_id' => $prod_id, 'image' => $filename])->first();
-                if(!$imageExist) {
-                    $filename = 'watche_'.$image->getClientOriginalName();
-                    $path = $image->storeAs('products',$filename);
-                    
+                $prod_imgs = Product_image::Where('product_id', $prod_id)->get();
+                if(count($prod_imgs) < 4) {
                     Product_image::create([
                         'product_id' => $prod_id,
-                        'image' => $path,
+                        'image' => $this->store_image_path($image, 'products'),
                         'order' => 1,
                     ]);
+                }
+                else {
+                    Session::flash('error','products have maximum number of images');
                 }
             }
             return Redirect::back();
 
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
     }
@@ -102,7 +104,7 @@ class ProductCtrl extends Controller
             }
             return Redirect::back();
 
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
     }
@@ -110,9 +112,9 @@ class ProductCtrl extends Controller
     //delete function - delete product image in images in table
     public function image_destroy($id,$image) {
         $product_image = Product_image::find($image);
-
-        Storage::Delete('public/products/'.$product_image->image);
+        $this->delete_if_exist($product_image->image);
         $product_image->delete();
+        
         return Redirect::back();
     }
 

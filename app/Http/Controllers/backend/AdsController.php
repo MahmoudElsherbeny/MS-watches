@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Ad;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Traits\ImageFunctions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 
 class AdsController extends Controller
 {
+    use ImageFunctions;
+
     //function index - show ads list page and ads live search
     public function index()
     {
@@ -36,28 +39,24 @@ class AdsController extends Controller
         $product = Product::find($request->input('product'));
         try {
             if($product) {
-                $filename = 'ads/banner_'.$request->image->getClientOriginalName();
-                $existInStorage = Storage::exists($filename);
-                if(!$existInStorage) {
-                    $filename = 'banner_'.$request->image->getClientOriginalName();
-                    $path = $request->image->storeAs('ads',$filename);
-
+                $adExist = Ad::select('product_id')->Where('product_id', $request->input('product'))->first();
+                if(!$adExist) {
                     Ad::create([
                         'product_id' => $request->input('product'),
                         'status' => $request->input('status'),
-                        'image' => $path,
+                        'image' => $this->store_image_path($request->image, 'ads'),
                     ]);
 
                     Session::flash('success','New Ad Banner added successfully');
                 }
                 else {
-                    Session::flash('error','Banner image exists with same name');
+                    Session::flash('error','Ad Banner already exist');
                 }
             }
             //logs stored when created by AdObserver in app\observers
 
             return Redirect::back();
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
 
@@ -73,7 +72,7 @@ class AdsController extends Controller
     //function store - store new ad into database
     public function update(Request $request, $id) { 
 
-        $this->validate($request, [
+        $validatedData = $request->validate([
             'image' => 'nullable|max:8000|mimes:jpeg,bmp,png,jpg,mp4,webm,wmv,mpeg',
         ]);
 
@@ -82,17 +81,8 @@ class AdsController extends Controller
             if($ad) {
                 $ad->status = $request->input('status');
                 if($request->has('image')) {
-                    $filename = 'ads/banner_'.$request->image->getClientOriginalName();
-                    $existInStorage = Storage::exists($filename);
-                    if(!$existInStorage) {
-                        Storage::Delete($ad->image);
-                        $filename = 'banner_'.$request->image->getClientOriginalName();
-                        $path = $request->image->storeAs('ads',$filename);
-                        $ad->image = $path;
-                    }
-                    else {
-                        Session::flash('error','Banner image exists with same name');
-                    }
+                    $this->delete_if_exist($ad->image);
+                    $ad->image = $this->store_image_path($request->image, 'ads');
                 }
 
                 if($ad->isDirty()) {
@@ -106,7 +96,7 @@ class AdsController extends Controller
             //logs stored when updated by AdObserver in app\observers
 
             return Redirect::back();
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
 
@@ -115,12 +105,10 @@ class AdsController extends Controller
     //function destroy - delete ad
     public function destroy($id) {
         $ad = Ad::find($id);
-        $existInStorage = Storage::exists($ad->image);
-        $existInStorage ? Storage::Delete($ad->image) : '';
+        $this->delete_if_exist($ad->image);
         $ad->delete();
 
         //logs stored when deleted by AdObserver in app\observers
-
         return Redirect::back();
     }
 

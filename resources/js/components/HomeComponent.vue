@@ -16,8 +16,14 @@
 
 <script>
     export default {
+        name: "HomeComponent",
+
         mounted() {
-            console.log('Component mounted.')
+            //console.log('Component mounted.')
+
+            window.Echo.channel('realtime_notification').listen('RealtimeNotification', event => {
+                console.log(event);
+            })            
         }
     }
 </script>

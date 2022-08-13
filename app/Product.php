@@ -41,6 +41,16 @@ class Product extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function product_cart_items()
+    {
+        return $this->hasMany(Cart_item::class);
+    }
+
+    public function product_wishlist_items()
+    {
+        return $this->hasMany(Wishlist_item::class);
+    }
+
     public function ads()
     {
         return $this->hasMany(Ad::class);

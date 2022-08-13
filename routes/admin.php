@@ -21,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 //main pages routes
 Route::get('/', 'backend\DashController@dashboard')->name('dashboard')->middleware(['admin','admin.verified']);
 
+//notifications routes
+Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'notification', 'as'=>'AdminNotification.'] , function() {
+    Route::get('/mark_read/{id}', 'backend\NotificationController@mark_read')->name('read');
+});
+
 //categories routes
 Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'category', 'as'=>'category.'] , function() {
 
@@ -62,6 +67,7 @@ Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'orders', 'as'
 
     Route::get('/','backend\OrderController@index')->name('index');
     Route::get('/{id}','backend\OrderController@show')->name('info');
+    Route::post('/{id}/accept/{editor}','backend\OrderController@accept_order')->name('accept');
     Route::post('/{id}/cancel','backend\OrderController@destroy')->name('cancel');
 
 });

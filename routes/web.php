@@ -34,7 +34,6 @@ Route::group(['prefix'=>'contact', 'as'=>'contact.'] , function() {
 
 //product routes
 Route::get('product/{id}/details', 'frontend\productCtrl@product_detailes')->name('product_detailes');
-Route::get('product/{id}/delete/{review}', 'frontend\productCtrl@review_destroy');
 Route::post('product/{id}/delete/{review}', 'frontend\productCtrl@review_destroy')->name('review_delete');
 
 //cart routes
@@ -42,7 +41,6 @@ Route::group(['prefix'=>'cart', 'as'=>'cart.'] , function() {
 
     Route::get('/', 'frontend\CartController@index')->name('index');
     Route::get('add/{id}', 'frontend\CartController@addToCart')->name('add');
-    Route::get('update/{id}/{quantity}', 'frontend\CartController@updateCart')->name('update');
 
 });
 

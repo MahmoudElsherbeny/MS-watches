@@ -29,11 +29,11 @@
         </div>
         <div class="form-group">
             <label>Small Description:</label>
-            <textarea class="form-control" name="mini_description" wire:model="mini_description" rows="4">Enter small product description...</textarea>
+            <textarea class="form-control" name="mini_description" wire:model="mini_description" rows="4"></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group" wire:ignore>
             <label>Description:</label>
-            <textarea class="form-control" id="prod_description" name="description" wire:model="description" rows="4">Enter product description...</textarea>
+            <textarea class="form-control" id="prod_description_edit" name="description" wire:model="description" rows="4"></textarea>
         </div>
         <div class="form-group">
             <label>Price:</label>

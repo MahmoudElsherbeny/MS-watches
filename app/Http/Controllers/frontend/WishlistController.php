@@ -5,16 +5,18 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use App\Traits\WishlistOptions;
+
 use App\Category;
 use App\Product;
-use App\Product_image;
-
-use Redirect;
 
 class WishlistController extends Controller
 {
+    use WishlistOptions;
+
     protected $categories;
 
     public function __construct() {
@@ -27,24 +29,18 @@ class WishlistController extends Controller
         return view("frontend.pages.wishlist");
     }
 
-    //add to wishlist function - add products in wishlist using session whatever user login or not
+    //add to wishlist function - add products in wishlist
     public function addToWishlist($product_id)
     {
         $product = Product::findOrFail($product_id);
-        $image = url(Product_image::ProductMainImage($product_id));
-
-        $wishlist = Cart::instance('wishlist');
-
-            $wishlist->add([
-                'id' => $product->id,
-                'name' => $product->name,
-                'qty' => 1,
-                'price' => $product->price,
-                'weight' => 0,
-                'options' => ['image' => $image]
-            ]);
+        Auth::check() ? 
+            $this->AddToWishlistDatabase($product->id, Auth::user()->id) 
+        :
+            $this->AddToWishlistSession($product->id); 
 
         return Redirect::back();
     }
 
+    //add product to wishlist by livewire product/card
+    //remove from wishlist in livewire wishlist/page
 }

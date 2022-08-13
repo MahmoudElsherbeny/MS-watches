@@ -13,12 +13,12 @@
     <!--  check if cart session is empty or not  -->
     @if($cart_items->count() > 0)
         <div class="cart__products__container mb--70">
-            @foreach ($cart_items as $key => $prod)
+            @foreach ($cart_items as $item)
                 <div class="cart__product mb--30">
                     <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-4">
                             <div class="product__image text-center">
-                                <img src=" {{ App\Product_image::ProductMainImage($prod->id) }} " alt="product img" />
+                                <img src="{{ url($item->options['image']) }}" alt="product img" />
                             </div>
                         </div>
                         <div class="col-md-9 col-sm-8 col-xs-8">
@@ -26,10 +26,10 @@
                                 <div class="title ptb--10">
                                     <div class="row">
                                         <div class="col-md-11 col-sm-9 col-xs-9">
-                                            <a href="{{ route('product_detailes', ['id' => $prod->id]) }}">{{ $prod->name }}</a>
+                                            <a href="{{ route('product_detailes', ['id' => Auth::check() ? $item->product_id : $item->id]) }}">{{ $item->name }}</a>
                                             <div class="pro__dtl__rating">
                                                 <ul class="pro__rating">
-                                                    @php $rating = App\Product_review::getProductRate($prod->id); @endphp
+                                                    @php $rating = App\Product_review::getProductRate(Auth::check() ? $item->product_id : $item->id); @endphp
                     
                                                     @foreach (range(1,5) as $i)
                                                         @if($rating > 0) 
@@ -51,17 +51,17 @@
                                             </div>
                                         </div>
                                         <div class="col-md-1 col-sm-3 col-xs-3 text-right">
-                                            <button class="btn btn-app" wire:click="remove('{{ $key }}')"> X</button>
+                                            <button class="btn btn-app" wire:click="remove('{{ Auth::check() ? $item->id : $item->rowId }}')"> X</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="price ptb--10">
-                                    <span>&pound;{{ $this->prod_price($prod->id)/100 }}</span>
-                                    <input type="number" name="prod_qty" min="1" value="{{ $prod->qty }}" wire:model="cart_items.{{ $key }}.qty" wire:change="updateCart('{{ $key }}', $event.target.value)" />
+                                    <span>&pound;{{ $item->price / 100 }}</span>
+                                    <input type="number" name="prod_qty" min="1" wire:model="quantity.{{ $item->id }}" wire:change="updateCart('{{ Auth::check() ? $item->id : $item->rowId }}', $event.target.value)" />
                                 </div>
                                 <div class="total ptb--10">
                                     Total:
-                                    <span class="">£{{ $this->prod_price($prod->id)*$prod->qty / 100 }}</span>
+                                    <span class="">£{{ $item->price * $item->qty / 100 }}</span>
                                 </div>
                             </div>
                         </div>
@@ -85,12 +85,12 @@
             </div>
             <div class="col-md-4 col-sm-5 col-xs-12">
                 <div class="cart_totals">
-                    @if (Auth::user()->user_info && Auth::user()->user_info->state)
+                    @if (Auth::check() && Auth::user()->user_info && Auth::user()->user_info->state)
                         <table>
                             <tbody>
                                 <tr class="cart-subtotal">
                                     <th>Subtotal:</th>
-                                    <td><span class="amount">£{{ Cart::instance('cart')->subtotalfloat() / 100 }}</span></td>
+                                    <td><span class="amount">£{{ $cart_total / 100 }}</span></td>
                                 </tr>
                                 <tr class="cart-subtotal">
                                     <th>Delivery:</th>
@@ -99,7 +99,7 @@
                                 <tr class="order-total">
                                     <th>Total:</th>
                                     <td>
-                                        <strong><span class="amount">£{{ Cart::instance('cart')->subtotalfloat() / 100 + Auth::user()->user_info->state->delivery }}</span></strong>
+                                        <strong><span class="amount">£{{ $cart_total / 100 + Auth::user()->user_info->state->delivery }}</span></strong>
                                     </td>
                                 </tr>                                           
                             </tbody>
@@ -107,7 +107,7 @@
                     @else
                         <div class="order_total">
                             <span class="title">Subtotal:</span>
-                            <span class="amount">£{{ Cart::instance('cart')->subtotalfloat() / 100 }}</span>
+                            <span class="amount">£{{ $cart_total / 100 }}</span>
                         </div>
                     @endif
                     <div class="wc-proceed-to-checkout">

@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use App\Slide;
 use App\Category;
+use App\Traits\ImageFunctions;
 
 class Create extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, ImageFunctions;
 
     public $title, $subtitle, $order, $status, $link, $image;
 
@@ -27,13 +28,11 @@ class Create extends Component
     }
 
     public function store() {
-        
         $this->validate();
-        //store slide
-        $filename = 'slide_'.$this->image->getClientOriginalName();
-        $path = $this->image->storeAs('slides',$filename);
+
+        //store slides
         Slide::create([
-            'image' => $path,
+            'image' => $this->store_image_path($this->image, 'slides'),
             'title' => $this->title,
             'sub_title' => $this->subtitle,
             'order' => $this->order,
@@ -42,9 +41,7 @@ class Create extends Component
         ]);
             
         //logs stored when created by slider observer in app\observers
-
-        Session::flash('success','slide created successfully');
-        
+        Session::flash('success','slide created successfully');  
     }
 
     public function render()

@@ -9,10 +9,11 @@ use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Slide;
 use App\Category;
+use App\Traits\ImageFunctions;
 
 class Update extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, ImageFunctions;
 
     public $slide;
     public $title, $subtitle, $order, $status, $link, $image;
@@ -41,19 +42,10 @@ class Update extends Component
             $this->slide->status = $this->status;
             $this->slide->link = $this->link;
             if($this->image) {
-                $filename = 'slides/slide_'.$this->image->getClientOriginalName();
-                $existInStorage = Storage::exists($filename);
-                //check if there isn't anthoer slide in storage with same name
-                if(!$existInStorage) {
-                    $this->validate(['image' => 'max:8000|mimes:jpeg,bmp,png,jpg',]);
-                    Storage::Delete($this->slide->image);
-                    $filename = 'slide_'.$this->image->getClientOriginalName();
-                    $path = $this->image->storeAs('slides', $filename);
-                    $this->slide->image = $path;
-                }
-                else {
-                    Session::flash('error','there are slide image with the same name');
-                }
+                $this->delete_if_exist($this->slide->image);
+                
+                $this->validate(['image' => 'max:8000|mimes:jpeg,bmp,png,jpg',]);
+                $this->slide->image = $this->store_image_path($this->image, 'slides');
             }
 
             if($this->slide->isDirty()) {

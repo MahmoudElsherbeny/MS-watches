@@ -42,7 +42,7 @@ class ProductCtrl extends Controller
                 ]);
     }
 
-    //product review store with livewire
+    //product review store and update with livewire
 
     //delete product review
     public function review_destroy($id,$review) {

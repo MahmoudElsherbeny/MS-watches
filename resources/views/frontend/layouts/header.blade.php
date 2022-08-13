@@ -4,7 +4,7 @@
     <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
         <div class="container">
             <div class="row">
-                <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+                <div class="col-md-2 col-lg-2 col-sm-6 col-xs-7">
                     <div class="logo">
                         <a href="{{ route('home') }}">
                             <span class="logo1">{{ App\Setting::getSettingValue('name') }}</span><span class="logo2">Watches</span>
@@ -12,47 +12,46 @@
                     </div>
                 </div>
                 <!-- Start MAinmenu Ares -->
-                <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+                <div class="col-md-8 col-lg-8 hidden-sm hidden-xs">
                     <nav class="mainmenu__nav hidden-xs hidden-sm">
                         <ul class="main__menu">
                             <li><a href="{{ route('home') }}">Home</a></li>
+                            <li class="drop"><a href="">Categories</a>
+                                <ul class="dropdown">
+                                    @foreach ($categories as $category)
+                                        <li><a href="{{ route('category_page', ['id' => $category->id]) }}">{{ $category->name }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
                             <li><a href="{{ route('shop') }}">Shop</a></li>
                             <li><a href="{{ route('aboutus') }}">About Us</a></li>
                             <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
                             <li><a href="{{ route('cart.index') }}">Cart</a></li>
                             <li><a href="{{ route('wishlist.index') }}">Whishlist</a></li>
-                            <li class="drop"><a href="#">pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="cart.html">cart</a></li>
-                                    <li><a href="wishlist.html">wishlist</a></li>
-                                    <li><a href="checkout.html">checkout</a></li>
-                                </ul>
-                            </li>
                         </ul>
                     </nav>
                     <div class="mobile-menu clearfix visible-xs visible-sm">
                         <nav id="mobile_dropdown">
                             <ul>
                                 <li><a href="{{ route('home') }}">Home</a></li>
+                                <li>
+                                    <a href="">Categories</a>
+                                    <ul>
+                                        @foreach ($categories as $category)
+                                            <li><a href="{{ route('category_page', ['id' => $category->id]) }}">{{ $category->name }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
                                 <li><a href="{{ route('shop') }}">Shop</a></li>
                                 <li><a href="{{ route('aboutus') }}">About Us</a> </li>
                                 <li><a href="{{ route('contact.index') }}">Contact Us</a> </li>
                                 <li><a href="{{ route('cart.index') }}">Cart</a></li>
-                                <li><a href="{{ route('wishlist.index') }}">Whishlist</a></li>
-                                <li>
-                                    <a href="#">pages</a>
-                                    <ul>
-                                        <li><a href="cart.html">cart</a></li>
-                                        <li><a href="wishlist.html">wishlist</a></li>
-                                        <li><a href="checkout.html">checkout</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                <li><a href="{{ route('wishlist.index') }}">Whishlist</a></li>                            </ul>
                         </nav>
                     </div>
                 </div>
                 <!-- End MAinmenu Ares -->
-                <div class="col-md-2 col-sm-4 col-xs-3">
+                <div class="col-md-2 col-sm-6 col-xs-5">
                     <ul class="menu-extra">
                         <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
                         <li class="drop">
@@ -76,9 +75,7 @@
                         </li>
                         <li class="cart__menu">
                             <span class="ti-shopping-cart"></span>
-                            @if (Cart::instance('cart')->count() > 0)
-                                <span class="badge badge-light">{{ Cart::instance('cart')->content()->count() }}</span>
-                            @endif
+                            @livewire('frontend.cart.counter')
                         </li>
                         <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                     </ul>
@@ -132,11 +129,11 @@
                 <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/1.jpg') }}" alt="sidebar images"></a></li>
                 <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/2.jpg') }}" alt="sidebar images"></a></li>
                 <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/3.jpg') }}" alt="sidebar images"></a></li>
-                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/4.jpg') }}" alt="sidebar images"></a></li>
-                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/5.jpg') }}" alt="sidebar images"></a></li>
-                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/6.jpg') }}" alt="sidebar images"></a></li>
-                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/7.jpg') }}" alt="sidebar images"></a></li>
-                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/8.jpg') }}" alt="sidebar images"></a></li>
+                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/1.jpg') }}" alt="sidebar images"></a></li>
+                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/2.jpg') }}" alt="sidebar images"></a></li>
+                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/1.jpg') }}" alt="sidebar images"></a></li>
+                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/2.jpg') }}" alt="sidebar images"></a></li>
+                <li><a href="#"><img src="{{ url('frontend/images/sidebar-img/3.jpg') }}" alt="sidebar images"></a></li>
             </ul>
             <div class="offset__widget">
                 <div class="offset__single">
@@ -175,56 +172,7 @@
     <!-- End Offset MEnu -->
 
     <!-- Start Cart Panel -->
-    <div class="shopping__cart">
-        <div class="shopping__cart__inner">
-            <div class="offsetmenu__close__btn">
-                <a href="#"><i class="zmdi zmdi-close"></i></a>
-            </div>
-
-            @if(Cart::instance('cart')->count() > 0)
-                <div class="shp__cart__wrap">
-
-                    @foreach (Cart::instance('cart')->content() as $key => $prod)
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="{{ url('frontend/images/product/sm-img/1.jpg') }}" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2>
-                                    <a href="{{ route('product_detailes', ['id' => $prod->id]) }}">{{ $prod->name }}</a>
-                                </h2>
-                                <span class="quantity">QTY: {{ $prod->qty }}</span>
-                                <span class="shp__price">£{{ $prod->price/100 }}</span>
-                            </div>
-                        </div>
-                    @endforeach
-                    
-                </div>
-                <ul class="shoping__total">
-                    <li class="subtotal">Subtotal:</li>
-                    <li class="total__price">£{{ Cart::instance('cart')->subtotalfloat() / 100 }}</li>
-                </ul>
-                <ul class="shopping__btn">
-                    <li><a href="{{ route('cart.index') }}" class="ms-btn transparent-btn">View Cart</a></li>
-                    <li class="shp__checkout"><a href="{{ route('UserOrder.checkout_page') }}" class="ms-btn black-btn">Checkout</a></li>
-                </ul>
-            @else
-                <div class="shp__cart__wrap">
-                        <div class="cart__empty__details">
-                            <p>your cart is empty <br>start shopping now !</p>
-                            @if(!Auth::check())
-                                <span>create account <a href="{{ route('register') }}">SIGNUP</a> OR <a href="{{ route('login') }}">LOGIN</a></span>
-                            @endif
-                        </div>
-                </div>
-                <ul class="shopping__btn">
-                    <li><a href="{{ route('shop') }}" class="ms-btn black-btn">shop</a></li>
-                </ul>
-            @endif
-        </div>
-    </div>
+    @livewire('frontend.cart.sidemenu')
     <!-- End Cart Panel -->
 
 </div>

@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Redirect;
 use Livewire\WithPagination;
 
 use App\Product;
+use App\Traits\ImageFunctions;
 
 class Productslist extends Component
 {
-    use WithPagination;
+    use WithPagination, ImageFunctions;
     protected $paginationTheme = 'bootstrap';
 
     public $product_search;
@@ -31,7 +32,7 @@ class Productslist extends Component
         $product_images = $product->product_images;
         $product_reviews = $product->product_reviews;
         foreach($product_images as $img) {
-            Storage::Delete($img->image);
+            $this->delete_if_exist($img);
         }
         $product->delete();
         $product_images->each->delete();

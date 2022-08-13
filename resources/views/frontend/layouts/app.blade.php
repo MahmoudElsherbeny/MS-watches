@@ -39,9 +39,10 @@
 
 <body>
     <!-- Body main wrapper start -->
-    <div class="wrapper fixed__footer">
+    <div class="wrapper fixed__footer" id="app">
         @include('frontend.layouts.header')
         
+        <home-component></home-component>
         @yield('content')
 
         <footer class="htc__foooter__area gray-bg">
@@ -53,6 +54,7 @@
     </div>
     <!-- Body main wrapper end -->
 
+    <script src="{{ asset('js/app.js') }}"></script>
     <!--  js files  -->
     <script src="{{ url('frontend/js/vendor/jquery-1.12.0.min.js') }}"></script>
     <script src="{{ url('frontend/js/bootstrap.min.js') }}"></script>

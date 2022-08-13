@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 use App\Admin;
+use App\Traits\ImageFunctions;
 
 class EditorController extends Controller
 {
+    use ImageFunctions;
+    
     //function index - show editors page and editors live search
     public function index()
     {
@@ -50,7 +53,7 @@ class EditorController extends Controller
 
             return Redirect::back();
             
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
         
@@ -61,10 +64,7 @@ class EditorController extends Controller
     public function destroy($id) {
         $editor = Admin::find($id);
         if($editor && $editor->name != 'admin') {
-            if($editor->image) {
-                $existInStorage = Storage::exists($editor->image);
-                $existInStorage ? Storage::Delete($editor->image) : '';
-            }
+            $editor->image ? $this->delete_if_exist($editor->image) : '';
             $editor->delete();
         }
 

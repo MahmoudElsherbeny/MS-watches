@@ -1456,6 +1456,11 @@ a.card:not(.bg-inverse):hover {
 	margin-top: -16px 24px 24px;
 }
 
+.card-profile-block .profile-info .name {
+	display: inline-block;
+	font-size: 22px;
+}
+
 @media screen and (min-width: 768px) {
 	.card-profile-block .profile-info {
 		margin-left: 120px;

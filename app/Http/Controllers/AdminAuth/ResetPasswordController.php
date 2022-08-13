@@ -43,7 +43,7 @@ class ResetPasswordController extends Controller
 
                 return Redirect::route('AdminAuth.LoginForm');
            }
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
         

@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
 use App\Setting;
+use App\Traits\ImageFunctions;
 
 class Update extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, ImageFunctions;
 
     public $name, $address, $phone, $email, $about;
     public $facebook, $twitter, $instagram;
@@ -44,36 +45,27 @@ class Update extends Component
             Setting::Where('name',$value)->update(['value' => $this->$value]);
         }
         if($this->logo) {
-            $filename = 'setting/logo.'.$this->logo->getClientOriginalExtension();
-            $existInStorage = Storage::exists($filename);
-            if($existInStorage) {
-                Storage::Delete($filename);
-            }
+            $logo = Setting::select('value')->Where('name','logo')->fisrt();
+            $logo ? $this->delete_if_exist($logo) : '';
+            
             $this->validate(['logo' => 'max:4000|mimes:jpeg,bmp,png,jpg,ico']);
-            $filename = 'logo.'.$this->logo->getClientOriginalExtension();
-            $path = $this->logo->storeAs('setting', $filename);
+            $path = $this->store_image_path($this->logo, 'setting');
             Setting::Where('name','logo')->update(['value' => $path]);
         }
         if($this->image) {
-            $filename = 'setting/image.'.$this->image->getClientOriginalExtension();
-            $existInStorage = Storage::exists($filename);
-            if($existInStorage) {
-                Storage::Delete($filename);
-            }
+            $image = Setting::select('value')->Where('name','image')->fisrt();
+            $image ? $this->delete_if_exist($image) : '';
+
             $this->validate(['image' => 'max:8000|mimes:jpeg,bmp,png,jpg']);
-            $filename = 'image.'.$this->image->getClientOriginalExtension();
-            $path = $this->image->storeAs('setting', $filename);
+            $path = $this->store_image_path($this->image, 'setting');
             Setting::Where('name','image')->update(['value' => $path]);
         }
         if($this->video) {
-            $filename = 'setting/video.'.$this->video->getClientOriginalExtension();
-            $existInStorage = Storage::exists($filename);
-            if($existInStorage) {
-                Storage::Delete($filename);
-            }
+            $video = Setting::select('value')->Where('name','video')->fisrt();
+            $video ? $this->delete_if_exist($video) : '';
+
             $this->validate(['video' => 'max:8000|mimes:mp4,webm,mvp']);
-            $filename = 'video.'.$this->video->getClientOriginalExtension();
-            $path = $this->video->storeAs('setting', $filename);
+            $path = $this->store_image_path($this->imavideoge, 'setting');
             Setting::Where('name','video')->update(['value' => $path]);
         }
 

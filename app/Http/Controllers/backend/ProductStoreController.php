@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 use App\Admin;
 use App\Product;
 use App\Products_store;
-use Illuminate\Support\Facades\DB;
+use Exception;
+use Illuminate\Support\Carbon;
 
 class ProductStoreController extends Controller
 {
@@ -56,18 +58,29 @@ class ProductStoreController extends Controller
             }
 
             return Redirect::back();
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
 
     }
 
     //function index - show products store page and products live search
-    public function product_history($prod_id,$prod_name)
+    public function product_history(Request $request, $prod_id,$prod_name)
     {
         $total_unit_price = 0;
         $product = Product::findOrFail($prod_id);
-        $product_stores = $product->products_stores()->paginate(30);
+        if($request->input('from') || $request->input('to')) {
+            $from = $request->input('from');
+            $to = $request->input('to');
+        }
+        else {
+            $from = Carbon::now()->subDays(30)->format('Y-m-d');
+            $to = date('Y-m-d');
+        }
+        $product_stores = $product->products_stores()
+                                  ->WhereDate('created_at','>=',$from)
+                                  ->WhereDate('created_at','<=',$to)
+                                  ->paginate(30);
         foreach($product_stores as $prod) {
             $total_unit_price += $prod->unit_price;
         } 
@@ -76,6 +89,8 @@ class ProductStoreController extends Controller
         return view('backend.product_store.product_store_history')
              ->with([
                      'product' => $product,
+                     'from' => $from,
+                     'to' => $to,
                      'product_stores' => $product_stores,
                      'avg_unit_price' => $avg_unit_price,
                     ]);        

@@ -21,10 +21,13 @@
 
 @section('js_code')
     <!-- tiny text -->
-    <script src='https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-      tinymce.init({
-        selector: '#prod_description'
-      });
+        tinymce.init({
+            selector: '#prod_description',
+            mobile: {
+                theme: "mobile",
+            },
+        });
     </script>
 @endsection

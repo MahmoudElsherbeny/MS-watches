@@ -92,19 +92,86 @@
                     @endforeach
 
                     <tr>
+                        <td class="text-center p-y-sm">-</td>
+                        <td class="text-center text-capitalize p-y-sm">Delivery</td>
+                        <td class="text-center p-y-sm">£ {{ $order->state->delivery }}</td>
+                        <td class="text-center p-y-sm">£ {{ $order->state->delivery }}</td>
+                        <td class="text-center p-y-sm">1</td>
+                        <td class="text-center p-y-sm">£ {{ $order->state->delivery }}</td>
+                    </tr>
+                    <tr>
                         <td class="text-center p-y-sm">Total:</td>
                         <td class="text-center text-capitalize p-y-sm">{{ $order->order_items->count() }}</td>
-                        <td class="text-center p-y-sm">£ {{ $livePriceTotal / 100 }}</td>
-                        <td class="text-center p-y-sm">£ {{ $priceTotal / 100 }}</td>
+                        <td class="text-center p-y-sm">£ {{ $livePriceTotal / 100 + $order->state->delivery }}</td>
+                        <td class="text-center p-y-sm">£ {{ $priceTotal / 100 +$order->state->delivery }}</td>
                         <td class="text-center p-y-sm">{{ $quantity }}</td>
-                        <td class="text-center p-y-sm">£ {{ $orderTotal / 100 }}</td>
+                        <td class="text-center p-y-sm">£ {{ $orderTotal / 100 + $order->state->delivery }}</td>
                     </tr>
                     
                 </tbody>
             </table>
 
+            <div class="form-group m-b-0 p-x-sm">
+                <!-- show accept btn (order is created and waiting someone to accept)  -->
+                @if($order->admin == null && $order->status != 'completed' && $order->status != 'cancel')
+                    <button class="btn btn-success" data-toggle="modal" data-target="#accept_order{{ $order->id }}">Accept</button>
+                <!-- 
+                    show status btn to admin whatever who accept or what it's status
+                    show status btn to editor who accept (order is accepted and status not completed and not cancel)  
+                -->
+                @elseif(Auth::guard('admin')->user()->role == 'admin' || $order->admin != null && $order->admin->id == Auth::guard('admin')->user()->id && $order->status != 'completed' && $order->status != 'cancel')
+                    <button class="btn btn-app" data-toggle="modal" data-target="#status_order{{ $order->id }}">Status</button>
+                @else
+                    <button class="btn btn-secondory" style="cursor: not-allowed">Taken</button>
+                @endif
+                <a href="{{ route('order.index') }}" class="btn btn-primary">Back</a>
+            </div>
+
+            <!--   modals   -->
+            @if($order->admin == null && $order->status != 'completed' && $order->status != 'cancel')
+                <!-- accept order Modal -->
+                <div wire:ignore.self class="modal fade" id="accept_order{{ $order->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-card-header">
+                                <div class="row">
+                                    <h4 class="col-md-11 text-left">Accept Order</h4>
+                                    <ul class="card-actions col-md-1 p-t-md">
+                                        <li>
+                                            <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-block text-left">
+                                @if(count($open_orders) > 2)
+                                    <p>you have to finsh your open orders first</p>
+                                @else
+                                    <p>Are you sure, you want to accept this order ?</p>
+                                    <p> <b>Notice:</b> you can't disaccept order so be sure.</p>
+                                @endif
+                            </div>
+                            <div class="modal-footer">
+                                @if(count($open_orders) > 2)
+                                    <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                                @else
+                                    {!! Form::Open(['url' => route('order.accept', ['id' => $order->id, 'editor' => Auth::guard('admin')->user()->id]), 'class' => 'DeleteFormModal']) !!}                                                
+                                        <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-success" type="submit"> Accept</button>
+                                    {!! Form::Close() !!}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @elseif(Auth::guard('admin')->user()->role == 'admin' || $order->admin != null && $order->admin->id == Auth::guard('admin')->user()->id && $order->status != 'completed' && $order->status != 'cancel')
+                @livewire('backend.order.order-status', ['order' => $order], key($order->id))
+            @endif
+
+            <div style="border: 1px solid #eee; margin:40px auto; width:92%;"></div>
+
             <!--  order history list   -->
-            <h3 class="p-t-lg">Order History</h3>
+            <h3 class="p-t-sm">Order History</h3>
             <table id="" class="table table-striped table-vcenter js-dataTable-simple m-b-sm">
                 <thead>
                     <tr>

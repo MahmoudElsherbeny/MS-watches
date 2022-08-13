@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Backend\Setting\Website_brands;
 
+use App\Traits\ImageFunctions;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Redirect;
@@ -12,7 +13,7 @@ use App\Website_brand;
 
 class Update extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, ImageFunctions;
 
     public $name, $link, $status, $image;
     public $brand;
@@ -36,18 +37,12 @@ class Update extends Component
             $this->brand->link = $this->link;
             $this->brand->status = $this->status;
             if($this->image) {
-                $filename = 'setting/brands/brand'.$this->image->getClientOriginalName();
-                $existInStorage = Storage::exists($filename);
-                if(!$existInStorage) {
-                    $this->validate(['image' => 'max:8000|mimes:jpeg,bmp,png,jpg',]);
-                    Storage::Delete($this->brand->image);
-                    $filename = 'brand'.$this->image->getClientOriginalName();
-                    $path = $this->image->storeAs('setting/brands', $filename);
-                    $this->brand->image = $path;
+                if($this->brand->image) {
+                    $this->delete_if_exist($this->brand->image);
                 }
-                else {
-                    Session::flash('error','there are brand logo with the same name');
-                }
+
+                $this->validate(['image' => 'max:8000|mimes:jpeg,bmp,png,jpg',]);
+                $this->brand->image = $this->store_image_path($this->image, 'setting/brands');
             }
 
             if($this->brand->isDirty()) {

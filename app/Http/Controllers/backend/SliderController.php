@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 
 use App\Slide;
+use App\Traits\ImageFunctions;
 
 class SliderController extends Controller
 {
+    use ImageFunctions;
+
     //function index - show Slides page
     public function index()
     {
@@ -32,8 +35,9 @@ class SliderController extends Controller
     //delete function - delete slide data and it's image
     public function destroy($id) {
         $slide = Slide::findOrFail($id);
-        Storage::Delete('public/slides/'.$slide->image);
+        $this->delete_if_exist($slide->image);
         $slide->delete();
+        
         return Redirect::route('slider.index');
     }
 

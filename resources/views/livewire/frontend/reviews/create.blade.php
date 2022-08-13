@@ -82,7 +82,11 @@
                     <a href="#" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="" class="review_info">Edit</a></li>
-                        <li><a href="{{ route('review_delete', ['id' => $productId, 'review' => $review->id]) }}" class="review_info">Delete</a></li>
+                        <li>
+                            {!! Form::Open(['wire:submit.prevent' => 'delete('.$review->id.')']) !!}
+                                <button type="submit" class="btn review_info">Delete</button>
+                            {!! Form::Close() !!}
+                        </li>
                     </ul>
                 </div>
                 @endif

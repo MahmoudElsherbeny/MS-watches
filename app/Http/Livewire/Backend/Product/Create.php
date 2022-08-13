@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Session;
 use App\Product;
 use App\Product_image;
 use App\Category;
+use App\Traits\ImageFunctions;
 
 class Create extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, ImageFunctions;
 
     public $name, $category, $mini_description, $description, $price;
     public $body_color, $mina_color, $tags, $status, $editorId;
@@ -59,12 +60,9 @@ class Create extends Component
         ]);
 
         foreach ($this->images as $key => $image) {
-            $filename = 'watche_'.$image->getClientOriginalName();
-            $path = $image->storeAs('products',$filename);
-            
             Product_image::create([
                 'product_id' => $this->product->id,
-                'image' => $path,
+                'image' => $this->store_image_path($image, 'products'),
                 'order' => 1,
             ]);
         }            
@@ -72,7 +70,6 @@ class Create extends Component
             //logs stored when created by product observer in app\observers
 
             Session::flash('success','product created successfully');
-        
     }
 
     public function render()

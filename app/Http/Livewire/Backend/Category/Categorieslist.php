@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Category;
 use App\Product;
+use App\Traits\ImageFunctions;
 
 class Categorieslist extends Component
 {
+    use ImageFunctions;
     public $category_search;
 
     //function destroy - delete category and it's all products
@@ -22,7 +24,7 @@ class Categorieslist extends Component
             $product_images = Product::find($prod->id)->product_images;
             $product_reviews = Product::find($prod->id)->product_reviews;
             foreach ($product_images as $img) {
-                Storage::Delete($img->image);
+                $this->delete_if_exist($img->image);
                 $img->delete();
             }
             $product_reviews->each->delete();

@@ -41,16 +41,27 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
-        ],
-
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+
+        'user-api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
+
+        'admin-api' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+        ],
+
     ],
 
     /*

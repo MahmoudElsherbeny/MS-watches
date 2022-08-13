@@ -413,6 +413,11 @@
     .single-checkout-box input[type="password"] {
         width: 46.5%;
     }
+    .review__thumb {
+        margin-right: 22px;
+        height: 84px;
+    }
+    .review__details { margin-right: 16px; }
     .review__details p {
         font-size: 13px;
     }
@@ -709,6 +714,10 @@
     .slider__full--screen {
         height: 100vh;
     }
+    .slider__full--screen.slider-height-inherit {
+        height: 300px;
+    }
+    .categories-menu { display: none; }
     .product__menu button {
         font-size: 15px;
         line-height: 39px;
@@ -971,6 +980,14 @@
         font-size: 15px;
         padding-bottom: 8px;
     }
+    .review__thumb {
+        margin-right: 22px;
+        height: 84px;
+    }
+    .review__details { margin-right: 16px; }
+    .review__details p {
+        font-size: 13px;
+    }
     .review__info {
         display: block;
         overflow: hidden;
@@ -984,13 +1001,33 @@
     .review__date {
         margin-bottom: 5px;
     }
+    .review__date span {
+        font-size: 11px;
+    }
     .review__info h4 {
-        font-size: 17px;
-        line-height: 24px;
+        font-size: 16px;
+        line-height: 22px;
+        padding-right: 22px;
+    }
+    .review__info .rating li span {
+        font-size: 14px;
+    }
+    .review__info ul.rating li + li {
+        margin-left: 3px;
     }
     .review__details p {
+        padding-top: 3px;
+        padding-bottom: 3px;
         width: 100%;
         font-size: 13px;
+    }
+    .review__control .dropdown-menu {
+        min-width: 84px;
+        left: -74px;
+    }
+    .review__control .dropdown-menu li .review_info {
+        font-size: 14px;
+        padding: 4px 9px;
     }
     .pro__review.ans {
         margin-left: 0;
@@ -1147,17 +1184,27 @@
     .menu-extra {
         margin-right: 40px;
     }
+    .menu-extra > li {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
     .sticky__header.scroll-header {
         position: inherit;
     }
     .header--3 .mean-container a.meanmenu-reveal {
-        margin-top: -69px;
+        margin-top: -50px;
     }
     .header--3 .menu-extra {
         height: 70px;
     }
     .header--3 .logo {
         height: 70px;
+    }
+    .header--3 .logo .logo1 {
+        font-size: 36px;
+    }
+    .header--3 .logo .logo2 {
+        font-size: 24px;
     }
     .header--3 .mean-container .mean-bar {
         min-height: 0;
@@ -1202,8 +1249,9 @@
         visibility: hidden;
         width: 90%;
     }
-    .modal-dialog.modal__container {
-        width: 378px;
+    .modal-dialog.modal__container,
+    .modal-dialog.modal__container__sm {
+        width: 388px;
     }
     .modal-product {
         display: block;
@@ -1304,6 +1352,7 @@
     .product-tab-list {
         display: block;
         overflow: hidden;
+        padding: 10px 14px 8px;
     }
     .category-menu-list ul li .category-menu-dropdown {
         display: none;
@@ -1349,10 +1398,10 @@
         font-size: 25px;
     }
     .slider-text-right.slider-height-inherit .slider__inner {
-        padding: 100px 10px 100px 0;
+        padding: 120px 10px 32px 0;
     }
     .slider-text-left.slider-height-inherit .slider__inner {
-        padding: 100px 0 100px 20px;
+        padding: 120px 0 32px 20px;
     }
     .mrg-xs {
         margin-top: 50px;

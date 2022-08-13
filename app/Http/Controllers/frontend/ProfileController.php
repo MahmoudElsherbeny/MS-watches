@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\Storage;
 use App\Category;
 use App\Order;
 use App\State;
+use App\Traits\ImageFunctions;
 use App\User;
 use App\User_info;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    use ImageFunctions;
     protected $categories;
 
     public function __construct() {
@@ -86,22 +88,16 @@ class ProfileController extends Controller
                 //set cover if entered
                 if($request->hasFile('cover')) {
                     if($user->user_info->cover) {
-                        $existInStorage = Storage::exists($user->user_info->cover);
-                        $existInStorage ? Storage::Delete($user->user_info->cover) : '';
+                        $this->delete_if_exist($user->user_info->cover);
                     }
-                    $filename = 'cover_'.$user->id.'_'.time().'.'.$request->cover->getClientOriginalExtension();
-                    $path = $request->cover->storeAs('users', $filename);
-                    $user->user_info->cover = $path;
+                    $user->user_info->cover = $this->store_image_path($request->cover, 'users');
                 }
                 //set image if entered
                 if($request->hasFile('image')) {
                     if($user->user_info->image) {
-                        $existInStorage = Storage::exists($user->user_info->image);
-                        $existInStorage ? Storage::Delete($user->user_info->image) : '';
+                        $this->delete_if_exist($user->user_info->image);
                     }
-                    $filename = 'user_'.$user->id.'_'.time().'.'.$request->image->getClientOriginalExtension();
-                    $path = $request->image->storeAs('users', $filename);
-                    $user->user_info->image = $path;
+                    $user->user_info->image = $this->store_image_path($request->image, 'users');;
                 }
 
                 //check if there changes to update
@@ -116,7 +112,7 @@ class ProfileController extends Controller
             }
             return Redirect::back();
 
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
     }
@@ -162,7 +158,7 @@ class ProfileController extends Controller
             }
             return Redirect::back();
 
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
     }

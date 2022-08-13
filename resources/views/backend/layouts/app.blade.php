@@ -97,24 +97,25 @@
 
         <div class="app-ui-mask-modal"></div>
 
-     <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
-     <script src="{{ url('backend/assets/js/core/jquery.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/core/bootstrap.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/core/jquery.slimscroll.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/core/jquery.scrollLock.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/core/jquery.placeholder.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/app.js') }}"></script>
-     <script src="{{ url('backend/assets/js/app-custom.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
+    <script src="{{ url('backend/assets/js/core/jquery.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/core/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/core/jquery.scrollLock.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/core/jquery.placeholder.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/app.js') }}"></script>
+    <script src="{{ url('backend/assets/js/app-custom.js') }}"></script>
 
-     <!-- Page Plugins -->
-     <script src="{{ url('backend/assets/js/plugins/plugins.js') }}"></script>
-     <script src="{{ url('backend/assets/js/plugins/slick/slick.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/plugins/chartjs/Chart.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.pie.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.stack.min.js') }}"></script>
-     <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.resize.min.js') }}"></script>
-    
+    <!-- Page Plugins -->
+    <script src="{{ url('backend/assets/js/plugins/plugins.js') }}"></script>
+    <script src="{{ url('backend/assets/js/plugins/slick/slick.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/plugins/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.pie.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.stack.min.js') }}"></script>
+    <script src="{{ url('backend/assets/js/plugins/flot/jquery.flot.resize.min.js') }}"></script>
+
     <script src="{{ url('backend/assets/js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
     <!-- Page JS Code -->
@@ -122,6 +123,7 @@
 
      <!-- Page JS Code -->
      <script src="{{ url('backend/assets/js/pages/index.js') }}"></script>
+
      <script>
          $(function()
          {
@@ -129,6 +131,7 @@
              App.initHelpers('slick');
          });
      </script>
+
      <script type="text/javascript">
         $('.DeleteFormModal').submit(function() {
             $('.modal').removeClass('in');

@@ -50,7 +50,7 @@ class SettingController extends Controller
                 Session::flash('error','Review Not Exist');
             }
             
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
         
