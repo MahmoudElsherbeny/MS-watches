@@ -70,7 +70,6 @@
                     <li><a href="{{ route('aboutus') }}">About Us</a></li>
                     <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
                     <li><a href="{{ route('cart.index') }}">Cart</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>

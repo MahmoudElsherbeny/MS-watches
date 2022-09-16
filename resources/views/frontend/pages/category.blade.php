@@ -33,7 +33,10 @@
                             @foreach ($products as $product)
                                 <!-- Start Single Product -->
                                 @livewire('frontend.product.card', ['product' => $product])
-                                <!-- End Single Product -->                                
+                                <!-- End Single Product --> 
+                                <!-- Start Product quickview modal -->
+                                @livewire('frontend.product.quickview', ['product' => $product])
+                                <!-- End Product quickview modal -->                                
                             @endforeach
                         </div>
                     </div>

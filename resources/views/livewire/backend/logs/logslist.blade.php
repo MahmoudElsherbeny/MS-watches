@@ -36,8 +36,8 @@
                 @foreach ($logs as $key=>$log)
                     <tr>
                         <td class="text-center">{{ $logs->firstItem() + $key }}</td>
-                        <td class="text-center text-capitalize">{{ $log->admin['name'] }}</td>
-                        <td class="text-center hidden-xs">{{ $log->admin['role'] }}</td>
+                        <td class="text-center text-capitalize">{{ $log->admin->name }}</td>
+                        <td class="text-center hidden-xs">{{ $log->admin->role }}</td>
                         <td class="text-center">{{ $log->log }}</td>
                         <td class="text-center">{{ $log->date->format("Y-m-d g:i a") }}</td>
                     </tr>

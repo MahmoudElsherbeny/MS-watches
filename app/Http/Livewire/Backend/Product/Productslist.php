@@ -3,66 +3,99 @@
 namespace App\Http\Livewire\Backend\Product;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Redirect;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
-use App\Product;
+use App\Notifications\ProductNotification;
 use App\Traits\ImageFunctions;
+use App\Admin;
+use App\Product;
+use Exception;
 
 class Productslist extends Component
 {
     use WithPagination, ImageFunctions;
     protected $paginationTheme = 'bootstrap';
 
-    public $product_search;
+    public $product_search, $sort_field, $sort_dir;
     public $new_price;
 
     protected $rules = [
         'new_price' => 'required|numeric|gt:0',
     ];
 
-    private function resetInputFields(){
-        $this->new_price = '';
+    public function mount() {
+        $this->sort_field = 'created_at';
+        $this->sort_dir = 'desc';
+    }
+
+    public function render()
+    {
+        $products = Product::select('id','name','category_id','price','old_price','status','admin_id','quantity','created_at','updated_at')
+                           ->Search($this->product_search)->OrderBy($this->sort_field, $this->sort_dir)->paginate(2);
+                           
+        return view('livewire.backend.product.productslist')->with('products',$products);
+    }
+
+    public function sortBy($field) {
+        $this->sort_field = $field;
+        $this->sort_dir = $this->sort_dir == 'asc' ? 'desc' : 'asc';
     }
 
     //delete function - delete product data and it's images, reviews
     public function destroy($id) {
         $product = Product::findOrFail($id);
-        $product_images = $product->product_images;
-        $product_reviews = $product->product_reviews;
-        foreach($product_images as $img) {
-            $this->delete_if_exist($img);
-        }
-        $product->delete();
-        $product_images->each->delete();
-        $product_reviews->each->delete();
+        try {
+            DB::beginTransaction();
+                foreach($product->product_images as $img) {
+                    $this->delete_if_exist($img->image);
+                }
+                $product->product_images->each->delete();
+                foreach($product->banners as $banner) {
+                    $this->delete_if_exist($banner->image);
+                }
+                $product->banners->each->delete();
+                $product->product_reviews->each->delete();
+                $product->products_stores->each->delete();
+                $product->delete();
 
-        //logs stored when deleted by ProductObserver in app\observers
+                Notification::send(Admin::Active()->get(), new ProductNotification(Auth::guard('admin')->user()->id, 'deleted it\'s related'));
+                $this->emit('notifications');
+
+                //logs stored when deleted by ProductObserver in app\observers
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            Session::flash('error','Error: '.$e->getMessage());
+        }  
     }
 
     //sale function - make discount on product price
     public function sale($id) {
         $this->validate();
 
-        $product = Product::find($id);
-        if($product) {
-            $product->old_price = $product->price;
-            $product->price = $this->new_price * 100;
-            $product->save();
+        $product = Product::findOrfail($id);
+        try {
+            DB::beginTransaction();
+                if($this->new_price < $product->price/100) {
+                    $product->old_price = $product->price;
+                    $product->price = $this->new_price * 100;
+                    $product->save();
 
-            $this->resetInputFields();
-        }
+                    $this->reset('new_price');
+                    Notification::send(Admin::Active()->get(), new ProductNotification(Auth::guard('admin')->user()->id, 'updated for sale'));
+                    $this->emit('notifications');
+                }
 
-        //logs stored when updated by ProductObserver in app\observers
-        return Redirect::back();
+                //logs stored when updated by ProductObserver in app\observers
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            Session::flash('error','Error: '.$e->getMessage());
+        }  
     }
 
-    public function render()
-    {
-        $products = Product::select('id','name','category_id','price','old_price','status','admin_id','quantity','created_at','updated_at')
-                           ->Where('name', 'like', '%'.$this->product_search.'%')
-                           ->OrderBy('created_at','DESC')->get();
-        return view('livewire.backend.product.productslist')->with('products',$products);
-    }
 }

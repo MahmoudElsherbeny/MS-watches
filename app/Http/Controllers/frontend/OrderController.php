@@ -9,9 +9,9 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Notification;
 
-use App\Events\RealtimeNotification;
 use App\Notifications\OrderNotification;
 use App\Admin;
 use App\Cart_item;
@@ -24,18 +24,22 @@ use App\Product;
 use App\Traits\CartOptions;
 use App\User;
 use App\User_info;
+use App\Website_brand;
 use Exception;
-use View;
 
 class OrderController extends Controller
 {
     use CartOptions;
 
-    protected $categories;
+    protected $categories, $brands;
 
     public function __construct() {
-        $this->categories = Category::Where('status','active')->OrderBy('order')->get();
-        View::share('categories', $this->categories);
+        $this->categories = Category::Active()->OrderBy('order')->get();
+        $this->brands = Website_brand::Active()->OrderBy('id')->get();
+        View::share([
+            'categories' => $this->categories,
+            'brands' => $this->brands
+        ]);
     }
 
     //checkout page function - display checkout page
@@ -43,15 +47,22 @@ class OrderController extends Controller
     {
         if(Auth::check()) {
             $cart = Cart_item::Where('user_id', Auth::user()->id)->get();
+            $total = Cart_item::total($cart);
         }
         else {
             $cart = Cart::instance('cart')->content();
+            $total = Cart::instance('cart')->subtotalfloat();
         }
 
        if($cart->count() > 0) {
            $user = Auth::user();
            $states = State::OrderBy('state')->get();
-           return view("frontend.pages.checkout")->with(['user' => $user, 'states' => $states, 'cart_items' => $cart]);
+           return view("frontend.pages.checkout")->with([
+                'user' => $user,
+                'states' => $states, 
+                'cart_items' => $cart,
+                'total' => $total
+            ]);
        }
        else {
            return Redirect::back();
@@ -103,12 +114,12 @@ class OrderController extends Controller
                     foreach($cart_items as $item) {
                         Order_item::create([
                             'order_id' => $order->id,
-                            'product_id' => $item->id,
+                            'product_id' => Auth::check() ? $item->product_id : $item->id,
                             'price' => $item->price,
                             'quantity' => $item->qty,
                         ]); 
 
-                        Product::find($item->id)->decrement('quantity', $item->qty);
+                        Product::find(Auth::check() ? $item->product_id : $item->id)->decrement('quantity', $item->qty);
                     }
 
                     Auth::check() ? $this->ClearCartDatabase() : $this->ClearCartSession();
@@ -116,8 +127,8 @@ class OrderController extends Controller
                     return $order;
                 });
 
-                //Notification::send($admins, new OrderNotification($store_order));
-                event(new RealtimeNotification('New Order'));
+                Notification::send(Admin::all(), new OrderNotification($store_order));
+                //event(new RealtimeNotification('New Order'));
 
                 return Redirect::route('UserOrder.detailes', ['id' => $store_order->id, 'name' => $user->name, 'user' => $user->id]);
             }

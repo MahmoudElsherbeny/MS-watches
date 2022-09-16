@@ -4,34 +4,36 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 
 use App\Category;
 use App\Product;
-use App\Product_image;
 use App\Product_review;
-use Redirect;
-use View;
+use App\Website_brand;
 
 class ProductCtrl extends Controller
 {
-    protected $categories;
+    protected $categories, $brands;
 
     public function __construct() {
-        $this->categories = Category::Where('status','active')->OrderBy('order')->get();
-        View::share('categories', $this->categories);
+        $this->categories = Category::Active()->OrderBy('order')->get();
+        $this->brands = Website_brand::Active()->OrderBy('id')->get();
+        View::share([
+            'categories' => $this->categories,
+            'brands' => $this->brands
+        ]);
     }
 
     //show product detailes page function
     public function product_detailes($id) {
-        $product = Product::Where('status', 'active')->findOrFail($id);
+        $product = Product::Active()->findOrFail($id);
         $product_images = $product->product_images()->orderBy('order')->get();
         $product_reviews = $product->product_reviews()->OrderBy('created_at','DESC')->get();
-        $related_products = Product::Where(['status' => 'active', 'tags' => $product->tags, 'category_id' => $product->category_id])
+        $related_products = Product::Active()->Where(['tags' => $product->tags, 'category_id' => $product->category_id])
                                    ->Where('id', '!=', $product->id)
                                    ->Where(function($query) use($product) {
-                                           $query->Where('name', 'like', '%'.$product->name.'%')
-                                               ->orWhere('body_color', 'like', '%'.$product->body_color.'%')
-                                               ->orWhere('mina_color', 'like', '%'.$product->mina_color.'%');
+                                           $query->Where('name', 'like', '%'.$product->name.'%');
                                    })->inRandomOrder()->limit(15)->get();
  
         return view("frontend.product.product_detailes")->with([
@@ -50,6 +52,5 @@ class ProductCtrl extends Controller
         $user_review->delete();
         return Redirect::back();
     }
-
 
 }

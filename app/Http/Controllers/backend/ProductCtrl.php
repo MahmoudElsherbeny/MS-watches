@@ -4,14 +4,14 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
+use App\Traits\ImageFunctions;
 use App\Product;
 use App\Product_image;
-use App\Product_review;
-use App\Traits\ImageFunctions;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ProductCtrl extends Controller
 {
@@ -38,17 +38,26 @@ class ProductCtrl extends Controller
     //delete function - delete product data and it's images, reviews
     public function destroy($id) {
         $product = Product::findOrFail($id);
-        $product_images = $product->product_images;
-        $product_reviews = $product->product_reviews;
-        foreach($product_images as $img) {
-            $this->delete_if_exist($img->image);
-        }
-        $product->delete();
-        $product_images->each->delete();
-        $product_reviews->each->delete();
+        try {
+            DB::beginTransaction();
+                foreach($product->product_images as $img) {
+                    $this->delete_if_exist($img->image);
+                }
+                $product->product_images->each->delete();
+                foreach($product->banners as $banner) {
+                    $this->delete_if_exist($banner->image);
+                }
+                $product->banners->each->delete();
+                $product->product_reviews->each->delete();
+                $product->delete();
 
-        //logs stored when deleted by ProductObserver in app\observers
-        return Redirect::back();
+                //logs stored when deleted by ProductObserver in app\observers
+            DB::commit();
+            return Redirect::back();
+        } catch (Exception $e) {
+            DB::rollBack();
+            Session::flash('error','Error: '.$e->getMessage());
+        }  
     }
 
     //store, update, delete and update price for product data with livewire components in livewire/backend/product

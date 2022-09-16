@@ -11,32 +11,27 @@
         <!-- Drawer navigation -->
         <nav class="drawer-main">
             <ul class="nav nav-drawer">
-
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Slider</a>
                     <ul class="nav nav-subnav">
-
                         <li>
                             <a href="{{ route('slider.index') }}">All Slides</a>
                         </li>
                         <li>
                             <a href="{{ route('slider.create') }}">Create New Slide</a>
                         </li>
-
                     </ul>
                 </li>
 
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Home Ads</a>
                     <ul class="nav nav-subnav">
-
                         <li>
-                            <a href="{{ route('AdsBanner.index') }}">All Ads</a>
+                            <a href="{{ route('Banner.index') }}">All Ads Banners</a>
                         </li>
                         <li>
-                            <a href="{{ route('AdsBanner.create') }}">Create New Ad</a>
+                            <a href="{{ route('Banner.create') }}">Create New Ad</a>
                         </li>
-
                     </ul>
                 </li>
 
@@ -55,7 +50,6 @@
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> Products</a>
                     <ul class="nav nav-subnav">
-
                         <li>
                             <a href="{{ route('product.index') }}">All Products</a>
                         </li>
@@ -65,43 +59,38 @@
                         <li>
                             <a href="{{ route('product.reviews') }}">Products Reviews</a>
                         </li>
-                    @if(Auth::guard('admin')->user()->role == 'admin')
                         <li>
                             <a href="{{ route('ProductStore.index') }}">Products Store</a>
                         </li>
+                    @if(Auth::guard('admin')->user()->role == 'admin')
                         <li>
                             <a href="{{ route('ProductStore.add') }}">Add Product Quantity</a>
                         </li>
                     @endif
-
                     </ul>
                 </li>
 
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> Orders</a>
                     <ul class="nav nav-subnav">
-
                         <li>
                             <a href="{{ route('order.index') }}">All Orders</a>
                         </li>
                         <li>
-                            <a href="{{ route('product.create') }}"> Report</a>
+                            <a href=""> Report</a>
                         </li>
-
                     </ul>
                 </li>
 
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> States</a>
                     <ul class="nav nav-subnav">
-
                         <li>
                             <a href="{{ route('state.index') }}">All States</a>
                         </li>
                         <li>
                             <a href="{{ route('state.create') }}">Create New State</a>
                         </li>
-
                     </ul>
                 </li>
 
@@ -109,35 +98,30 @@
                     <li class="nav-item nav-item-has-subnav">
                         <a href="javascript:void(0)"><i class="ion-ios-list-outline"></i> Editors</a>
                         <ul class="nav nav-subnav">
-
                             <li>
                                 <a href="{{ route('editor.index') }}">All Editors</a>
                             </li>
                             <li>
                                 <a href="{{ route('editor.create') }}">Create New Editor</a>
                             </li>
-
                         </ul>
                     </li>
 
                     <li class="nav-item nav-item-has-subnav">
                         <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Logs</a>
                         <ul class="nav nav-subnav">
-
                             <li>
                                 <a href="{{ route('DashLogs.index') }}">Dashboard Logs</a>
                             </li>
                             <li>
-                                <a href="base_pages_blank.html">Logs</a>
+                                <a href="">Logs</a>
                             </li>
-
                         </ul>
                     </li>
 
                     <li class="nav-item nav-item-has-subnav">
                         <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Setting</a>
                         <ul class="nav nav-subnav">
-
                             <li>
                                 <a href="{{ route('setting.index') }}">Website Setting</a>
                             </li>
@@ -153,45 +137,9 @@
                             <li>
                                 <a href="{{ route('setting.brand_create') }}">Add Website Brand</a>
                             </li>
-
                         </ul>
                     </li>
                 @endif
-
-                <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="ion-social-javascript-outline"></i> JS plugins</a>
-                    <ul class="nav nav-subnav">
-
-                        <li>
-                            <a href="base_js_maps.html">Maps</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_sliders.html">Sliders</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_charts_flot.html">Charts - Flot</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_charts_chartjs.html">Charts - Chart.js</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_charts_sparkline.html">Charts - Sparkline</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_draggable.html">Draggable</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_syntax_highlight.html">Syntax highlight</a>
-                        </li>
-
-                    </ul>
-                </li>
 
             </ul>
         </nav>

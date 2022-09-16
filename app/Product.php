@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    
     protected $fillable = [
-        'name', 'category_id', 'mini_description', 'description', 'price', 'old_price', 'body_color', 'mina_color', 'rate', 'tags', 'status', 'admin_id', 'all_quantity', 'quantity',
+        'name', 'category_id', 'mini_description', 'description', 'price', 'old_price', 'attributes', 'rate', 'tags', 'status', 'admin_id', 'all_quantity', 'quantity',
     ];
+
+    protected $casts = ['attributes' => 'array'];
 
     public function category()
     {
@@ -51,9 +52,9 @@ class Product extends Model
         return $this->hasMany(Wishlist_item::class);
     }
 
-    public function ads()
+    public function banners()
     {
-        return $this->hasMany(Ad::class);
+        return $this->hasMany(Banner::class);
     }
 
     //products filters
@@ -80,6 +81,14 @@ class Product extends Model
                     $priceFilter = explode(',', $filters['prices']);
                     $query->WhereBetween('price', [$priceFilter]);
                 });
+    }
+
+    public function scopeActive($query) {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeSearch($query, $name) {
+        return $query->where('name', 'like', '%'.$name.'%');
     }
 
     //get products 

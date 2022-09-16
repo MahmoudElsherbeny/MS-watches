@@ -34,19 +34,21 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($slides as $key=>$slide)
+                    @foreach ($slides as $slide)
                         <tr>
-                            <td class="text-center">{{ $key+1 }}</td>
+                            <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center text-capitalize">
                                 <img src="{{ asset('storage/'.$slide->image) }}" width="68" height="60" />
                             </td>
                             <td class="text-center hidden-xs">{{ $slide->title }}</td>
-                            <td class="text-center">{{ $slide->sub_title }}</td>
+                            <td class="text-center">{{ $slide->subtitle }}</td>
                             <td class="text-center">{{ $slide->order }}</td>
                             <td class="text-center text-capitalize"> 
                                 <span class="status btn btn-sm btn-pill @if($slide->status == 'active') btn-primary @else btn-warning @endif">{{ $slide->status }}</span> 
                             </td>
-                            <td class="text-center">{{ $slide->link }}</td>
+                            <td class="text-center text-capitalize">
+                                @if($slide->link == 0) Shop @else {{ App\Category::find($slide->link)->name }} @endif
+                            </td>
                             <td class="text-center">{{ $slide->created_at->format("Y-m-d g:i a") }}</td>
                             <td class="text-center">{{ $slide->updated_at->format("Y-m-d g:i a") }}</td>
                             <td class="text-center">

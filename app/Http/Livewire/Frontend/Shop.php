@@ -18,10 +18,6 @@ class Shop extends Component
         'sort' => '',
         'tags' => ''
     ];
-
-    public function mount() {
-        
-    }
     
     //check on filters array if it empty or not
     public function filtersNotEmpty(): bool {

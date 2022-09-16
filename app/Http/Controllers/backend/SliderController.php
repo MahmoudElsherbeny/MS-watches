@@ -4,11 +4,17 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
 
-use App\Slide;
+use App\Notifications\SlideNotification;
 use App\Traits\ImageFunctions;
+use App\Admin;
+use App\Slide;
+use Exception;
 
 class SliderController extends Controller
 {
@@ -34,10 +40,20 @@ class SliderController extends Controller
 
     //delete function - delete slide data and it's image
     public function destroy($id) {
-        $slide = Slide::findOrFail($id);
-        $this->delete_if_exist($slide->image);
-        $slide->delete();
-        
+        try {
+            DB::beginTransaction();
+                $slide = Slide::findOrFail($id);
+                $this->delete_if_exist($slide->image);
+                $slide->delete();
+
+                Notification::send(Admin::Active()->get(), new SlideNotification(Auth::guard('admin')->user()->id, 'deleted'));
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            Session::flash('error','Error: '.$e->getMessage());
+        }
+
         return Redirect::route('slider.index');
     }
 

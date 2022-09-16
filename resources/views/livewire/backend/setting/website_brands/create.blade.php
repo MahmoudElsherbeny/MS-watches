@@ -14,14 +14,14 @@
     {!! Form::Open(['files' => 'true', 'wire:submit.prevent' => 'store']) !!}
         <div class="form-group">
             <label>Name:</label>
-            <input class="form-control @error('name') input-error @enderror" type="text" name="name" wire:model="name" placeholder="Enter brand name..." />
+            <input class="form-control @error('name') input-error @enderror" type="text" name="name" wire:model.defer="name" placeholder="Enter brand name..." />
             @error('name')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group">
             <label>Link:</label>
-            <input class="form-control @error('link') input-error @enderror" type="text" name="link" wire:model="link" placeholder="Enter brand link..." />
+            <input class="form-control @error('link') input-error @enderror" type="text" name="link" wire:model.defer="link" placeholder="Enter brand link..." />
             @error('link')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
@@ -35,10 +35,17 @@
         </div>
         <div class="form-group">
             <label>Brand Logo:</label>
-            <input class="@error('image') input-error @enderror" type="file" name="image" wire:model="image" accept="image/*" />
+            <input id="brand_logo" class="@error('image') input-error @enderror" type="file" name="image" wire:model="image" accept="image/*" />
             @error('image')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
+        </div>
+        <div class="form-group">
+            @if($image)
+                <img src="{{ $image->temporaryUrl() }}" width="90px" height="80px">
+            @else
+                <img src="{{ url('backend/assets/img/photos/upload.png') }}" alt="image" width="90px" height="80px" />
+            @endif
         </div>
 
         <div class="form-group m-b-0">

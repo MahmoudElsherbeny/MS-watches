@@ -14,7 +14,7 @@
     {!! Form::Open(['files' => 'true', 'wire:submit.prevent' => 'store']) !!}
         <div class="form-group">
             <label>Name:</label>
-            <input class="form-control @error('name') input-error @enderror" type="text" name="name" wire:model="name" placeholder="Enter product name..." />
+            <input class="form-control @error('name') input-error @enderror" type="text" name="name" wire:model.defer="name" placeholder="Enter product name..." />
             @error('name')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
@@ -29,30 +29,22 @@
         </div>
         <div class="form-group">
             <label>Small Description:</label>
-            <textarea class="form-control" name="mini_description" wire:model="mini_description" rows="4">Enter small product description...</textarea>
+            <textarea wire:model.defer="mini_description" class="form-control @error('mini_description') input-error @enderror" name="mini_description" rows="4"></textarea>
+            @error('mini_description')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
         </div>
-        <div class="form-group">
+        <div class="form-group" wire:ignore>
             <label>Description:</label>
-            <textarea class="form-control" id="prod_description" name="description" wire:model="description" rows="4">Enter product description...</textarea>
+            <textarea wire:model="description" id="prod_description" data-prod_description="@this" class="form-control @error('description') input-error @enderror" name="description" rows="4"></textarea>
+            @error('description')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group">
             <label>Price:</label>
-            <input class="form-control @error('price') input-error @enderror" type="text" name="price" wire:model="price" placeholder="Enter product price..." />
+            <input class="form-control @error('price') input-error @enderror" type="text" name="price" wire:model.defer="price" placeholder="Enter product price..." />
             @error('price')
-                <div class="msg-error">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label>Body Color:</label>
-            <input class="form-control @error('body_color') input-error @enderror" type="text" name="body_color" wire:model="body_color" placeholder="Enter Watche body color..." />
-            @error('body_color')
-                <div class="msg-error">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label>Mina Color:</label>
-            <input class="form-control @error('mina_color') input-error @enderror" type="text" name="mina_color" wire:model="mina_color" placeholder="Enter Watche mina color..." />
-            @error('mina_color')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
         </div>
@@ -62,6 +54,7 @@
                 <option value="men">Men</option>
                 <option value="women">Women</option>
                 <option value="kids">kids</option>
+                <option value="others">others</option>
             </select>
         </div>
         <div class="form-group">
@@ -71,12 +64,65 @@
                 <option value="not active">Not Active</option>
             </select>
         </div>
+
+        <div class="form-group m-t-md m-b-sm">
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Attribute type:</label>
+                </div>
+                <div class="col-md-6">
+                    <label>Attribute Value:</label>
+                </div>
+            </div>
+        </div>
+        @foreach ($attr_data as $index => $attr)
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-5">
+                        <select class="form-control" name="attribute_type" wire:model="attr_data.{{ $index }}.type">
+                            <option value="">Choose Attribute</option>
+                            @foreach ($attributes as $attribute)
+                                <option value="{{ $attribute }}">{{ $attribute }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input wire:model.defer="attr_data.{{ $index }}.value" class="form-control" type="text" name="attribute_value" placeholder="Enter attribute value..." />
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <a href="#" wire:click.prevent="removeAttribute({{ $index }})">Delete</a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
         <div class="form-group">
+            <button wire:click.prevent="addMoreAttributes" class="btn btn-primary">Add More Attributes</button>
+        </div>
+
+        <div class="form-group m-b-sm">
             <label>Product images or videos:</label>
             <input class="@error('image') input-error @enderror" type="file" name="images[]" wire:model="images" multiple="multiple" accept="image/*, video/*" />
             @error('images')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
+            @error('images.*')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group">
+            @if($images)
+                @foreach($images as $image)
+                    @if(App\Product_image::isImage($image->getClientOriginalName()))
+                        <img src="{{ $image->temporaryUrl() }}" width="24%" height="180px" style="padding-right: 0.5%;">
+                    @elseif(App\Product_image::isVideo($image->getClientOriginalName()))
+                        <video style="padding-right: 0.5%;" width="24%" height="180px" controls>
+                            <source src="{{ $image->temporaryUrl() }}">
+                        </video>
+                    @endif
+                @endforeach
+            @else
+                <img src="{{ url('backend/assets/img/photos/upload.png') }}" alt="image" width="25%" height="180px" />
+            @endif
         </div>
 
         <div class="form-group m-b-0">

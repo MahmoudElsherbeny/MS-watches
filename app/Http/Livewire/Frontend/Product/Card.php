@@ -2,13 +2,10 @@
 
 namespace App\Http\Livewire\Frontend\Product;
 
-use App\Product_image;
+use Livewire\Component;
 use App\Traits\CartOptions;
 use App\Traits\WishlistOptions;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Livewire\Component;
 
 class Card extends Component
 {

@@ -19,8 +19,6 @@
         name: "HomeComponent",
 
         mounted() {
-            //console.log('Component mounted.')
-
             window.Echo.channel('realtime_notification').listen('RealtimeNotification', event => {
                 console.log(event);
             })            

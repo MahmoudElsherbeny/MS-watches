@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slide extends Model
 {
-    protected $fillable = ['image', 'title','sub_title','order','status','link'];
+    protected $fillable = ['image', 'title','subtitle','order','status','link'];
+
+    public function scopeActive($query) {
+        return $query->where('status', 'active');
+    }
 }

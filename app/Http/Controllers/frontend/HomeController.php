@@ -2,32 +2,35 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Ad;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 use App\Category;
 use App\Product;
 use App\Slide;
-use App\User;
+use App\Banner;
 use App\Website_brand;
 use App\Website_review;
-use View;
 
 class HomeController extends Controller
 {
 
-    protected $categories;
+    protected $categories, $brands;
 
     public function __construct() {
-        $this->categories = Category::Where('status','active')->OrderBy('order')->get();
-        View::share('categories', $this->categories);
+        $this->categories = Category::Active()->OrderBy('order')->get();
+        $this->brands = Website_brand::Active()->OrderBy('id')->get();
+        View::share([
+            'categories' => $this->categories,
+            'brands' => $this->brands
+        ]);
     }
 
     //show home page function
     public function index() {
-        $slides = Slide::Where('status','active')->OrderBy('order')->get();
-        $ads = Ad::Where('status','active')->OrderBy('created_at','DESC');
+        $slides = Slide::Active()->OrderBy('order')->get();
+        $banners = Banner::Active()->OrderBy('created_at','DESC');
 
         $toprate_products = Product::Where('status', 'active')
                                    ->Where('rate', '>',0)
@@ -35,7 +38,7 @@ class HomeController extends Controller
 
         return view("frontend.index")->with([
                                     'slides' => $slides,
-                                    'ads' => $ads,
+                                    'banners' => $banners,
                                     'toprate' => $toprate_products
                                     ]);
     }
@@ -44,7 +47,7 @@ class HomeController extends Controller
 
     //show category products page function
     public function category($cat_id) {
-        $category = Category::Where('status','active')->findOrFail($cat_id);
+        $category = Category::Active()->findOrFail($cat_id);
         $products = Product::Where('status','active')
                            ->Where('category_id',$cat_id)
                            ->orderBy('id','DESC')->get();
@@ -65,7 +68,7 @@ class HomeController extends Controller
     //show about-us page function
     public function aboutus() {
         $reviews = Website_review::Where('status','active')->get();
-        $brands = Website_brand::Where('status','active')->OrderBy('id')->get();
+        $brands = Website_brand::Active()->OrderBy('id')->get();
         return view("frontend.pages.about")->with(['reviews' => $reviews, 'brands' => $brands ]);
     }
 

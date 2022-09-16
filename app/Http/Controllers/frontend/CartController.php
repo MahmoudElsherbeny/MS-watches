@@ -11,16 +11,21 @@ use Illuminate\Support\Facades\View;
 use App\Traits\CartOptions;
 use App\Category;
 use App\Product;
+use App\Website_brand;
 
 class CartController extends Controller
 {
     use CartOptions;
 
-    protected $categories;
+    protected $categories, $brands;
 
     public function __construct() {
-        $this->categories = Category::Where('status','active')->OrderBy('order')->get();
-        View::share('categories', $this->categories);
+        $this->categories = Category::Active()->OrderBy('order')->get();
+        $this->brands = Website_brand::Active()->OrderBy('id')->get();
+        View::share([
+            'categories' => $this->categories,
+            'brands' => $this->brands
+        ]);
     }
 
     //show cart page function
@@ -36,10 +41,9 @@ class CartController extends Controller
         ]);
 
         $product = Product::find($product_id);
-        Auth::check() ? 
-            $this->AddToCartDatabase(Auth::user(), $product, $request->input('qty'))
-        :
-            $this->AddToCartSession($product, $request->input('qty'));
+        Auth::check() 
+            ? $this->AddToCartDatabase(Auth::user(), $product, $request->input('qty'))
+            : $this->AddToCartSession($product, $request->input('qty'));
 
         return Redirect::back();
     }

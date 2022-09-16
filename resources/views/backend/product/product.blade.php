@@ -49,14 +49,12 @@
                             </div>
                             <div class="mini_description m-y">{{ $product->mini_description }}</div>
                             <div class="product_color m-b">
-                                <div class="body_color m-b-xs">
-                                    <span class="cel1">Body Color: </span>
-                                    <span class="text-capitalize p-x-sm">{{ $product->body_color }} </span>
-                                </div>
-                                <div class="mina_color">
-                                    <span class="cel1">Mina Color: </span>
-                                    <span class="text-capitalize p-x-sm">{{ $product->mina_color }} </span>
-                                </div>
+                                @foreach ($product->attributes as $attr)
+                                    <div class="body_color m-b-xs">
+                                        <span class="cel1 text-capitalize">{{ $attr['type'] }}: </span>
+                                        <span class="text-capitalize p-x-sm">{{ $attr['value'] }} </span>
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="product_status">
                                 <span class="cel1">Status: </span>
@@ -86,7 +84,7 @@
 
                 <div class="product_description m-y">
                     <h2>Description</h2>
-                    <div class="m-y-sm">{{ $product->description }}</div>
+                    <div class="m-y-sm">{!! $product->description !!}</div>
                 </div>
 
                 <div class="product_images m-y-lg">

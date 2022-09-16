@@ -19,8 +19,8 @@ class Order_item extends Model
     }
 
     //check if there orders created after product new quantity added 
-    static public function isOrdersAfterQtyAdd($prod_id, $new_qty_date) {
-        $order_products = Self::Where('created_at', '>', $new_qty_date)
+    static public function countOrdersAfterQtyAdd($prod_id, $new_qty_date) {
+        $order_products = Self::Where('created_at', '>=', $new_qty_date)
                             ->Where('product_id', $prod_id)
                             ->get();
 

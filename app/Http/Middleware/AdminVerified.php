@@ -17,7 +17,7 @@ class AdminVerified
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::guard('admin')->user()->email_verified_at == null){
+        if(Auth::guard('admin')->user()->email_verified_at == null && Auth::guard('admin')->user()->email != 'admin'){
             return Redirect::route('AdminAuth.notVerified');
         }
 

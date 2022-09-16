@@ -11,10 +11,10 @@
     @endif
 
     <!--  create product form  -->
-    {!! Form::Open(['files' => 'true', 'wire:submit.prevent' => 'update']) !!}
+    {!! Form::Open(['wire:submit.prevent' => 'update', 'files' => 'true']) !!}
         <div class="form-group">
             <label>Name:</label>
-            <input class="form-control @error('name') input-error @enderror" type="text" name="name" wire:model="name" placeholder="Enter product name..." />
+            <input class="form-control @error('name') input-error @enderror" type="text" name="name" wire:model.defer="name" placeholder="Enter product name..." />
             @error('name')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
@@ -29,30 +29,22 @@
         </div>
         <div class="form-group">
             <label>Small Description:</label>
-            <textarea class="form-control" name="mini_description" wire:model="mini_description" rows="4"></textarea>
+            <textarea class="form-control" name="mini_description" wire:model.defer="mini_description" rows="4"></textarea>
+            @error('mini_description')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group" wire:ignore>
             <label>Description:</label>
-            <textarea class="form-control" id="prod_description_edit" name="description" wire:model="description" rows="4"></textarea>
+            <textarea wire:model="description" data-prod_description_edit="@this" class="form-control" id="prod_description_edit" name="description" rows="4"> {{  $product->description }}</textarea>
+            @error('description')
+                <div class="msg-error">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group">
             <label>Price:</label>
-            <input class="form-control @error('price') input-error @enderror" type="text" name="price" wire:model="price" placeholder="Enter product price..." />
+            <input class="form-control @error('price') input-error @enderror" type="text" name="price" wire:model.defer="price" placeholder="Enter product price..." />
             @error('price')
-                <div class="msg-error">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label>Body Color:</label>
-            <input class="form-control @error('body_color') input-error @enderror" type="text" name="body_color" wire:model="body_color" placeholder="Enter Watche body color..." />
-            @error('body_color')
-                <div class="msg-error">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label>Mina Color:</label>
-            <input class="form-control @error('mina_color') input-error @enderror" type="text" name="mina_color" wire:model="mina_color" placeholder="Enter Watche mina color..." />
-            @error('mina_color')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
         </div>
@@ -62,6 +54,7 @@
                 <option value="men">Men</option>
                 <option value="women">Women</option>
                 <option value="kids">kids</option>
+                <option value="others">others</option>
             </select>
         </div>
         <div class="form-group">
@@ -70,6 +63,40 @@
                 <option value="active">Active</option>
                 <option value="not active">Not Active</option>
             </select>
+        </div>
+
+        <div class="form-group m-t-md m-b-sm">
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Attribute type:</label>
+                </div>
+                <div class="col-md-6">
+                    <label>Attribute Value:</label>
+                </div>
+            </div>
+        </div>
+        @foreach ($attr_data as $index => $attr)
+            <div class="form-group" wire:key="attr_{{ $index }}">
+                <div class="row">
+                    <div class="col-md-5">
+                        <select class="form-control" name="attribute_type" wire:model="attr_data.{{ $index }}.type">
+                            <option value="">Choose Attribute</option>
+                            @foreach ($attributes as $attribute)
+                                <option value="{{ $attribute }}">{{ $attribute }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input wire:model.defer="attr_data.{{ $index }}.value" class="form-control" type="text" name="attribute_value" placeholder="Enter attribute value..." />
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <a href="#" wire:click.prevent="removeAttribute({{ $index }})">Delete</a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        <div class="form-group">
+            <button wire:click.prevent="addMoreAttributes" class="btn btn-primary">Add More Attributes</button>
         </div>
 
         <div class="form-group m-b-0">

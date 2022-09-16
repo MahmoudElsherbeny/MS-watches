@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-7">
                 <div class="form-group col-md-9">
-                    <input class="form-control" type="text" name="search" placeholder="Brand Search..." wire:model="brand_search" />
+                    <input class="form-control" type="text" name="search" placeholder="Brand Search..." wire:model.debounce.1500ms="brand_search" />
                 </div>
                 <div class="form-group col-md-3">
                     <a href="{{ route('setting.brand_create') }}" class="btn btn-success">Create New Brand</a>
@@ -23,14 +23,15 @@
                     <th class="text-center">Image</th>
                     <th class="text-center">Link</th>
                     <th class="text-center">Status</th>
+                    <th class="text-center">Last Update</th>
                     <th class="text-center" style="width: 12%;">Actions</th>
                 </tr>
             </thead>
             <tbody>
 
-                @foreach ($brands as $key=>$brand)
+                @foreach ($brands as $brand)
                     <tr>
-                        <td class="text-center">{{ $key+1 }}</td>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td class="text-center text-capitalize">{{ $brand->name }}</td>
                         <td class="text-center text-capitalize">
                             <img src="{{ asset('storage/' . $brand->image) }}" width="70" height="64" />
@@ -41,6 +42,7 @@
                         <td class="text-center">
                             <span class="status btn btn-sm btn-pill @if($brand->status == 'active') btn-primary @else btn-warning @endif">{{ $brand->status }}</span> 
                         </td>
+                        <td class="text-center text-capitalize">{{ $brand->updated_at->format('Y-m-d g:i a') }}</td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <a href="{{ route('setting.brand_edit', ['id' => $brand->id]) }}" class="btn btn-success"><i class="ion-ios-compose-outline"></i></a>
@@ -61,7 +63,7 @@
                                             </div>
                                         </div>
                                         <div class="card-block text-left">
-                                            <p>Are you sure, you want to delete this brand from website brands ?</p>
+                                            <p>Are you sure, you want to delete brand ({{ $brand->name }}) from website brands ?</p>
                                             <p> <b>Notice:</b> if you want to hide brand, you can update it's status to not active instead of remove it.</p>
                                         </div>
                                         <div class="modal-footer">

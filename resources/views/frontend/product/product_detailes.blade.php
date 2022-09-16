@@ -110,18 +110,14 @@
                             @endif
                         </ul>
                         <div class="pro__dtl__color">
-                            <div class="select__color mb--10">
-                                <h2>Body color</h2>
-                                <div class="color__list">
-                                    <div class="prod__color" style="background-color: {{ $product->body_color }}"></div>
+                            @foreach ($product->attributes as $attr)
+                                <div class="select__color mb--10">
+                                    <h2 class="text-capitalize">{{ $attr['type'] }}: </h2>
+                                    <div class="color__list">
+                                        <div class="">{{ $attr['value'] }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="select__color">
-                                <h2>Mina color</h2>
-                                <div class="color__list">
-                                    <div class="prod__color" style="background-color: {{ $product->mina_color }}"></div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         @if ($product->quantity > 0)
                             {!! Form::Open(['url' => route('cart.add',['id' => $product->id]), 'method' => 'GET' ]) !!}

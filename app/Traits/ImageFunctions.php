@@ -20,4 +20,12 @@ trait ImageFunctions
         return $path;
     }
 
+    //return image path in storage after create it
+    public function store_unique_image_path($name,$image,$folder_name) {
+        $filename = $name.'.'.$image->getClientOriginalExtension();
+        $path = $image->storeAs($folder_name, $filename);
+
+        return $path;
+    }
+
 }

@@ -35,13 +35,13 @@ class OrderController extends Controller
         $editor_open_orders = Auth::guard('admin')->user()->orders
                                   ->where('status', '!=', 'completed')
                                   ->where('status', '!=', 'cancel');
-        if(count($editor_open_orders) <= 2) {
+        if(count($editor_open_orders) <= 2 && $order->status == 'waiting') {
             $order->admin_id = $editor_id;
             $order->status = 'preparing';
             $order->save();
         }
 
-        return view('backend.orders.show')->with('order', $order);
+        return Redirect::route('order.info', ['id' => $order->id]);
     }
 
 }

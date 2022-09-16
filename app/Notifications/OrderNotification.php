@@ -2,11 +2,11 @@
 
 namespace App\Notifications;
 
-use App\Notifications\channels\SubNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Notifications\channels\SubNotificationChannel;
 
 class OrderNotification extends Notification
 {
@@ -40,7 +40,7 @@ class OrderNotification extends Notification
         return [
             'id' => $this->order->id,
             'title' => 'new order is set',
-            'description' => 'New order wsiting for accept now !',
+            'description' => 'New order waiting for accept now !',
             'link' => url('dashboard/orders', ['id' => $this->order->id]),
         ];
     }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Frontend\Cart;
 
-use App\Cart_item;
+use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
+
+use App\Cart_item;
 
 class Sidemenu extends Component
 {

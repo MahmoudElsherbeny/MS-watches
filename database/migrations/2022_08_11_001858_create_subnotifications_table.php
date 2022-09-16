@@ -14,7 +14,7 @@ class CreateSubnotificationsTable extends Migration
     public function up()
     {
         Schema::create('subnotifications', function (Blueprint $table) {
-            $table->increments('id')->primary();
+            $table->increments('id');
             $table->uuid('notification_id');
             $table->morphs('notifiable');
             $table->timestamp('read_at')->nullable();

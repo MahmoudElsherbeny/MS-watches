@@ -98,22 +98,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $total_qty=0; ?>
                                     @foreach ($cart_items as $key => $prod)
                                         <tr>
-                                            <td><a href="{{ route('product_detailes', ['id' => $prod->id]) }}">{{ $prod->name }}</a></td>
+                                            <td><a href="{{ route('product_detailes', ['id' => Auth::check() ? $prod->product_id : $prod->id]) }}">{{ $prod->name }}</a></td>
                                             <td>£ {{ $prod->price / 100 }}</td>
                                             <td>{{ $prod->qty }}</td>
                                             <td class="product-price"><span class="amount">£ {{ $prod->price*$prod->qty / 100 }}</span></td>
                                         </tr>
+                                        <?php $total_qty += $prod->qty; ?>
                                     @endforeach
                                     <tr>
                                         <th colspan="4">Total</th>
                                     </tr>
                                     <tr>
-                                        <td>{{ Cart::instance('cart')->content()->count() }}</td>
+                                        <td>{{ $cart_items->count() }}</td>
                                         <td>-</td>
-                                        <td>{{ Cart::instance('cart')->count() }}</td>
-                                        <td class="product-price"><span class="amount">£ {{ Cart::instance('cart')->subtotalfloat() / 100 + $user->user_info->state->delivery }}</span></td>
+                                        <td>{{ $total_qty }}</td>
+                                        <td class="product-price"><span class="amount">£ {{ $total / 100 + $user->user_info->state->delivery }}</span></td>
                                     </tr>
                                 </tbody>
                             </table>

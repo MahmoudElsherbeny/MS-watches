@@ -27,10 +27,11 @@ select {
 }
 
 .notification-badge {
-    font-size: 12px;
+    font-size: 13px;
     padding: 2px 5px;
     line-height: 15px;
-    top: 33% !important;
+    position: absolute;
+    top: 16% !important;
     right: 6px !important;
 }
 
@@ -42,45 +43,45 @@ select {
     overflow-x: hidden;
 }
 
-.notification-dropdown > li.notification {
+.notification-dropdown li.notification {
     width: 100%;
 }
 
-.notification-dropdown > li.divider {
+.notification-dropdown li.divider {
     margin: 0 auto;
     width: 89%;
 }
 
-.notification-dropdown > li.notification a {
+.notification-dropdown li.notification a {
     padding: 9px 18px;
     width: 100%;
 }
 
-.notification-dropdown > li.unread a {
+.notification-dropdown li.unread a {
     background-color: #f5f5f5;
 }
 
-.notification-dropdown > li a:hover {
+.notification-dropdown li a:hover {
     background-color: #fafafa;
 }
 
-.notification-dropdown > li.notification span {
+.notification-dropdown li.notification span {
     display: block;
     width: 100%;
 }
 
-.notification-dropdown > li.notification span.title {
+.notification-dropdown li.notification span.title {
     font-weight: 550;
     text-transform: capitalize;
 }
 
-.notification-dropdown > li.notification span.description,
-.notification-dropdown > li.notification span.date {
+.notification-dropdown li.notification span.description,
+.notification-dropdown li.notification span.date {
     color: #888;
     padding-left: 4px;
 }
-.notification-dropdown > li.notification span.description { font-size: 14px; }
-.notification-dropdown > li.notification span.date { font-size: 12px; }
+.notification-dropdown li.notification span.description { font-size: 14px; }
+.notification-dropdown li.notification span.date { font-size: 12px; }
 
 .dropdown-header a {
     color: #666 !important;
@@ -176,6 +177,14 @@ select {
 
 .js-dataTable-simple {
     font-size: 14px;
+}
+
+.js-dataTable-simple th.field-sort {
+    cursor: pointer;
+}
+
+.js-dataTable-simple th.field-sort i {
+    font-size: 12px;
 }
 
 .js-dataTable-simple .status {

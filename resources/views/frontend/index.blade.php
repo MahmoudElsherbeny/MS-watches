@@ -22,7 +22,7 @@
                                             <div class="slider__inner">
                                                 <h1>{{ $slide->title }} <span class="text--theme">{{ $slide->sub_title }}</span></h1>
                                                 <div class="slider__btn">
-                                                    <a class="htc__btn" href="@if($slide->link == 'shop') {{ route('shop') }} @else {{ route('category_page',['id' => $slide->link]) }} @endif">shop now</a>
+                                                    <a class="htc__btn" href="@if($slide->link == 0) {{ route('shop') }} @else {{ route('category_page',['id' => $slide->link]) }} @endif">shop now</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,6 +79,11 @@
 
                         </div>
                     </div>
+
+                    @foreach ($toprate as $product)
+                        <!--   top rated products quickview modal   -->
+                        @livewire('frontend.product.quickview', ['product' => $product])
+                    @endforeach
                 </div>
             </div>
 
@@ -89,9 +94,9 @@
 <div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            @if($ads->first())
-            <a href="{{ route('product_detailes', ['id' => $ads->first()->product_id]) }}">
-                <img src="{{ asset('storage/'.$ads->first()->image) }}" alt="ad banner">
+            @if($banners->first())
+            <a href="{{ route('product_detailes', ['id' => $banners->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$banners->first()->image) }}" alt="banner">
             </a>
             @endif
         </div>
@@ -116,6 +121,11 @@
 
                         </div>
                     </div>
+
+                    @foreach (App\Product::getSaleProducts('>','old_price',15) as $product)
+                        <!--   best sale products quickview modal   -->
+                        @livewire('frontend.product.quickview', ['product' => $product])
+                    @endforeach
                 </div>
             </div>
 
@@ -126,9 +136,9 @@
 <div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            @if($ads->skip(1)->take(1)->first())
-            <a href="{{ route('product_detailes', ['id' => $ads->skip(1)->take(1)->first()->product_id]) }}">
-                <img src="{{ asset('storage/'.$ads->skip(1)->take(1)->first()->image) }}" alt="ad banner">
+            @if($banners->skip(1)->take(1)->first())
+            <a href="{{ route('product_detailes', ['id' => $banners->skip(1)->take(1)->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$banners->skip(1)->take(1)->first()->image) }}" alt="banner">
             </a>
             @endif
         </div>
@@ -153,6 +163,11 @@
 
                         </div>
                     </div>
+
+                    @foreach (App\Product::getSaleProducts('>','updated_at',15) as $product)
+                        <!--   on sale products quickview modal   -->
+                        @livewire('frontend.product.quickview', ['product' => $product])
+                    @endforeach
                 </div>
             </div>
 
@@ -163,9 +178,9 @@
 <div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            @if($ads->skip(2)->take(1)->first())
-            <a href="{{ route('product_detailes', ['id' => $ads->skip(1)->take(1)->first()->product_id]) }}">
-                <img src="{{ asset('storage/'.$ads->skip(2)->take(1)->first()->image) }}" alt="ad banner">
+            @if($banners->skip(2)->take(1)->first())
+            <a href="{{ route('product_detailes', ['id' => $banners->skip(1)->take(1)->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$banners->skip(2)->take(1)->first()->image) }}" alt="banner">
             </a>
             @endif
         </div>
@@ -190,8 +205,12 @@
 
                         </div>
                     </div>
+
+                    @foreach (App\Product::getSaleProducts('<=','id',15) as $product)
+                        <!--   latest products quickview modal   -->
+                        @livewire('frontend.product.quickview', ['product' => $product])
+                    @endforeach
                 </div>
-                
             </div>
         </div>
     </div>

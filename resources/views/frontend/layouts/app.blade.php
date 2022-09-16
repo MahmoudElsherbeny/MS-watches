@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', 'MS Watches')</title>
+    <title>@yield('title', '{{ App\Setting::getSettingValue("name") }} Watches')</title>
     <meta name="description" content="selling watches">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -42,7 +42,9 @@
     <div class="wrapper fixed__footer" id="app">
         @include('frontend.layouts.header')
         
+        <!--
         <home-component></home-component>
+        -->
         @yield('content')
 
         <footer class="htc__foooter__area gray-bg">

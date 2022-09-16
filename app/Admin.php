@@ -56,4 +56,18 @@ class Admin extends Authenticatable implements JWTSubject
         return $this->hasMany(Dashboard_log::class);
     }
     
+    public function scopeActive($query) {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeRole($query,$type) {
+        return $query->when($type, function ($query) use ($type) {
+                    if($type == 'admin') {
+                        $query->where('role', 'admin');
+                    }
+                    elseif($type == 'editor') {
+                        $query->where('role', 'editor');
+                    }
+                });
+    }
 }
