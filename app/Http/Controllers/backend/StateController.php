@@ -40,7 +40,7 @@ class StateController extends Controller
             }
 
             //logs stored when updated by state observer in app\observers
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
 

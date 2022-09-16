@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Redirect;
 use App\Setting;
 use App\Website_brand;
 use App\Website_review;
-use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -50,7 +49,7 @@ class SettingController extends Controller
                 Session::flash('error','Review Not Exist');
             }
             
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
         
@@ -78,7 +77,7 @@ class SettingController extends Controller
         return view('backend.setting.website_brands.create');
     }
 
-    //function brand_create - show create new website brand page
+    //function brand_edit - show edit website brand page
     public function brand_edit($id)
     {
         $brand = Website_brand::findOrFail($id);

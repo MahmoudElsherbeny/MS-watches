@@ -6,22 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\View;
 
+use App\Traits\CartOptions;
 use App\Category;
 use App\Product;
-use App\Product_image;
-use Illuminate\Support\Facades\Session;
-use View;
+use App\Website_brand;
 
 class CartController extends Controller
 {
+    use CartOptions;
 
-    protected $categories;
+    protected $categories, $brands;
 
     public function __construct() {
-        $this->categories = Category::Where('status','active')->OrderBy('order')->get();
-        View::share('categories', $this->categories);
+        $this->categories = Category::Active()->OrderBy('order')->get();
+        $this->brands = Website_brand::Active()->OrderBy('id')->get();
+        View::share([
+            'categories' => $this->categories,
+            'brands' => $this->brands
+        ]);
     }
 
     //show cart page function
@@ -32,41 +36,19 @@ class CartController extends Controller
     //add to cart function - add products in cart using session whatever user login or not
     public function addToCart(Request $request, $product_id)
     {
-        $product = Product::findOrFail($product_id);
-        $image = url(Product_image::ProductMainImage($product->id));
-        $cart_item = Cart::instance('cart')->content()->where('id', $product->id)->first();
-        if($request->input('qty')) {
-            $quantity = $request->input('qty');
-        }
-        else {
-            $quantity = 1 ;
-        }
+        $validatedData = $request->validate([
+            'qty' => 'required|min:1|numeric',
+        ]);
 
-        if($cart_item) {
-            if(($quantity + $cart_item->qty) > $product->quantity) {
-                Session::flash('error', $product->name.' doesn\'t have enough quantity in stock');
-            }
-            else {
-                Cart::instance('cart')->update($cart_item->rowId, ($quantity + $cart_item->qty));
-            }
-        }
-        else {
-            if($quantity <= $product->quantity) {
-                Cart::instance('cart')->add([
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'qty' => $quantity,
-                    'price' => $product->price,
-                    'weight' => 0,
-                    'options' => ['image' => $image]
-                ]);
-            }
-        }
+        $product = Product::find($product_id);
+        Auth::check() 
+            ? $this->AddToCartDatabase(Auth::user(), $product, $request->input('qty'))
+            : $this->AddToCartSession($product, $request->input('qty'));
 
         return Redirect::back();
     }
 
-    //upadte product quantity in cart by livewire shoppin-cart 
-    //remove from cart in livewire shoppin-cart 
-
+    //add product to cart by livewire product/card
+    //upadte product quantity in cart by livewire cart/page
+    //remove from cart in livewire cart/page 
 }

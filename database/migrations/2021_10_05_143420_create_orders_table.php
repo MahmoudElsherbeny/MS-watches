@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('status');
             $table->decimal('total');
+            $table->integer('admin_id')->nullable();
             $table->timestamps();
         });
     }

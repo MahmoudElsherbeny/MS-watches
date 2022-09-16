@@ -30,12 +30,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="product__list another-product-style fix">
-                            <!-- Start Single Product -->
-                            @include('frontend.product.card', ['products' => $products])
-                            <!-- End Single Product -->
-                            <!-- QUICKVIEW PRODUCT -->
-                            @include('frontend.product.quickview', ['products' => $products])
-                            <!-- END QUICKVIEW PRODUCT -->
+                            @foreach ($products as $product)
+                                <!-- Start Single Product -->
+                                @livewire('frontend.product.card', ['product' => $product])
+                                <!-- End Single Product --> 
+                                <!-- Start Product quickview modal -->
+                                @livewire('frontend.product.quickview', ['product' => $product])
+                                <!-- End Product quickview modal -->                                
+                            @endforeach
                         </div>
                     </div>
                 </div>

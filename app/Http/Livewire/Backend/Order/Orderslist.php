@@ -9,63 +9,45 @@ use Livewire\WithPagination;
 use App\Order;
 use App\Order_log;
 use App\Product;
+use Illuminate\Support\Carbon;
 
 class Orderslist extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $order_search;
-    public $status;
+    protected $listeners = ['status_change'];
+
+    public $order_search, $from_search, $to_search, $status_search;
+    public $admin;
 
     public function mount() {
-        $this->status = 'waiting';
+        $this->from_search = (Carbon::now()->subDays(30))->format('Y-m-d');
+        $this->to_search = date('Y-m-d');
+        $this->admin = Auth::guard('admin')->user()->id;
     }
 
-    //order status function - change order status depending on order process
-    public function order_status($id) {
-
-        $order = Order::find($id);
-        if($order) {
-            if(Auth::guard('admin')->user()->role == 'admin') {
-                //check if admin cancel order or live it again to updated order products quantity
-                if($order->status == 'cancel' && $this->status != 'cancel') {
-                    foreach($order->order_items as $item) {
-                        Product::find($item->product_id)->decrement('quantity', $item->quantity);
-                    }
-                }
-                elseif($order->status != 'cancel' && $this->status == 'cancel') {
-                    foreach($order->order_items as $item) {
-                        Product::find($item->product_id)->increment('quantity', $item->quantity);
-                    }
-                }
-                $order->status = $this->status;
-                $order->save();
-            }
-            else {
-                if($order->status != 'completed' && $order->status != 'cancel') {
-                    $order->status = $this->status;
-                    $order->save();
-                }
-            }
-
-            Order_log::create([
-                'order_id' => $order->id,
-                'user' => Auth::guard('admin')->user()->id,
-                'user_type' => Auth::guard('admin')->user()->role,
-                'log' => 'Order status updated to '.$order->status,
-            ]);
-        }
-
-        //logs stored when updated by ProductObserver in app\observers
+    public function status_change() {
+        $this->render();
     }
 
     public function render()
-    {
-        $orders = Order::Where('name', 'like', '%'.$this->order_search.'%')
-                        ->orWhere('phone', 'like', '%'.$this->order_search.'%')
-                        ->orWhere('status', 'like', '%'.$this->order_search.'%')
-                        ->OrderBy('created_at','DESC')->paginate(30);
-        return view('livewire.backend.order.orderslist')->with('orders',$orders);
+    {    
+        $editor_open_orders = Auth::guard('admin')->user()->orders
+                                  ->where('status', '!=', 'completed')
+                                  ->where('status', '!=', 'cancel');
+
+        $orders = Order::whereDate('created_at','>=',$this->from_search)
+                        ->whereDate('created_at','<=',$this->to_search)
+                        ->Where('status', 'like', '%'.$this->status_search.'%')
+                        ->Where(function($query) {
+                            $query->Where('name', 'like', '%'.$this->order_search.'%')
+                                  ->orWhere('phone', 'like', '%'.$this->order_search.'%');
+                        })
+                        ->OrderBy('created_at','DESC')
+                        //->orderByRaw("admin_id = $this->admin")
+                        ->paginate(30);
+
+        return view('livewire.backend.order.orderslist')->with(['orders' => $orders, 'open_orders' => $editor_open_orders]);
     }
 }

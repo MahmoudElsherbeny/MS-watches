@@ -3,7 +3,7 @@
 
 @section('content')
     
-    <!-- Create Category Form -->
+    <!-- update website setting Form -->
     <div class="card">
         <div class="card-header">
             <h4 class="text-capitalize">Update Settings</h4>
@@ -16,6 +16,6 @@
 
         </div>
     </div>
-    <!-- End Create Category Form -->
+    <!-- update website setting Form -->
 
 @endsection

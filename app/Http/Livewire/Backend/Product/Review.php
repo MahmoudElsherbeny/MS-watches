@@ -16,8 +16,7 @@ class Review extends Component
             'status' => 'active',
         ]);            
 
-        //logs stored when created by website review observer in app\observers
-        
+        //logs stored when created by website review observer in app\observers  
     }
 
     public function render()

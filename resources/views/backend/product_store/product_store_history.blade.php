@@ -45,11 +45,11 @@
                             </div>
                             <div class="created m-b-xs">
                                 <span class="cel1">Created At: </span>
-                                <span class="p-x-sm">{{ $product->created_at->format("Y-m-d H:i a") }} </span>
+                                <span class="p-x-sm">{{ $product->created_at->format("Y-m-d g:i a") }} </span>
                             </div>
                             <div class="updated m-b-sm">
                                 <span class="cel1">Last Update: </span>
-                                <span class="p-x-sm">{{ $product->updated_at->format("Y-m-d H:i a") }} </span>
+                                <span class="p-x-sm">{{ $product->updated_at->format("Y-m-d g:i a") }} </span>
                             </div>
                         </div>
                     </div>
@@ -57,20 +57,39 @@
 
                 <div class="product_images m-y-lg">
                     <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-5">
-                            <h4 class="m-a-0 m-y-sm">Store History ({{ count($product->products_stores) }})</h4>
+                        <div class="col-md-4 col-sm-3 col-xs-3">
+                            <h4 class="m-a-0 m-y-sm">Store History ({{ count($product_stores) }})</h4>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-7 text-right">
-                            <div class="form-group col-md-9">
-                                <input wire:model="logs_search" class="form-control" type="date" name="search" />
+                        <div class="col-md-6 col-sm-6 col-xs-6 p-r-0">
+                            <div class="row">
+                                {{ Form::Open(['method' => 'GET']) }}
+                                <div class="col-md-5 col-sm-6 col-xs-6 p-x-0">
+                                    <div class="form-group" style="display: flex; align-items:center">
+                                        <label class="m-r-sm">From:</label>
+                                        <input class="form-control" name="from" type="date" value="{{ $from }}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-sm-6 col-xs-6 p-r-0">
+                                    <div class="form-group" style="display: flex; align-items:center">
+                                        <label class="m-r-sm">To:</label>
+                                        <input class="form-control" name="to" type="date" value="{{ $to }}" />
+
+                                        <button type="submit" class="btn btn-info m-l-sm"><i class="ion-ios-search-strong"></i></button>
+                                    </div>
+                                </div>
+                                {{ Form::Close() }}
                             </div>
-                            <div class="form-group col-md-3">
+                        </div>
+                        <div class="col-md-2 col-sm-3 col-xs-3 text-right">
+                            <div class="btn-group">
+                                @if(Auth::guard('admin')->user()->role == 'admin')
                                 <a href="{{ route('ProductStore.add') }}" class="btn btn-success">Add New Qty</a>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="m-t-md">
-                        <strong>Notice:</strong> you can't delete product quantity if user make order on product after add it.
+                        <strong>Notice:</strong> you can't update or delete product quantity if there orders set on product.
                     </div>
 
                     <!--   product history table   -->
@@ -78,7 +97,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center w-5"></th>
-                                <th class="text-center">Admin</th>
+                                <th class="text-center">Last Update By</th>
                                 <th>Quantity</th>
                                 <th>Unit Price</th>
                                 <th>Total</th>
@@ -89,9 +108,9 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($product_stores as $key=>$prod)
+                            @foreach ($product_stores as $prod)
                                 <tr>
-                                    <td class="text-center">{{ $key+1 }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center text-capitalize">{{ $prod->admin->name }}</td>
                                     <td class="text-center">{{ $prod->quantity }}</td>
                                     <td class="text-center">&pound; {{ $prod->unit_price/100 }}</td>
@@ -99,36 +118,41 @@
                                     <td class="text-center">{{ $prod->created_at->format("Y-m-d g:i a") }}</td>
                                     <td class="text-center">{{ $prod->updated_at->format("Y-m-d g:i a") }}</td>
                                     <td class="text-center">
+                                    @if(Auth::guard('admin')->user()->role == 'admin' && App\Order_item::countOrdersAfterQtyAdd($prod->product_id, $prod->updated_at) == 0)
                                         <div class="btn-group">
-                                        @if(Auth::guard('admin')->user()->role == 'admin')
-                                            <div class="btn-group">
-                                                <a href="{{ route('ProductStore.product_history',['prod_id' => $product->id, 'prod_name' => $product->name]) }}" class="btn btn-warning"><i class="ion-ios-compose-outline"></i></a>
-                                                <button class="btn btn-app" data-toggle="modal" data-target="#product{{ $product->id }}"><i class="ion-ios-trash-outline"></i></button>
-                                            </div>
-
-                                            <!-- Delete Modal -->
-                                            <div class="modal fade" id="product{{ $product->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-card-header">
-                                                            <div class="row">
-                                                                <h4 class="col-md-11 text-left">Delete Product Qty Store</h4>
-                                                                <ul class="card-actions col-md-1 p-t-md">
-                                                                    <li>
-                                                                        <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                                            <a href="{{ route('ProductStore.edit',['prod' => $prod->product_id, 'qty_id' => $prod->id]) }}" class="btn btn-warning"><i class="ion-ios-compose-outline"></i></a>
+                                            <button class="btn btn-app" data-toggle="modal" data-target="#product{{ $product->id }}"><i class="ion-ios-trash-outline"></i></button>
+                                        </div>
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="product{{ $product->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-card-header">
+                                                        <div class="row">
+                                                            <h4 class="col-md-11 text-left">Delete Product Qty Store</h4>
+                                                            <ul class="card-actions col-md-1 p-t-md">
+                                                                <li>
+                                                                    <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                                                                </li>
+                                                            </ul>
                                                         </div>
-                                                        @if(App\Order_item::isOrdersAfterQtyAdd($prod->id, $prod->created_at))
-                                                            {!! App\Order_item::isOrdersAfterQtyAdd($prod->id, $prod->created_at) !!}
-                                                        @endif
+                                                    </div>
+                                                    <div class="card-block text-left">
+                                                        <p>Are you sure, you want to delete this produt (<span class="text-capitalize">{{ $prod->product->name }}</span>) quantity ?</p>
+                                                        <p> <b>Notice:</b>  if there orders set on product you can't delete or update it.</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        {!! Form::Open(['url' => route('ProductStore.delete', ['id' => $prod->id]) ]) !!}                                                
+                                                            <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                                                            <button class="btn btn-app" type="submit"> Delete</button>
+                                                        {!! Form::Close() !!}
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- End Modal -->
-                                        @endif
                                         </div>
+                                        <!-- End Modal -->
+
+                                    @endif
                                     </td>
                                 </tr>
                             @endforeach

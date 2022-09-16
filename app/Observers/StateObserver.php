@@ -2,13 +2,12 @@
 
 namespace App\Observers;
 
+use Illuminate\Support\Facades\Auth;
 use App\State;
 use App\Dashboard_log;
-use Auth;
 
 class StateObserver
-{
-    
+{ 
     protected $except = [
         'created_at',
         'updated_at'

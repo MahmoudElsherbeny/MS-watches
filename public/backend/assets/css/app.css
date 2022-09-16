@@ -232,8 +232,8 @@ Author: rustheme
 
 /* Backend header toolbar */
 .navbar-toolbar > li:not(.dropdown-profile) > a {
-	padding-top: 17px;
-	padding-bottom: 17px;
+	padding-top: 16px;
+	padding-bottom: 16px;
 	padding-left: 8px;
 	padding-right: 8px;
 }
@@ -1454,6 +1454,11 @@ a.card:not(.bg-inverse):hover {
 .card-profile-block .profile-info {
 	line-height: 1.1153;
 	margin-top: -16px 24px 24px;
+}
+
+.card-profile-block .profile-info .name {
+	display: inline-block;
+	font-size: 22px;
 }
 
 @media screen and (min-width: 768px) {

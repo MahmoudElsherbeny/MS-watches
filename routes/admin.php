@@ -21,13 +21,19 @@ use Illuminate\Support\Facades\Route;
 //main pages routes
 Route::get('/', 'backend\DashController@dashboard')->name('dashboard')->middleware(['admin','admin.verified']);
 
+//notifications routes
+Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'notification', 'as'=>'AdminNotification.'] , function() {
+    Route::get('/mark_read/{id}', 'backend\NotificationController@mark_read')->name('read');
+});
+
 //categories routes
 Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'category', 'as'=>'category.'] , function() {
 
-    //post routes for categories crud not written because of using livewire
+    //store update and delete categories crud with livewire
     Route::get('/','backend\CategoryCtrl@index')->name('index');
     Route::get('/create','backend\CategoryCtrl@create')->name('create');
     Route::get('/{id}/edit','backend\CategoryCtrl@edit')->name('edit');
+    Route::get('/{id}','backend\CategoryCtrl@category')->name('info');
 
 });
 
@@ -48,12 +54,16 @@ Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'products', 'a
 });
 
 //products store routes
-Route::group(['middleware'=>['admin','admin.verified','admin.pages'], 'prefix'=>'products_store', 'as'=>'ProductStore.'] , function() {
+Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'products_store', 'as'=>'ProductStore.'] , function() {
 
     Route::get('/','backend\ProductStoreController@index')->name('index');
-    Route::get('/add','backend\ProductStoreController@add_quantity')->name('add');
-    Route::post('/add','backend\ProductStoreController@store')->name('store');
     Route::get('/{prod_id}/{prod_name}/','backend\ProductStoreController@product_history')->name('product_history');
+    Route::get('/add','backend\ProductStoreController@add_quantity')->name('add')->middleware('admin.pages');
+    Route::post('/add','backend\ProductStoreController@store')->name('store')->middleware('admin.pages');
+    Route::get('/{prod}/edit/{qty_id}','backend\ProductStoreController@edit_quantity')->name('edit')->middleware('admin.pages');
+    Route::post('/{prod}/edit/{qty_id}','backend\ProductStoreController@update')->name('update')->middleware('admin.pages');
+    Route::post('/{id}/delete','backend\ProductStoreController@destroy')->name('delete')->middleware('admin.pages');
+
 
 });
 
@@ -62,6 +72,7 @@ Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'orders', 'as'
 
     Route::get('/','backend\OrderController@index')->name('index');
     Route::get('/{id}','backend\OrderController@show')->name('info');
+    Route::post('/{id}/accept/{editor}','backend\OrderController@accept_order')->name('accept');
     Route::post('/{id}/cancel','backend\OrderController@destroy')->name('cancel');
 
 });
@@ -88,6 +99,7 @@ Route::group(['middleware'=>['admin','admin.pages','admin.verified'], 'prefix'=>
 //slider routes
 Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'slider', 'as'=>'slider.'] , function() {
 
+    //store and update slider with livewire
     Route::get('/','backend\SliderController@index')->name('index');
     Route::get('/create','backend\SliderController@create')->name('create');
     Route::get('/{id}/edit','backend\SliderController@edit')->name('edit');
@@ -96,15 +108,13 @@ Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'slider', 'as'
 });
 
 //home page ads routes
-Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'ads', 'as'=>'AdsBanner.'] , function() {
+Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'banners', 'as'=>'Banner.'] , function() {
 
-    //post routes for categories crud not written because of using livewire
-    Route::get('/','backend\AdsController@index')->name('index');
-    Route::get('/create','backend\AdsController@create')->name('create');
-    Route::post('/create','backend\AdsController@store')->name('store');
-    Route::get('/{id}/edit','backend\AdsController@edit')->name('edit');
-    Route::post('/{id}/edit','backend\AdsController@update')->name('update');
-    Route::post('/{id}/delete','backend\AdsController@destroy')->name('delete');
+    //post routes for banners crud are set by livewire
+    Route::get('/','backend\BannerController@index')->name('index');
+    Route::get('/create','backend\BannerController@create')->name('create');
+    Route::get('/{id}/edit','backend\BannerController@edit')->name('edit');
+    Route::post('/{id}/delete','backend\BannerController@destroy')->name('delete');
 
 });
 

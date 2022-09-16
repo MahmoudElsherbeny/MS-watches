@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section__title section__title--2 text-center">
-                        <h2 class="title__line">Welcome To MS Watches Store</h2>
+                        <h2 class="title__line">Welcome To {{ App\Setting::getSettingValue('name') }} Watches Store</h2>
                         <p>{{ App\Setting::getSettingValue('about') }}</p>
                     </div>
                     <div class="store__btn">
@@ -45,7 +45,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                    <div class="video__wrap" data--black__overlay="5" style="background: rgba(0, 0, 0, 0) url({{ asset('storage/'.App\Setting::getSettingValue('image')) }}) no-repeat scroll center center / cover ;">
+                    <div class="video__wrap" data--black__overlay="5" style="background: rgba(0, 0, 0, 0) url({{ asset('storage/'.App\Setting::getSettingValue('image')) }}) no-repeat scroll center center / cover;">
                         <div class="video__inner">
                             @if (App\Setting::getSettingValue('video'))
                                 <a class="video__trigger video-popup" href="{{ asset('storage/'.App\Setting::getSettingValue('video') ) }}">
@@ -145,7 +145,7 @@
                                         <span class="ti-email"></span>
                                     </div>
                                     <div class="contact__details">
-                                        <p> Mail :<br><a href="#">{{ App\Setting::getSettingValue('email') }}</a></p>
+                                        <p> Mail :<br><a href="">{{ App\Setting::getSettingValue('email') }}</a></p>
                                     </div>
                                 </div>
                                 <!-- End Single Adress -->
@@ -156,7 +156,7 @@
                 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
                     <div class="map-contacts">
                         <div id="googleMap">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13642.524307751855!2d32.31806270215387!3d31.258634686949847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f99db3b4f22f63%3A0xfc27f01c3a35a48a!2z2YXYudiv2YrYqSDYqNmI2LHZgdik2KfYrw!5e0!3m2!1sar!2seg!4v1608926295419!5m2!1sar!2seg" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            <iframe src="{{ App\Setting::getSettingValue('location') }}" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                         </div>
                     </div>
                 </div>
@@ -200,8 +200,8 @@
                     <ul class="brand__list">
                     @foreach ($brands as $brand)
                         <li>
-                            <a href="{{ $brand->link }}">
-                                <img src="{{ asset('storage/' . $brand->image) }}" alt="brand images">
+                            <a href="{{ $brand->link }}" target="_blank">
+                                <img src="{{ asset('storage/' . $brand->image) }}" title="{{ $brand->name }}" alt="brand images">
                             </a>
                         </li>
                     @endforeach

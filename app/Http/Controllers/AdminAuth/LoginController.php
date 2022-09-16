@@ -51,7 +51,7 @@ class LoginController extends Controller
             else{
                 Session::flash('error','account doesn\'t exist');
             }
-         } catch (EXTENSION $e) {
+         } catch (Exception $e) {
              Session::flash('error','Error:'.$e);
          }
          

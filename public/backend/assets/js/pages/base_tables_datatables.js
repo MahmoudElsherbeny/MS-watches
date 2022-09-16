@@ -64,7 +64,7 @@ var BaseTableDatatables = function() {
 	var initDataTableOrder = function() {
 		jQuery( '#OrdersTable' ).dataTable({
 			columnDefs: [ 
-				{ orderable: false, targets: [ 2,8 ] }, 
+				{ orderable: false, targets: [ 2,9 ] }, 
 			],
 			pageLength: 30,
 			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],

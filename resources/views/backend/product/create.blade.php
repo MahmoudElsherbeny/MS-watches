@@ -20,11 +20,18 @@
 @endsection
 
 @section('js_code')
-    <!-- tiny text -->
-    <script src='https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
     <script>
-      tinymce.init({
-        selector: '#prod_description'
-      });
+        ClassicEditor
+        .create( document.querySelector('#prod_description') )
+        .then( editor => {
+            editor.model.document.on('change:data', () => {
+                let description = $('#prod_description').data('prod_description');
+                eval(description).set('description', editor.getData())
+            });
+        })
+        .catch( error => {
+            console.error(error);
+        });
     </script>
 @endsection

@@ -56,7 +56,7 @@ class VerificationController extends Controller
                     return view('AdminAuth.verify_success')->with(['msg'=>$msg, 'link'=>$link, 'route'=>$route]);
                 }
             }
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
         
@@ -83,7 +83,7 @@ class VerificationController extends Controller
                 Session::flash('success','verify email sent successfully !');
                 return view('AdminAuth.verify_success')->with(['msg'=>$msg, 'link'=>$link, 'route'=>$route]);
             }
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
         

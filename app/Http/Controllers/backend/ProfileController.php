@@ -9,15 +9,25 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 use App\Admin;
+use App\Traits\ImageFunctions;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    use ImageFunctions;
+
     //function index - show user profile page
     public function index($id)
     {
-        $user = Admin::findOrFail($id);
-        return view('backend.profile.profile')->with('user',$user);
+        $editor = Admin::findOrFail($id);
+        $open_orders = $editor->orders->where('status', '!=', 'completed')->where('status', '!=', 'cancel');
+        $completed_orders = $editor->orders->whereIn('status', ['completed', 'cancel'])->sortByDesc('created_at');
+
+        return view('backend.profile.profile')->with([
+            'editor' => $editor,
+            'open_orders' => $open_orders,
+            'completed_orders' => $completed_orders
+        ]);
     }
 
     //function edit - show user edit profile page
@@ -47,12 +57,9 @@ class ProfileController extends Controller
                 //set images if entered
                 if($request->hasFile('image')) {
                     if($user->image) {
-                        $existInStorage = Storage::exists($user->image);
-                        $existInStorage ? Storage::Delete($user->image) : '';
+                        $this->delete_if_exist($user->image);
                     }
-                    $filename = 'user_'.$user->id.'_'.$request->image->getClientOriginalName();
-                    $path = $request->image->storeAs('admins', $filename);
-                    $user->image = $path;
+                    $user->image = $this->store_image_path($request->image, 'admins');
                 }
 
                 //check if there changes to update
@@ -66,7 +73,7 @@ class ProfileController extends Controller
             }
             return Redirect::back();
 
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
     }

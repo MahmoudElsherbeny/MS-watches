@@ -1,6 +1,6 @@
 
 @extends('frontend.layouts.app')
-@section('title')  WIshlist @endsection
+@section('title')  Wishlist @endsection
 
 @section('content')
         
@@ -31,7 +31,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     
                     <!--   livewire/frontend/wishlist.blade.php   -->
-                    @livewire('frontend.wishlist')
+                    @livewire('frontend.wishlist.page')
 
                 </div>
             </div>

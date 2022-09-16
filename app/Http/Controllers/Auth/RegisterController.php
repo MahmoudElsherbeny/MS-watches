@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 
 class RegisterController extends Controller
 {
@@ -33,6 +35,8 @@ class RegisterController extends Controller
     //protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectTo = '/email/verify';
 
+    public $categories;
+
 
     /**
      * Create a new controller instance.
@@ -42,6 +46,9 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+
+        $this->categories = Category::Where('status','active')->OrderBy('order')->get();
+        View::share('categories', $this->categories);
     }
 
     /**

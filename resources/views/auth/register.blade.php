@@ -53,11 +53,13 @@
                         {!! Form::Close() !!}
                         <div class="htc__social__connect">
                             <h2><a href="{{ route('login') }}">Login</a> Or SignUp With</h2>
+                            <!--
                             <ul class="htc__soaial__list">
                                 <li><a class="bg--facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
                                 <li><a class="bg--googleplus" href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
                                 <li><a class="bg--twitter" href="#"><i class="zmdi zmdi-twitter"></i></a></li>
                             </ul>
+                        -->
                         </div>
                     </div>
                     <!-- End Single Content -->

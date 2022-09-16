@@ -9,34 +9,60 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Notification;
 
+use App\Notifications\OrderNotification;
+use App\Admin;
+use App\Cart_item;
 use App\State;
 use App\Category;
 use App\Order;
 use App\Order_item;
 use App\Order_log;
 use App\Product;
+use App\Traits\CartOptions;
 use App\User;
 use App\User_info;
-use View;
+use App\Website_brand;
+use Exception;
 
 class OrderController extends Controller
 {
-    protected $categories;
+    use CartOptions;
+
+    protected $categories, $brands;
 
     public function __construct() {
-        $this->categories = Category::Where('status','active')->OrderBy('order')->get();
-        View::share('categories', $this->categories);
+        $this->categories = Category::Active()->OrderBy('order')->get();
+        $this->brands = Website_brand::Active()->OrderBy('id')->get();
+        View::share([
+            'categories' => $this->categories,
+            'brands' => $this->brands
+        ]);
     }
 
     //checkout page function - display checkout page
     public function checkout()
     {
-       if(Cart::instance('cart')->count()) {
+        if(Auth::check()) {
+            $cart = Cart_item::Where('user_id', Auth::user()->id)->get();
+            $total = Cart_item::total($cart);
+        }
+        else {
+            $cart = Cart::instance('cart')->content();
+            $total = Cart::instance('cart')->subtotalfloat();
+        }
+
+       if($cart->count() > 0) {
            $user = Auth::user();
            $states = State::OrderBy('state')->get();
-           $cart = Cart::instance('cart')->content();
-           return view("frontend.pages.checkout")->with(['user' => $user, 'states' => $states, 'cart_items' => $cart]);
+           return view("frontend.pages.checkout")->with([
+                'user' => $user,
+                'states' => $states, 
+                'cart_items' => $cart,
+                'total' => $total
+            ]);
        }
        else {
            return Redirect::back();
@@ -53,15 +79,23 @@ class OrderController extends Controller
             'address' => 'required'
         ]);
         
-        $user = User::find(Auth::user()->id);
-        $cart = Cart::instance('cart');
         try {
-            if($cart->count() > 0) {
-                DB::transaction(function () use($user, $cart, $request) {
+            $user = User::find(Auth::user()->id);
+            if(Auth::check()) {
+                $cart_items = Cart_item::Where('user_id', Auth::user()->id)->get();
+                $total = Cart_item::total($cart_items);
+            }
+            else {
+                $cart_items = Cart::instance('cart')->content();
+                $total = $cart_items->subtotalfloat();
+            }
+
+            if($cart_items->count() > 0) {
+                $store_order = DB::transaction(function () use($user, $cart_items, $total, $request) {
                     //chek if there user info to use it or update with new if not use new as user info
                     if($user->user_info) {
                         //add order data into database
-                        $order = $this->createOrder($user->id,$user->name,$request->input('phone'),$request->input('state'),$request->input('city'),$request->input('address'),'waiting',$cart->subtotalfloat());
+                        $order = $this->createOrder($user->id,$user->name,$request->input('phone'),$request->input('state'),$request->input('city'),$request->input('address'),'waiting',$total);
                     }
                     else {
                         $user_data = User_info::create([
@@ -73,28 +107,33 @@ class OrderController extends Controller
                         ]);
 
                         //add order data into database
-                        $order = $this->createOrder($user->id, $user->name, $user_data->phone, $user_data->state_id, $user_data->city, $user_data->address, 'waiting', $cart->subtotalfloat());
+                        $order = $this->createOrder($user->id, $user->name, $user_data->phone, $user_data->state_id, $user_data->city, $user_data->address, 'waiting', $total);
                     }
 
                     //store order items
-                    foreach($cart->content() as $item) {
+                    foreach($cart_items as $item) {
                         Order_item::create([
                             'order_id' => $order->id,
-                            'product_id' => $item->id,
+                            'product_id' => Auth::check() ? $item->product_id : $item->id,
                             'price' => $item->price,
                             'quantity' => $item->qty,
                         ]); 
 
-                        Product::find($item->id)->decrement('quantity', $item->qty);
+                        Product::find(Auth::check() ? $item->product_id : $item->id)->decrement('quantity', $item->qty);
                     }
 
-                    $cart->destroy();
+                    Auth::check() ? $this->ClearCartDatabase() : $this->ClearCartSession();
 
-                    return route('UserOrder.detailes', ['id' => $order->id, 'name' => $user->name, 'user' => $user->id]);
+                    return $order;
                 });
+
+                Notification::send(Admin::all(), new OrderNotification($store_order));
+                //event(new RealtimeNotification('New Order'));
+
+                return Redirect::route('UserOrder.detailes', ['id' => $store_order->id, 'name' => $user->name, 'user' => $user->id]);
             }
 
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
 
@@ -103,16 +142,13 @@ class OrderController extends Controller
     //order detailes function - display order data detailes
     public function order_detailes($id,$name,$user_id)
     {
-
         $user = User::find($user_id);
         $order = Order::Where(['id' => $id, 'user_id' => $user->id])->first();
         if($order) {
             return view("frontend.pages.order_detailes")->with(['user' => $user, 'order' => $order]);
         }
-        else {
-            return abort('404');
-        }
-
+        
+        return abort('404');
     }
 
     //cancel order function - cancel order by user if it not delivering yet

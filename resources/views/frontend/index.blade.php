@@ -4,7 +4,7 @@
 @section('content')
 
 <!-- Start Feature Product -->
-<section class="categories-slider-area bg__white pb--90">
+<section class="categories-slider-area bg__white mb--80">
     <div class="container">
         <div class="row">
             <!-- Start Left Feature -->
@@ -22,7 +22,7 @@
                                             <div class="slider__inner">
                                                 <h1>{{ $slide->title }} <span class="text--theme">{{ $slide->sub_title }}</span></h1>
                                                 <div class="slider__btn">
-                                                    <a class="htc__btn" href="@if($slide->link == 'shop') {{ route('shop') }} @else {{ route('category_page',['id' => $slide->link]) }} @endif">shop now</a>
+                                                    <a class="htc__btn" href="@if($slide->link == 0) {{ route('shop') }} @else {{ route('category_page',['id' => $slide->link]) }} @endif">shop now</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,16 +72,20 @@
                     <div class="row">
                         <div class="product-slider-active owl-carousel">
 
-                        <!--   top rated products   -->
-                        @include('frontend.product.card', ['products' => $toprate])
+                        @foreach ($toprate as $product)
+                            <!--   top rated products   -->
+                            @livewire('frontend.product.card', ['product' => $product])
+                        @endforeach
 
                         </div>
                     </div>
+
+                    @foreach ($toprate as $product)
+                        <!--   top rated products quickview modal   -->
+                        @livewire('frontend.product.quickview', ['product' => $product])
+                    @endforeach
                 </div>
             </div>
-
-            <!--   overview of top rated products   -->
-            @include('frontend.product.quickview', ['products' => $toprate])
 
         </div>
     </div>
@@ -90,9 +94,9 @@
 <div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            @if($ads->first())
-            <a href="{{ route('product_detailes', ['id' => $ads->first()->product_id]) }}">
-                <img src="{{ asset('storage/'.$ads->first()->image) }}" alt="ad banner">
+            @if($banners->first())
+            <a href="{{ route('product_detailes', ['id' => $banners->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$banners->first()->image) }}" alt="banner">
             </a>
             @endif
         </div>
@@ -110,16 +114,20 @@
                     <div class="row">
                         <div class="product-slider-active owl-carousel">
 
-                        <!--   best sale products   -->
-                        @include('frontend.product.card', ['products' => App\Product::getSaleProducts('>','old_price',15)])
+                        @foreach (App\Product::getSaleProducts('>','old_price',15) as $product)
+                            <!--   best sale products   -->
+                            @livewire('frontend.product.card', ['product' => $product])
+                        @endforeach
 
                         </div>
                     </div>
+
+                    @foreach (App\Product::getSaleProducts('>','old_price',15) as $product)
+                        <!--   best sale products quickview modal   -->
+                        @livewire('frontend.product.quickview', ['product' => $product])
+                    @endforeach
                 </div>
             </div>
-
-            <!--   overview of best sale products   -->
-            @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('>','old_price',15)])
 
         </div>
     </div>
@@ -128,9 +136,9 @@
 <div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            @if($ads->skip(1)->take(1)->first())
-            <a href="{{ route('product_detailes', ['id' => $ads->skip(1)->take(1)->first()->product_id]) }}">
-                <img src="{{ asset('storage/'.$ads->skip(1)->take(1)->first()->image) }}" alt="ad banner">
+            @if($banners->skip(1)->take(1)->first())
+            <a href="{{ route('product_detailes', ['id' => $banners->skip(1)->take(1)->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$banners->skip(1)->take(1)->first()->image) }}" alt="banner">
             </a>
             @endif
         </div>
@@ -148,16 +156,20 @@
                     <div class="row">
                         <div class="product-slider-active owl-carousel">
 
-                        <!--   on sale products   -->
-                        @include('frontend.product.card', ['products' => App\Product::getSaleProducts('>','updated_at',15)])
+                        @foreach (App\Product::getSaleProducts('>','updated_at',15) as $product)
+                            <!--   on sale products   -->
+                            @livewire('frontend.product.card', ['product' => $product])
+                        @endforeach
 
                         </div>
                     </div>
+
+                    @foreach (App\Product::getSaleProducts('>','updated_at',15) as $product)
+                        <!--   on sale products quickview modal   -->
+                        @livewire('frontend.product.quickview', ['product' => $product])
+                    @endforeach
                 </div>
             </div>
-
-            <!--  quickview of on sale products   -->
-            @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('>','updated_at',15)])
 
         </div>
     </div>
@@ -166,9 +178,9 @@
 <div class="only-banner ptb--60 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            @if($ads->skip(2)->take(1)->first())
-            <a href="{{ route('product_detailes', ['id' => $ads->skip(1)->take(1)->first()->product_id]) }}">
-                <img src="{{ asset('storage/'.$ads->skip(2)->take(1)->first()->image) }}" alt="ad banner">
+            @if($banners->skip(2)->take(1)->first())
+            <a href="{{ route('product_detailes', ['id' => $banners->skip(1)->take(1)->first()->product_id]) }}">
+                <img src="{{ asset('storage/'.$banners->skip(2)->take(1)->first()->image) }}" alt="banner">
             </a>
             @endif
         </div>
@@ -186,23 +198,26 @@
                     <div class="row">
                         <div class="product-slider-active owl-carousel">
 
-                        <!--   latest products   -->
-                        @include('frontend.product.card', ['products' => App\Product::getSaleProducts('<=','id',15)])
+                        @foreach (App\Product::getSaleProducts('<=','id',15) as $product)
+                            <!--   latest products   -->
+                            @livewire('frontend.product.card', ['product' => $product])
+                        @endforeach
 
                         </div>
                     </div>
+
+                    @foreach (App\Product::getSaleProducts('<=','id',15) as $product)
+                        <!--   latest products quickview modal   -->
+                        @livewire('frontend.product.quickview', ['product' => $product])
+                    @endforeach
                 </div>
-
-                <!--   quickview of latest products   -->
-                @include('frontend.product.quickview', ['products' => App\Product::getSaleProducts('<=','id',15)])
-
             </div>
         </div>
     </div>
 </section>
 <!-- End Our Product Area Latest -->
 <!-- Start Blog Area -->
-<section class="htc__blog__area bg__white pb--80">
+<section class="htc__blog__area bg__white mb--70">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">

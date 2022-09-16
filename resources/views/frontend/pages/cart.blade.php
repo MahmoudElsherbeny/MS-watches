@@ -30,7 +30,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
 
                     <!--   livewire/frontend/cart.blade.php   -->
-                    @livewire('frontend.shopping-cart')
+                    @livewire('frontend.cart.page')
 
                 </div>
             </div>

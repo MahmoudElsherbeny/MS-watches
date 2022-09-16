@@ -4,16 +4,19 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
+use App\Traits\ImageFunctions;
 use App\Product;
 use App\Product_image;
-use App\Product_review;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ProductCtrl extends Controller
 {
+    use ImageFunctions;
+
     //function index - show products page and products live search
     public function index()
     {
@@ -35,17 +38,26 @@ class ProductCtrl extends Controller
     //delete function - delete product data and it's images, reviews
     public function destroy($id) {
         $product = Product::findOrFail($id);
-        $product_images = $product->product_images;
-        $product_reviews = $product->product_reviews;
-        foreach($product_images as $img) {
-            Storage::Delete($img->image);
-        }
-        $product->delete();
-        $product_images->each->delete();
-        $product_reviews->each->delete();
+        try {
+            DB::beginTransaction();
+                foreach($product->product_images as $img) {
+                    $this->delete_if_exist($img->image);
+                }
+                $product->product_images->each->delete();
+                foreach($product->banners as $banner) {
+                    $this->delete_if_exist($banner->image);
+                }
+                $product->banners->each->delete();
+                $product->product_reviews->each->delete();
+                $product->delete();
 
-        //logs stored when deleted by ProductObserver in app\observers
-        return Redirect::back();
+                //logs stored when deleted by ProductObserver in app\observers
+            DB::commit();
+            return Redirect::back();
+        } catch (Exception $e) {
+            DB::rollBack();
+            Session::flash('error','Error: '.$e->getMessage());
+        }  
     }
 
     //store, update, delete and update price for product data with livewire components in livewire/backend/product
@@ -67,22 +79,21 @@ class ProductCtrl extends Controller
         try {
             $image = $request->file('image');
             if($image) {
-                $filename = 'products/watche_'.$image->getClientOriginalName();
-                $imageExist = Product_image::Where(['product_id' => $prod_id, 'image' => $filename])->first();
-                if(!$imageExist) {
-                    $filename = 'watche_'.$image->getClientOriginalName();
-                    $path = $image->storeAs('products',$filename);
-                    
+                $prod_imgs = Product_image::Where('product_id', $prod_id)->get();
+                if(count($prod_imgs) < 4) {
                     Product_image::create([
                         'product_id' => $prod_id,
-                        'image' => $path,
+                        'image' => $this->store_image_path($image, 'products'),
                         'order' => 1,
                     ]);
+                }
+                else {
+                    Session::flash('error','products have maximum number of images');
                 }
             }
             return Redirect::back();
 
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
     }
@@ -102,7 +113,7 @@ class ProductCtrl extends Controller
             }
             return Redirect::back();
 
-        } catch (EXTENSION $e) {
+        } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
     }
@@ -110,9 +121,9 @@ class ProductCtrl extends Controller
     //delete function - delete product image in images in table
     public function image_destroy($id,$image) {
         $product_image = Product_image::find($image);
-
-        Storage::Delete('public/products/'.$product_image->image);
+        $this->delete_if_exist($product_image->image);
         $product_image->delete();
+        
         return Redirect::back();
     }
 

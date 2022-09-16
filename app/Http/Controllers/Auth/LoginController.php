@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Traits\CartOptions;
+use App\Traits\WishlistOptions;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class LoginController extends Controller
 {
@@ -19,7 +25,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, CartOptions, WishlistOptions;
 
     /**
      * Where to redirect users after login.
@@ -29,6 +35,16 @@ class LoginController extends Controller
     //protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectTo = '/';
 
+    public $categories;    
+
+
+    protected function authenticated(Request $request, User $user) {
+        // put your thing in here
+        $this->RemoveCartFromSessionToDatabase();
+        $this->RemoveWishlistFromSessionToDatabase();
+
+        return redirect()->intended($this->redirectPath());
+    }
     /**
      * Create a new controller instance.
      *
@@ -38,6 +54,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         //$this->redirectTo = redirect()->intended();
+
+        $this->categories = Category::Where('status','active')->OrderBy('order')->get();
+        View::share('categories', $this->categories);
     }
 
     //show login-register page function

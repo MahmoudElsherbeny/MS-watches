@@ -1560,7 +1560,7 @@ p {
 
 small,
 .small {
-	font-size: 87%;
+	font-size: 80%;
 }
 
 mark,
@@ -3939,7 +3939,7 @@ tbody.collapse.in {
 	background-color: #eee;
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu li > a {
 	display: block;
 	padding: 3px 20px;
 	clear: both;
@@ -3949,24 +3949,24 @@ tbody.collapse.in {
 	white-space: nowrap;
 }
 
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+.dropdown-menu li > a:hover, .dropdown-menu li > a:focus {
 	text-decoration: none;
 	color: #262626;
 	background-color: #f9f9f9;
 }
 
-.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+.dropdown-menu .active > a, .dropdown-menu .active > a:hover, .dropdown-menu .active > a:focus {
 	color: #fff;
 	text-decoration: none;
 	outline: 0;
 	background-color: #ff4136;
 }
 
-.dropdown-menu > .disabled > a, .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+.dropdown-menu .disabled > a, .dropdown-menu .disabled > a:hover, .dropdown-menu .disabled > a:focus {
 	color: #777777;
 }
 
-.dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+.dropdown-menu .disabled > a:hover, .dropdown-menu .disabled > a:focus {
 	text-decoration: none;
 	background-color: transparent;
 	background-image: none;
@@ -4785,7 +4785,7 @@ tbody.collapse.in {
 .navbar-nav > li > a {
 	padding-top: 10px;
 	padding-bottom: 10px;
-	line-height: 24px;
+	line-height: 27px;
 }
 
 @media (max-width: 991px) {
@@ -4798,14 +4798,14 @@ tbody.collapse.in {
 		border: 0;
 		box-shadow: none;
 	}
-	.navbar-nav .open .dropdown-menu > li > a,
+	.navbar-nav .open .dropdown-menu li > a,
 	.navbar-nav .open .dropdown-menu .dropdown-header {
 		padding: 5px 15px 5px 25px;
 	}
-	.navbar-nav .open .dropdown-menu > li > a {
+	.navbar-nav .open .dropdown-menu li > a {
 		line-height: 24px;
 	}
-	.navbar-nav .open .dropdown-menu > li > a:hover, .navbar-nav .open .dropdown-menu > li > a:focus {
+	.navbar-nav .open .dropdown-menu li > a:hover, .navbar-nav .open .dropdown-menu li > a:focus {
 		background-image: none;
 	}
 }
@@ -5022,18 +5022,18 @@ tbody.collapse.in {
 }
 
 @media (max-width: 991px) {
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+	.navbar-default .navbar-nav .open .dropdown-menu li > a {
 		color: #767676;
 	}
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+	.navbar-default .navbar-nav .open .dropdown-menu li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu li > a:focus {
 		color: inherit;
 		background-color: transparent;
 	}
-	.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+	.navbar-default .navbar-nav .open .dropdown-menu .active > a, .navbar-default .navbar-nav .open .dropdown-menu .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu .active > a:focus {
 		color: #434343;
 		background-color: transparent;
 	}
-	.navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+	.navbar-default .navbar-nav .open .dropdown-menu .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu .disabled > a:focus {
 		color: #ccc;
 		background-color: transparent;
 	}
@@ -5121,24 +5121,24 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 
 @media (max-width: 991px) {
-	.navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
+	.navbar-inverse .navbar-nav .open .dropdown-menu .dropdown-header {
 		border-color: #090909;
 	}
 	.navbar-inverse .navbar-nav .open .dropdown-menu .divider {
 		background-color: #090909;
 	}
-	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+	.navbar-inverse .navbar-nav .open .dropdown-menu li > a {
 		color: #9d9d9d;
 	}
-	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+	.navbar-inverse .navbar-nav .open .dropdown-menu li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu li > a:focus {
 		color: #fff;
 		background-color: transparent;
 	}
-	.navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+	.navbar-inverse .navbar-nav .open .dropdown-menu .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu .active > a:focus {
 		color: #fff;
 		background-color: #090909;
 	}
-	.navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+	.navbar-inverse .navbar-nav .open .dropdown-menu .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu .disabled > a:focus {
 		color: #444;
 		background-color: transparent;
 	}
@@ -9190,29 +9190,29 @@ label {
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu li > a {
 	padding: 8px 15px;
 }
 
-.dropdown-menu > li > a i.pull-right,
-.dropdown-menu > li > a .badge.pull-right {
+.dropdown-menu li > a i.pull-right,
+.dropdown-menu li > a .badge.pull-right {
 	right: 0;
 	margin-top: 3px;
 	margin-left: 10px;
 }
 
-.dropdown-menu > li > a i.pull-left,
-.dropdown-menu > li > a .badge.pull-left {
+.dropdown-menu li > a i.pull-left,
+.dropdown-menu li > a .badge.pull-left {
 	left: 0;
 	margin-top: 3px;
 	margin-right: 10px;
 }
 
-.dropdown-menu > li > a .badge.pull-right {
+.dropdown-menu li > a .badge.pull-right {
 	margin-top: 1px;
 }
 
-.dropdown-menu > li > a .badge.pull-left {
+.dropdown-menu li > a .badge.pull-left {
 	margin-top: 1px;
 }
 

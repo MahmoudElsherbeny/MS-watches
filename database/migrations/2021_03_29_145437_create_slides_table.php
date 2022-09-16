@@ -17,7 +17,7 @@ class CreateSlidesTable extends Migration
             $table->id();
             $table->text('image');
             $table->string('title');
-            $table->string('sub_title');
+            $table->string('subtitle');
             $table->integer('order');
             $table->string('status');
             $table->text('link');

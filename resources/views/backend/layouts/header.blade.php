@@ -9,16 +9,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#notifiation-dropdown" aria-expanded="false">
-                    <span class="sr-only">Toggle notificatio</span>
-                    <span><i class="ion-ios-bell"></i> <span class="badge">3</span></span>
-                </button>
-                <button class="pull-left hidden-lg hidden-md navbar-toggle" type="button" data-toggle="layout" data-action="sidebar_toggle">
-                    <span class="sr-only">Toggle drawer</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <span class="navbar-page-title">Dashboard</span>
             </div>
 
@@ -44,20 +34,14 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown"><i class="ion-ios-bell"></i> <span class="badge">3</span></a>
-                        <ul class="dropdown-menu dropdown-menu-right" id="notification-dropdown">
-                            <li class="dropdown-header">Profile</li>
-                            <li>
-                                <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">3</span> News </a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">1</span> Messages </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="dropdown-header">More</li>
-                            <li>
-                                <a tabindex="-1" href="javascript:void(0)">Edit Profile..</a>
-                            </li>
+                        <a href="javascript:void(0)" data-toggle="dropdown">
+                            <i class="ion-ios-bell"></i> 
+                            @livewire('backend.notifications.counter')
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right notification-dropdown" id="notification-dropdown">
+                            <!--  notifications menu  -->
+                            @livewire('backend.notifications.menu')
                         </ul>
                     </li>
 

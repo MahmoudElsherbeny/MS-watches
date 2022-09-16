@@ -14,14 +14,14 @@
     {!! Form::Open(['files' => 'true', 'wire:submit.prevent' => 'store']) !!}
         <div class="form-group">
             <label>Title:</label>
-            <input class="form-control @error('title') input-error @enderror" type="text" name="title" wire:model="title" placeholder="Enter slide title..." />
+            <input class="form-control @error('title') input-error @enderror" type="text" name="title" wire:model.defer="title" placeholder="Enter slide title..." />
             @error('title')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group">
             <label>Subtitle:</label>
-            <input class="form-control @error('subtitle') input-error @enderror" type="text" name="subtitle" wire:model="subtitle" placeholder="Enter slide subtitle..." />
+            <input class="form-control @error('subtitle') input-error @enderror" type="text" name="subtitle" wire:model.defer="subtitle" placeholder="Enter slide subtitle..." />
             @error('subtitle')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
@@ -43,23 +43,25 @@
         <div class="form-group">
             <label>Slide Link:</label>
             <select class="form-control" name="link" wire:model="link">
-                <option value="shop">shop</option>
+                <option value="0">shop</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
         </div>
+
         <div class="form-group">
             <label>Slide Image:</label>
             <input class="@error('image') input-error @enderror" type="file" name="image" wire:model="image" accept="image/*" />
             @error('image')
                 <div class="msg-error">{{ $message }}</div>
             @enderror
-
+        </div>
+        <div class="form-group">
             @if($image)
-                <div class="m-t-sm">
-                    <img src="{{ $image->temporaryUrl() }}" width="300px" height="200px">
-                </div>
+                <img src="{{ $image->temporaryUrl() }}" width="300px" height="180px">
+            @else
+                <img src="{{ url('backend/assets/img/photos/upload.png') }}" alt="image" width="300px" height="180px" />
             @endif
         </div>
 

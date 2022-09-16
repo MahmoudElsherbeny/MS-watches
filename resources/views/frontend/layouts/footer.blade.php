@@ -51,7 +51,7 @@
                 <h2 class="ft__title">Categories</h2>
                 <div class="row">
                 @foreach ($categories->split($categories->count()/5) as $row)
-                    <ul class="footer-categories col-md-5">
+                    <ul class="footer-categories col-md-5 col-sm-6 col-xs-6">
                         @foreach ($row as $category)
                             <li><a href="{{ route('category_page', ['id' => $category->id]) }}" class="text-capitalize">{{ $category->name }}</a></li>
                         @endforeach
@@ -70,7 +70,6 @@
                     <li><a href="{{ route('aboutus') }}">About Us</a></li>
                     <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
                     <li><a href="{{ route('cart.index') }}">Cart</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>

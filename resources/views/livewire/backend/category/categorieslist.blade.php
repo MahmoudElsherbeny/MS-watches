@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-7">
                 <div class="form-group col-md-9">
-                    <input wire:model="category_search" class="form-control" type="text" name="search" placeholder="Category Name Search..." />
+                    <input wire:model.debounce.1500ms="category_search" class="form-control" type="text" name="search" placeholder="Category Name Search..." />
                 </div>
                 <div class="form-group col-md-3">
                     <a href="{{ route('category.create') }}" class="btn btn-success">Create Category</a>
@@ -16,25 +16,44 @@
         </div>
     </div>
     <div class="card-block">
-        <table id="CategoriesTable" class="table table-striped table-vcenter js-dataTable-simple">
+        <table class="table table-striped table-vcenter js-dataTable-simple">
             <thead>
                 <tr>
-                    <th class="text-center w-5"></th>
-                    <th class="">Name</th>
+                    <th class="w-5 text-center field-sort" wire:click="sortBy('id')" data-field="id" direction="{{ ($sort_field == 'id' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span wire:ignore><i id="arrow_id" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('name')" data-field="name" direction="{{ ($sort_field == 'name' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Name</span>
+                        <span wire:ignore><i id="arrow_name" class="fa fa-sort"></i></span>
+                    </th>
                     <th class="text-center hidden-xs">Icon</th>
-                    <th class="hidden-xs">Order</th>
-                    <th class="w-10">Status</th>
-                    <th class="">Created At</th>
-                    <th class="">Last Update</th>
+                    <th class="text-center field-sort" wire:click="sortBy('order')" data-field="order" direction="{{ ($sort_field == 'order' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Order</span>
+                        <span wire:ignore><i id="arrow_order" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('status')" data-field="status" direction="{{ ($sort_field == 'status' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Status</span>
+                        <span wire:ignore><i id="arrow_status" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('created_at')" data-field="created_at" direction="{{ ($sort_field == 'created_at' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Created At</span>
+                        <span wire:ignore><i id="arrow_created_at" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('updated_at')" data-field="updated_at" direction="{{ ($sort_field == 'updated_at' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Last Update</span>
+                        <span wire:ignore><i id="arrow_updated_at" class="fa fa-sort"></i></span>
+                    </th>
                     <th class="text-center" style="width: 15%;">Actions</th>
                 </tr>
             </thead>
             <tbody>
 
-                @foreach ($categories as $key=>$category)
+                @foreach ($categories as $category)
                     <tr>
-                        <td class="text-center">{{ $key+1 }}</td>
-                        <td class="text-center text-capitalize">{{ $category->name }}</td>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <td class="text-center text-capitalize">
+                            <a href="{{ route('category.info', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                        </td>
                         <td class="text-center hidden-xs"><i class="{{ $category->icon }} fa-lg"></i></td>
                         <td class="text-center hidden-xs">{{ $category->order }}</td>
                         <td class="text-center text-capitalize"> 
@@ -62,8 +81,8 @@
                                             </div>
                                         </div>
                                         <div class="card-block text-left">
-                                            <p>Are you sure, you want to delete category (<span class="text-capitalize">{{ $category->name }}</span>) ?<br>
-                                                If you delete category, you will delete all category's products too.</p>
+                                            <p>Are you sure, you want to delete category (<span class="text-capitalize">{{ $category->name }}</span>) ?</p>
+                                            <p> you delete category, you will delete category slides, products, products banners and products quantity store too.</p><br>
                                             <p> <b>Notice:</b> if you want to hide category, you can update it's status to not active instead of delete it.</p>
                                         </div>
                                         <div class="modal-footer">
