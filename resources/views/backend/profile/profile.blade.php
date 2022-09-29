@@ -5,14 +5,14 @@
 
 <div class="card card-profile">
     <div class="card-block card-profile-block text-xs-center text-sm-left">
-        <img class="img-avatar img-avatar-96" src="@if ($editor->image) {{ asset('storage/'.$editor->image) }} @else {{ asset('backend/assets/img/avatars/profile_avatar.png') }} @endif" alt="" />
+        <img class="img-avatar img-avatar-96" src="{{ Auth::guard('admin')->user()->image ? asset('storage/'.Auth::guard('admin')->user()->image) : asset('backend/assets/img/avatars/profile_avatar.png') }}" alt="" />
         <div class="profile-info font-500">
-            <span class="text-capitalize m-t-sm name">{{ $editor->name }}</span>
-            <a class="m-l-sm" href="{{ route('profile.edit', ['id' => $editor->id, 'name' => $editor->name]) }}">
+            <span class="text-capitalize m-t-sm name">{{ Auth::guard('admin')->user()->name }}</span>
+            <a class="m-l-sm" href="{{ route('profile.edit', ['id' => Auth::guard('admin')->id(), 'name' => Auth::guard('admin')->user()->name]) }}">
                 <i class="fa fa-pencil"></i>
             </a>
-            <div class="small text-muted text-capitalize m-t-sm">{{ $editor->role }}</div>
-            <div class="small text-muted text-capitalize m-t-xs">joined at: {{ $editor->created_at->format('Y-m-d') }}</div>
+            <div class="small text-muted text-capitalize m-t-sm">{{ Auth::guard('admin')->user()->role }}</div>
+            <div class="small text-muted text-capitalize m-t-xs">joined at: {{ Auth::guard('admin')->user()->created_at->format('Y-m-d') }}</div>
         </div>
     </div>
 </div>
@@ -196,9 +196,12 @@
 
                 <!-- Profile notifications -->
                 <div class="tab-pane fade" id="profile-notifications">
+                    <div class="text-right p-x-sm">
+                        <a href="{{ route('AdminNotification.all_read') }}"> mark all as read</a>
+                    </div>
                     <div class="card-block p-a-0">
                         <ul class="profile-notifications-list">
-                            @foreach(App\Admin::find(Auth::guard('admin')->user()->id)->Subnotifications as $notify)
+                            @foreach(Auth::guard('admin')->user()->Subnotifications as $notify)
                                 <li class="notification @if(!$notify->read_at) unread @endif">
                                     <a href="{{ route('AdminNotification.read', ['id' => $notify->id]) }}" class="mark_as_read">
                                         <span class="data">

@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Observers;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Category;
 use App\Dashboard_log;
 
 class CategoryObserver
 {
-
     protected $except = [
         'created_at',
         'updated_at'

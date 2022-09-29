@@ -27,13 +27,10 @@ class Product_review extends Model
     static public function getProductRate($id) {
         $reviews = Self::Where('product_id',$id)->get();
         $rate = 0;
-        $product_rate = 0;
         foreach($reviews as $review) {
             $rate += $review->rate;
         }
-        if(count($reviews) > 0) {
-            $product_rate = $rate/count($reviews);
-        }
+        $product_rate = count($reviews) > 0 ? $rate/count($reviews) : 0;
 
         return $product_rate;
     }
@@ -41,9 +38,7 @@ class Product_review extends Model
     //get count of reviews for product
     static public function getReviewsCount($id) {
         $reviews = Self::Where('product_id',$id)->get();
-        $count = count($reviews);
-        
-        return $count;
+        return count($reviews);
     }
 
     //check if user rate and review a product

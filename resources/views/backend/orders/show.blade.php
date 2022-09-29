@@ -47,11 +47,11 @@
                     </tr>
                     <tr>
                         <td>Delivery: </td>
-                        <td>&pound; {{ $order->state->delivery }}</td>
+                        <td>&pound; {{ $order->delivery }}</td>
                     </tr>
                     <tr>
                         <td>Total: </td>
-                        <td>&pound; {{ $order->total/100 + $order->state->delivery }}</td>
+                        <td>&pound; {{ $order->total/100 + $order->delivery }}</td>
                     </tr>
                 </table>
             </div>
@@ -94,18 +94,18 @@
                     <tr>
                         <td class="text-center p-y-sm">-</td>
                         <td class="text-center text-capitalize p-y-sm">Delivery</td>
-                        <td class="text-center p-y-sm">£ {{ $order->state->delivery }}</td>
-                        <td class="text-center p-y-sm">£ {{ $order->state->delivery }}</td>
+                        <td class="text-center p-y-sm">£ {{ $order->delivery }}</td>
+                        <td class="text-center p-y-sm">£ {{ $order->delivery }}</td>
                         <td class="text-center p-y-sm">1</td>
-                        <td class="text-center p-y-sm">£ {{ $order->state->delivery }}</td>
+                        <td class="text-center p-y-sm">£ {{ $order->delivery }}</td>
                     </tr>
                     <tr>
                         <td class="text-center p-y-sm">Total:</td>
                         <td class="text-center text-capitalize p-y-sm">{{ $order->order_items->count() }}</td>
-                        <td class="text-center p-y-sm">£ {{ $livePriceTotal / 100 + $order->state->delivery }}</td>
-                        <td class="text-center p-y-sm">£ {{ $priceTotal / 100 +$order->state->delivery }}</td>
+                        <td class="text-center p-y-sm">-</td>
+                        <td class="text-center p-y-sm">-</td>
                         <td class="text-center p-y-sm">{{ $quantity }}</td>
-                        <td class="text-center p-y-sm">£ {{ $orderTotal / 100 + $order->state->delivery }}</td>
+                        <td class="text-center p-y-sm">£ {{ $orderTotal / 100 + $order->delivery }}</td>
                     </tr>
                     
                 </tbody>

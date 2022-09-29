@@ -35,7 +35,7 @@ class Productslist extends Component
     public function render()
     {
         $products = Product::select('id','name','category_id','price','old_price','status','admin_id','quantity','created_at','updated_at')
-                           ->Search($this->product_search)->OrderBy($this->sort_field, $this->sort_dir)->paginate(2);
+                           ->Search($this->product_search)->OrderBy($this->sort_field, $this->sort_dir)->paginate(50);
                            
         return view('livewire.backend.product.productslist')->with('products',$products);
     }
@@ -62,7 +62,7 @@ class Productslist extends Component
                 $product->products_stores->each->delete();
                 $product->delete();
 
-                Notification::send(Admin::Active()->get(), new ProductNotification(Auth::guard('admin')->user()->id, 'deleted it\'s related'));
+                Notification::send(Admin::Active()->get(), new ProductNotification(Auth::guard('admin')->user()->id, 'deleted with related items'));
                 $this->emit('notifications');
 
                 //logs stored when deleted by ProductObserver in app\observers

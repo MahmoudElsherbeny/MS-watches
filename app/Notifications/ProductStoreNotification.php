@@ -7,9 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Notifications\channels\SubNotificationChannel;
+
 use App\Admin;
 
-class SlideNotification extends Notification
+class ProductStoreNotification extends Notification
 {
     use Queueable;
     private $user_id;
@@ -41,9 +42,9 @@ class SlideNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'title' => 'update slides',
-            'description' => 'Slide '.$this->action.' by '.Admin::find($this->user_id)->name.' !',
-            'link' => url('dashboard/slider'),
+            'title' => 'update products store',
+            'description' => 'new quantity '.$this->action.' by '.Admin::find($this->user_id)->name.' !',
+            'link' => url('dashboard/products_store'),
         ];
     }
 

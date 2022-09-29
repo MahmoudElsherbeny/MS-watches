@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class DashController extends Controller
 {
-
     //show dashboard page function
     public function dashboard() {
         $done_orders = Order::Where('status', 'completed');

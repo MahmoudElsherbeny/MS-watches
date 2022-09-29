@@ -1,7 +1,7 @@
 <div>
 
     @if(Auth::check())
-        @if(App\Product_review::userReviewCheck($productId,Auth::user()->id) == false)
+        @if(App\Product_review::userReviewCheck($product->id,Auth::id()) == false)
             {!! Form::Open(['wire:submit.prevent' => 'store', 'method' => 'get', 'id' => 'review-form']) !!}
                 <div class="rating__wrap">
                     <h2 class="rating-title">Write  A review</h2>

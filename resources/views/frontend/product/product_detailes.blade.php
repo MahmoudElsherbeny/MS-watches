@@ -35,11 +35,11 @@
                                 <li role="presentation" class="pot-small-img">
                                     <a href="#prodimg-tab-{{ ($key+1) }}" role="tab" data-toggle="tab">
                                         @if (App\Product_image::isImage($product_image->image))
-                                            <img src="{{ url('storage/products/'.$product_image->image) }}" alt="product-image">
+                                            <img src="{{ url('storage/'.$product_image->image) }}" alt="product-image">
                                             <div class="product-video-overlay"></div>
                                         @elseif (App\Product_image::isVideo($product_image->image))
                                             <video width="104" height="126">
-                                                <source src="{{ url('storage/products/'.$product_image->image) }}">
+                                                <source src="{{ url('storage/'.$product_image->image) }}">
                                                 Your browser does not support the video tag.
                                             </video>
                                             <div class="product-video-overlay"></div>
@@ -57,10 +57,10 @@
                                 @foreach ($product_images as $key => $product_image)
                                     <div role="tabpanel" class="tab-pane fade @if($key==0) in active @endif" id="prodimg-tab-{{ ($key+1) }}">
                                         @if (App\Product_image::isImage($product_image->image))
-                                            <img src="{{ url('storage/products/'.$product_image->image) }}" alt="full-image">
+                                            <img src="{{ url('storage/'.$product_image->image) }}" alt="full-image">
                                         @elseif (App\Product_image::isVideo($product_image->image))
                                             <video class="product_video" width="454" height="544" controls>
-                                                <source src="{{ url('storage/products/'.$product_image->image) }}">
+                                                <source src="{{ url('storage/'.$product_image->image) }}">
                                                 Your browser does not support the video tag.
                                             </video>
                                         @endif
@@ -207,7 +207,7 @@
                         <div role="tabpanel" id="reviews" class="product__tab__content fade">
                             
                             <!-- Start Rating and Reviews Area -->
-                            @livewire('frontend.reviews.review', ['productId' => $product->id])
+                            @livewire('frontend.reviews.review', ['product' => $product])
                             
                         </div>
                         <!-- End Single Content -->

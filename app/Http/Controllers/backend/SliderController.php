@@ -47,7 +47,6 @@ class SliderController extends Controller
                 $slide->delete();
 
                 Notification::send(Admin::Active()->get(), new SlideNotification(Auth::guard('admin')->user()->id, 'deleted'));
-
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();

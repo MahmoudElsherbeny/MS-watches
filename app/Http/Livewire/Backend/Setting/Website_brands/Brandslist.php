@@ -5,14 +5,14 @@ namespace App\Http\Livewire\Backend\Setting\Website_brands;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
-use App\Traits\ImageFunctions;
 use App\Notifications\WebsiteBrandsNotification;
+use App\Traits\ImageFunctions;
 use App\Admin;
 use App\Website_brand;
 use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class Brandslist extends Component
 {
@@ -27,7 +27,7 @@ class Brandslist extends Component
 
     public function render()
     {
-        $this->brands = Website_brand::Where('name', 'like', '%'.$this->brand_search.'%')->get();
+        $this->brands = Website_brand::Search($this->brand_search)->get();
         return view('livewire.backend.setting.website_brands.brandslist');
     }
 

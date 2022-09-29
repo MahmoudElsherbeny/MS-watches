@@ -6,8 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
+use App\Notifications\StateNotification;
+use App\Admin;
 use App\State;
+use Exception;
 
 class StateController extends Controller
 {
@@ -27,18 +32,14 @@ class StateController extends Controller
     //function update - update state data
     public function update(Request $request, $id) {
         $validatedData = $request->validate([
-            'state' => 'required|max:30|min:3',
             'delivery' => 'required|numeric|gt:0'
         ]);
 
         try {
             $state = State::find($id);
-            if($state) {
-                $state->state = $request->input('state');
-                $state->delivery = $request->input('delivery');
-                $state->save();
-            }
+            $state ? $state->update($validatedData) : '';
 
+            Notification::send(Admin::Active()->role('admin')->get(), new StateNotification(Auth::guard('admin')->user()->id, 'updated'));
             //logs stored when updated by state observer in app\observers
         } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
@@ -49,13 +50,11 @@ class StateController extends Controller
 
     //function destroy - delete state
     public function destroy($id) {
-
-        //delete state
-        $state = State::find($id);
+        $state = State::findOrFail($id);
         $state->delete();
 
-        //logs stored when deleted by state observer in app\observers
-
+        Notification::send(Admin::Active()->role('admin')->get(), new StateNotification(Auth::guard('admin')->user()->id, 'deleted'));
+        //logs stored when deleted by state observer in app\observerss
         return Redirect::back();
     }
 

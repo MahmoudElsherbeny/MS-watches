@@ -22,12 +22,9 @@ class Order_log extends Model
     public function user_name($log_id)
     {
         $log_row = Self::find($log_id);
-        if($log_row->user_type == 'user') {
-            $user_name  = User::Where('id',$log_row->user)->first()->name;
-        }
-        else {
-            $user_name  = Admin::Where('id',$log_row->user)->first()->name;
-        }
+        $user_name  = ($log_row->user_type == 'user')
+            ? User::Where('id',$log_row->user)->first()->name
+            : Admin::Where('id',$log_row->user)->first()->name;
 
         return $user_name;
     }

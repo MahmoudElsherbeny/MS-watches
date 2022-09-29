@@ -70,8 +70,16 @@
                             <span class="status btn btn-sm btn-pill @if($product->status == 'active') btn-primary @else btn-warning @endif">{{ $product->status }}</span> 
                         </td>
                         <td class="text-center">
-                            @if($product->quantity > 0) 
-                                {{ $product->quantity }}
+                            @if($product->getRemainProductQtyPercentage($product->id) > 0)
+                                <span class="status btn btn-sm btn-pill 
+                                    @if($product->getRemainProductQtyPercentage($product->id) < 20 || $product->quantity <= 2)
+                                        btn-warning
+                                    @else
+                                        btn-success
+                                    @endif
+                                    ">
+                                    {{ $product->quantity }}
+                                </span>
                             @else
                                 <span class="status btn btn-sm btn-pill btn-danger">Out Stock</span> 
                             @endif

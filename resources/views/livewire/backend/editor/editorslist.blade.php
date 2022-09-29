@@ -17,17 +17,37 @@
     </div>
     <div class="card-block">
         <!-- DataTables init on table by adding .js-dataTable-simple class, functionality initialized in js/pages/base_tables_datatables.js -->
-        <table id="EditorsTable" class="table table-striped table-vcenter js-dataTable-simple">
+        <table class="table table-striped table-vcenter js-dataTable-simple">
             <thead>
                 <tr>
-                    <th class="text-center w-5"></th>
-                    <th class="">Name</th>
+                    <th class="text-center field-sort w-5" wire:click="sortBy('id')" data-field="id" direction="{{ ($sort_field == 'id' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span wire:ignore><i id="arrow_id" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('name')" data-field="name" direction="{{ ($sort_field == 'name' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Name</span>
+                        <span wire:ignore><i id="arrow_name" class="fa fa-sort"></i></span>
+                    </th>
                     <th class="text-center hidden-xs">Email</th>
-                    <th class="">Role</th>
-                    <th class="">Status</th>
-                    <th class="">Verification</th>
-                    <th class="">Created At</th>
-                    <th class="">Last Update</th>
+                    <th class="text-center field-sort" wire:click="sortBy('role')" data-field="role" direction="{{ ($sort_field == 'role' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Role</span>
+                        <span wire:ignore><i id="arrow_role" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('status')" data-field="status" direction="{{ ($sort_field == 'status' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Status</span>
+                        <span wire:ignore><i id="arrow_status" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('email_verified_at')" data-field="email_verified_at" direction="{{ ($sort_field == 'email_verified_at' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Verification</span>
+                        <span wire:ignore><i id="arrow_email_verified_at" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('created_at')" data-field="created_at" direction="{{ ($sort_field == 'created_at' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Created At</span>
+                        <span wire:ignore><i id="arrow_created_at" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('updated_at')" data-field="updated_at" direction="{{ ($sort_field == 'updated_at' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Last Update</span>
+                        <span wire:ignore><i id="arrow_updated_at" class="fa fa-sort"></i></span>
+                    </th>
                     <th class="text-center" style="width: 12%;">Actions</th>
                 </tr>
             </thead>

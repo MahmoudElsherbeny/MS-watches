@@ -12,4 +12,7 @@ class Website_brand extends Model
         return $query->where('status', 'active');
     }
 
+    public function scopeSearch($query, $name) {
+        return $query->where('name', 'like', '%'.$name.'%');
+    }
 }

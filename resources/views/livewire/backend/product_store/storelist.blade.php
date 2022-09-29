@@ -13,14 +13,28 @@
         </div>
     </div>
     <div class="card-block">
-        <table id="ProductsStoreTable" class="table table-striped table-vcenter js-dataTable-simple">
+        <table class="table table-striped table-vcenter js-dataTable-simple">
             <thead>
                 <tr>
-                    <th class="text-center w-5"></th>
-                    <th>Name</th>
-                    <th>All Quantity</th>
-                    <th>Quantity Now</th>
-                    <th>Last Update</th>
+                    <th class="text-center field-sort w-5" wire:click="sortBy('id')" data-field="id" direction="{{ ($sort_field == 'id' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span wire:ignore><i id="arrow_id" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('name')" data-field="name" direction="{{ ($sort_field == 'name' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Name</span>
+                        <span wire:ignore><i id="arrow_name" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('all_quantity')" data-field="all_quantity" direction="{{ ($sort_field == 'all_quantity' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">All Quantity</span>
+                        <span wire:ignore><i id="arrow_all_quantity" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('quantity')" data-field="quantity" direction="{{ ($sort_field == 'quantity' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Quantity Now</span>
+                        <span wire:ignore><i id="arrow_quantity" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('updated_at')" data-field="updated_at" direction="{{ ($sort_field == 'updated_at' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Last Update</span>
+                        <span wire:ignore><i id="arrow_updated_at" class="fa fa-sort"></i></span>
+                    </th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -34,8 +48,16 @@
                         </td>
                         <td class="text-center">{{ $product->all_quantity }}</td>
                         <td class="text-center">
-                            @if($product->quantity > 0) 
-                                {{ $product->quantity }}
+                            @if($product->getRemainProductQtyPercentage($product->id) > 0)
+                                <span class="status btn btn-sm btn-pill 
+                                    @if($product->getRemainProductQtyPercentage($product->id) < 20 || $product->quantity <= 2)
+                                        btn-warning
+                                    @else
+                                        btn-success
+                                    @endif
+                                    ">
+                                    {{ $product->quantity }}
+                                </span>
                             @else
                                 <span class="status btn btn-sm btn-pill btn-danger">Out Stock</span> 
                             @endif

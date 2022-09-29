@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Frontend\Wishlist;
 
-use App\Product;
-use App\Traits\WishlistOptions;
-use App\Wishlist_item;
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\WishlistOptions;
+use App\Product;
+use App\Wishlist_item;
 
 class Page extends Component
 {
@@ -15,10 +15,9 @@ class Page extends Component
     public $wishlist_items;
 
     public function mount() {
-        Auth::check() ?
-            $this->wishlist_items = Wishlist_item::Where('user_id', Auth::user()->id)->get()
-        :
-            $this->wishlist_items = Cart::instance('wishlist')->content();
+        $this->wishlist_items = Auth::check() 
+        ? Wishlist_item::Where('user_id', Auth::user()->id)->get()
+        : Cart::instance('wishlist')->content();
     }
 
     //remove product from wishlist
@@ -42,10 +41,9 @@ class Page extends Component
 
     public function render()
     {
-        Auth::check() ?
-            $this->wishlist_items = Wishlist_item::Where('user_id', Auth::user()->id)->get()
-        :
-            $this->wishlist_items = Cart::instance('wishlist')->content();
+        $this->wishlist_items = Auth::check() 
+        ? Wishlist_item::Where('user_id', Auth::user()->id)->get()
+        : Cart::instance('wishlist')->content();
             
         return view('livewire.frontend.wishlist.page');
     }

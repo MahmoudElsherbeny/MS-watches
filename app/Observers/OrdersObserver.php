@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Dashboard_log;
 use App\Order;
-use Illuminate\Support\Facades\Auth;
 
 class OrdersObserver
 {
