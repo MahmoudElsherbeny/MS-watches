@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Admin Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where you can register Admin routes for your application dashboard. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "admin" middleware group. Now create something great!
 |
 */
 
@@ -23,6 +23,7 @@ Route::get('/', 'backend\DashController@dashboard')->name('dashboard')->middlewa
 
 //notifications routes
 Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'notification', 'as'=>'AdminNotification.'] , function() {
+    Route::get('/mark_all_read', 'backend\NotificationController@mark_all_read')->name('all_read');
     Route::get('/mark_read/{id}', 'backend\NotificationController@mark_read')->name('read');
 });
 
@@ -30,10 +31,10 @@ Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'notification'
 Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'category', 'as'=>'category.'] , function() {
 
     //store update and delete categories crud with livewire
-    Route::get('/','backend\CategoryCtrl@index')->name('index');
-    Route::get('/create','backend\CategoryCtrl@create')->name('create');
-    Route::get('/{id}/edit','backend\CategoryCtrl@edit')->name('edit');
-    Route::get('/{id}','backend\CategoryCtrl@category')->name('info');
+    Route::get('/','backend\CategoryController@index')->name('index');
+    Route::get('/create','backend\CategoryController@create')->name('create');
+    Route::get('/{id}/edit','backend\CategoryController@edit')->name('edit');
+    Route::get('/{id}','backend\CategoryController@category')->name('info');
 
 });
 
@@ -41,15 +42,15 @@ Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'category', 'a
 Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'products', 'as'=>'product.'] , function() {
 
     //post routes for products crud not written because of using livewire
-    Route::get('/','backend\ProductCtrl@index')->name('index');
-    Route::get('/reviews','backend\ProductCtrl@reviews')->name('reviews');
-    Route::get('/create','backend\ProductCtrl@create')->name('create');
-    Route::get('/{id}/edit','backend\ProductCtrl@edit')->name('edit');
-    Route::post('/{id}/delete','backend\ProductCtrl@destroy')->name('delete');
-    Route::get('/{id}','backend\ProductCtrl@product')->name('info');
-    Route::post('/{id}/image/add','backend\ProductCtrl@image_add')->name('image_add');
-    Route::post('/{id}/image/{image}/edit','backend\ProductCtrl@image_update')->name('image_edit');
-    Route::post('/{id}/image/{image}/delete','backend\ProductCtrl@image_destroy')->name('image_delete');
+    Route::get('/','backend\ProductController@index')->name('index');
+    Route::get('/reviews','backend\ProductController@reviews')->name('reviews');
+    Route::get('/create','backend\ProductController@create')->name('create');
+    Route::get('/{id}/edit','backend\ProductController@edit')->name('edit');
+    Route::post('/{id}/delete','backend\ProductController@destroy')->name('delete');
+    Route::get('/{id}','backend\ProductController@product')->name('info');
+    Route::post('/{id}/image/add','backend\ProductController@image_add')->name('image_add');
+    Route::post('/{id}/image/{image}/edit','backend\ProductController@image_update')->name('image_edit');
+    Route::post('/{id}/image/{image}/delete','backend\ProductController@image_destroy')->name('image_delete');
 
 });
 
@@ -59,11 +60,8 @@ Route::group(['middleware'=>['admin','admin.verified'], 'prefix'=>'products_stor
     Route::get('/','backend\ProductStoreController@index')->name('index');
     Route::get('/{prod_id}/{prod_name}/','backend\ProductStoreController@product_history')->name('product_history');
     Route::get('/add','backend\ProductStoreController@add_quantity')->name('add')->middleware('admin.pages');
-    Route::post('/add','backend\ProductStoreController@store')->name('store')->middleware('admin.pages');
     Route::get('/{prod}/edit/{qty_id}','backend\ProductStoreController@edit_quantity')->name('edit')->middleware('admin.pages');
-    Route::post('/{prod}/edit/{qty_id}','backend\ProductStoreController@update')->name('update')->middleware('admin.pages');
     Route::post('/{id}/delete','backend\ProductStoreController@destroy')->name('delete')->middleware('admin.pages');
-
 
 });
 
@@ -91,8 +89,8 @@ Route::group(['middleware'=>['admin','admin.pages','admin.verified'], 'prefix'=>
 //logs routes
 Route::group(['middleware'=>['admin','admin.pages','admin.verified'], 'prefix'=>'logs', 'as'=>'DashLogs.'] , function() {
 
-    Route::get('/','backend\LogsCtrl@index')->name('index');
-    Route::post('/delete','backend\LogsCtrl@destroy')->name('delete');
+    Route::get('/','backend\LogsController@index')->name('index');
+    Route::post('/delete','backend\LogsController@destroy')->name('delete');
 
 });
 

@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
+use App\Notifications\ProductNotification;
 use App\Traits\ImageFunctions;
+use App\Admin;
 use App\Product;
 use App\Product_image;
 use Exception;
-use Illuminate\Support\Facades\DB;
 
-class ProductCtrl extends Controller
+class ProductController extends Controller
 {
     use ImageFunctions;
 
@@ -49,8 +53,10 @@ class ProductCtrl extends Controller
                 }
                 $product->banners->each->delete();
                 $product->product_reviews->each->delete();
+                $product->products_stores->each->delete();
                 $product->delete();
 
+                Notification::send(Admin::Active()->get(), new ProductNotification(Auth::guard('admin')->user()->id, 'deleted with related items'));
                 //logs stored when deleted by ProductObserver in app\observers
             DB::commit();
             return Redirect::back();
@@ -91,8 +97,8 @@ class ProductCtrl extends Controller
                     Session::flash('error','products have maximum number of images');
                 }
             }
-            return Redirect::back();
 
+            return Redirect::back();
         } catch (Exception $e) {
             Session::flash('error','Error:'.$e);
         }
@@ -105,16 +111,12 @@ class ProductCtrl extends Controller
         ]);
 
         try {
+            $image = Product_image::findOrFail($image);
+            $image->update($validatedData);
 
-            $image = Product_image::find($image);
-            if($image != null) {
-                $image->order = $request->input('order');
-                $image->save();
-            }
             return Redirect::back();
-
         } catch (Exception $e) {
-            Session::flash('error','Error:'.$e);
+            Session::flash('error','Error:'.$e->getMessage());
         }
     }
 

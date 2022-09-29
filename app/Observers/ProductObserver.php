@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Observers;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\Dashboard_log;
 

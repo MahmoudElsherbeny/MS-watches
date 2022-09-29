@@ -5,7 +5,7 @@
             <div class="product__inner">
                 <div class="pro__thumb">
                     <a href="{{ route('product_detailes', ['id' => $product->id]) }}">
-                        <img src="{{ App\Product_image::ProductMainImage($product->id) }}" alt="product images">
+                        <img src="{{ asset('storage/'.$product->product_images->first()->image) }}" alt="product images">
                     </a>
                 </div>
                 <div class="product__hover__info">

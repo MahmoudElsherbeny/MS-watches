@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 
-use App\Admin;
 use App\Traits\ImageFunctions;
+use App\Admin;
+use Exception;
 
 class EditorController extends Controller
 {
@@ -33,10 +33,8 @@ class EditorController extends Controller
     }
 
     //function update - update editor permission
-    public function update(Request $request, $id) {
-        
+    public function update(Request $request, $id) { 
         try {
-            
             $editor = Admin::find($id);
             if($editor && $editor->name != 'admin') {
                 $editor->role = $request->input('role');
@@ -51,14 +49,11 @@ class EditorController extends Controller
                 }
             }
 
-            return Redirect::back();
-            
+            return Redirect::back(); 
         } catch (Exception $e) {
-            Session::flash('error','Error:'.$e);
-        }
-        
+            Session::flash('error','Error:'.$e->getMessage());
+        }  
     }
-
 
     //function destroy - delete editor and his data
     public function destroy($id) {

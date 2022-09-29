@@ -81,6 +81,7 @@ class OrderController extends Controller
         
         try {
             $user = User::find(Auth::user()->id);
+            $delivery = State::findOrFail($request->input('state'))->delivery;
             if(Auth::check()) {
                 $cart_items = Cart_item::Where('user_id', Auth::user()->id)->get();
                 $total = Cart_item::total($cart_items);
@@ -91,11 +92,11 @@ class OrderController extends Controller
             }
 
             if($cart_items->count() > 0) {
-                $store_order = DB::transaction(function () use($user, $cart_items, $total, $request) {
+                $store_order = DB::transaction(function () use($user, $cart_items, $total, $delivery, $request) {
                     //chek if there user info to use it or update with new if not use new as user info
                     if($user->user_info) {
                         //add order data into database
-                        $order = $this->createOrder($user->id,$user->name,$request->input('phone'),$request->input('state'),$request->input('city'),$request->input('address'),'waiting',$total);
+                        $order = $this->createOrder($user->id,$user->name,$request->input('phone'),$request->input('state'),$request->input('city'),$request->input('address'),'waiting',$total,$delivery);
                     }
                     else {
                         $user_data = User_info::create([
@@ -107,7 +108,7 @@ class OrderController extends Controller
                         ]);
 
                         //add order data into database
-                        $order = $this->createOrder($user->id, $user->name, $user_data->phone, $user_data->state_id, $user_data->city, $user_data->address, 'waiting', $total);
+                        $order = $this->createOrder($user->id, $user->name, $user_data->phone, $user_data->state_id, $user_data->city, $user_data->address, 'waiting', $total,$delivery);
                     }
 
                     //store order items
@@ -176,7 +177,7 @@ class OrderController extends Controller
     }
 
 
-    private function createOrder($user, $name, $phone, $state, $city, $address, $status, $total) {
+    private function createOrder($user, $name, $phone, $state, $city, $address, $status, $total, $delivery) {
         $order = Order::create([
             'user_id' => $user,
             'name' => $name,
@@ -186,6 +187,7 @@ class OrderController extends Controller
             'address' => $address,
             'status' => $status,
             'total' => $total,
+            'delivery' => $delivery,
         ]);
 
         return $order;

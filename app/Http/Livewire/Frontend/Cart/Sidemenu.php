@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Frontend\Cart;
 use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
-
 use App\Cart_item;
 
 class Sidemenu extends Component
@@ -26,12 +25,9 @@ class Sidemenu extends Component
 
     public function render()
     {
-        if(Auth::check()) {
-            $cart = Cart_item::Where('user_id', Auth::user()->id)->get();
-        }
-        else {
-            $cart = Cart::instance('cart')->content();
-        }
+        $cart = Auth::check()
+        ? Cart_item::Where('user_id', Auth::user()->id)->get()
+        : Cart::instance('cart')->content();
 
         return view('livewire.frontend.cart.sidemenu')->with(['cart_items' => $cart, 'cart_total' => $this->total()]);
     }

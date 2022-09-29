@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
+use App\Notifications\BannerNotification;
 use App\Traits\ImageFunctions;
+use App\Admin;
 use App\Banner;
 use Exception;
 
@@ -41,12 +45,12 @@ class BannerController extends Controller
         $banner = Banner::findOrfail($id);
         try {
             DB::beginTransaction();
-
                 $this->delete_if_exist($banner->image);
                 $banner->delete();
 
+                Notification::send(Admin::Active()->get(), new BannerNotification(Auth::guard('admin')->user()->id, 'deleted'));
+                //logs stored when deleted by BannerObserver in app\observers
             DB::commit();
-            //logs stored when deleted by BannerObserver in app\observers
             return Redirect::back();
         } catch (Exception $e) {
             DB::rollBack();

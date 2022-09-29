@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id', 'name', 'phone', 'state_id', 'city', 'address', 'status', 'total', 'admin_id'];
+    protected $fillable = ['user_id', 'name', 'phone', 'state_id', 'city', 'address', 'status', 'total', 'delivery', 'admin_id'];
 
     public function state()
     {

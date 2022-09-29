@@ -45,7 +45,7 @@
                         {!! Form::Close() !!}
 
                         <div class="htc__social__connect">
-                            <h2><a href="{{ route('register') }}">SignUp</a> Or Login With</h2>
+                            <h2>Don't have account? <a href="{{ route('register') }}">SignUp</a> <!-- Or Login With --></h2>
                             <!--
                             <ul class="htc__soaial__list">
                                 <li><a class="bg--facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>

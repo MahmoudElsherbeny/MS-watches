@@ -66,11 +66,11 @@
                                         <div class="card-block text-left">
                                             <div class="form-group">
                                                 <label>State:</label>
-                                                <input class="form-control" type="text" name="state" value="{{ $state->state }}" />
+                                                <input class="form-control" type="text" value="{{ $state->state }}" disabled />
                                             </div>
                                             <div class="form-group">
                                                 <label>Delivery Cost:</label>
-                                                <input class="form-control" type="text" name="delivery" value="{{ $state->delivery }}" />
+                                                <input class="form-control" type="text" name="delivery" value="{{ old('delivery', $state->delivery) }}" />
                                             </div>
                                         </div>
                                         <div class="modal-footer">

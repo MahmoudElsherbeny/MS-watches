@@ -93,10 +93,18 @@ class Product extends Model
 
     //get products 
     static public function getSaleProducts($condition,$orderby,$limit) {
-        $products = Self::Where('status','active')
-                    ->Where('old_price',$condition,0)
-                    ->OrderBy($orderby,'DESC')->limit($limit)->get();   
+        $products = Self::Active()->Where('old_price',$condition,0)
+                                  ->OrderBy($orderby,'DESC')->limit($limit)->get();   
         return $products;
     }
 
+    //get products 
+    static public function getRemainProductQtyPercentage($id) {
+        $product = Self::findOrFail($id);
+        $percentage = $product->quantity > 0 
+            ? ($product->quantity / $product->all_quantity) * 100
+            : 0;
+           
+        return $percentage;
+    }
 }

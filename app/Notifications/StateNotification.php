@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use App\Notifications\channels\SubNotificationChannel;
 use App\Admin;
 
-class SlideNotification extends Notification
+class StateNotification extends Notification
 {
     use Queueable;
     private $user_id;
@@ -41,9 +41,9 @@ class SlideNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'title' => 'update slides',
-            'description' => 'Slide '.$this->action.' by '.Admin::find($this->user_id)->name.' !',
-            'link' => url('dashboard/slider'),
+            'title' => 'update states',
+            'description' => 'State '.$this->action.' by '.Admin::find($this->user_id)->name.' !',
+            'link' => url('dashboard/states'),
         ];
     }
 

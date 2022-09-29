@@ -41,18 +41,32 @@
     </div>
     <div class="card-block">
         <!-- DataTables init on table by adding .js-dataTable-simple class, functionality initialized in js/pages/base_tables_datatables.js -->
-        <table id="OrdersTable" class="table table-striped table-vcenter js-dataTable-simple">
+        <table class="table table-striped table-vcenter js-dataTable-simple">
             <thead>
                 <tr>
-                    <th class="text-center w-5"></th>
-                    <th>User</th>
-                    <th class="text-center">Phone</th>
-                    <th>Address</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Recived By</th>
-                    <th>Created At</th>
-                    <th>Last Update</th>
+                    <th class="text-center field-sort w-5" wire:click="sortBy('id')" data-field="id" direction="{{ ($sort_field == 'id' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span wire:ignore><i id="arrow_id" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center">User</th>
+                    <th class="text-center field-sort">Phone</th>
+                    <th class="text-center">Address</th>
+                    <th class="text-center field-sort" wire:click="sortBy('total')" data-field="total" direction="{{ ($sort_field == 'total' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Total</span>
+                        <span wire:ignore><i id="arrow_total" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('status')" data-field="status" direction="{{ ($sort_field == 'status' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Status</span>
+                        <span wire:ignore><i id="arrow_status" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center">Accepted By</th>
+                    <th class="text-center field-sort" wire:click="sortBy('created_at')" data-field="created_at" direction="{{ ($sort_field == 'created_at' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Created At</span>
+                        <span wire:ignore><i id="arrow_created_at" class="fa fa-sort"></i></span>
+                    </th>
+                    <th class="text-center field-sort" wire:click="sortBy('updated_at')" data-field="updated_at" direction="{{ ($sort_field == 'updated_at' && $sort_dir == 'desc') ? 'asc' : 'desc' }}">
+                        <span style="padding-right: 5px">Last Update</span>
+                        <span wire:ignore><i id="arrow_updated_at" class="fa fa-sort"></i></span>
+                    </th>
                     <th class="text-center" style="width: 15%;">Actions</th>
                 </tr>
             </thead>
@@ -64,7 +78,7 @@
                         <td class="text-center">{{ $order->name }}</td>
                         <td class="text-center">{{ $order->phone }}</td>
                         <td class="text-center">{{ $order->address.' - '.$order->city.', '.$order->state->state }}</td>
-                        <td class="text-center">&pound; {{ $order->total/100 + $order->state->delivery }}</td>
+                        <td class="text-center">&pound; {{ $order->total/100 + $order->delivery }}</td>
                         <td class="text-center text-capitalize">
                             <span class="btn btn-sm btn-pill @if($order->status == 'waiting') btn-warning @elseif($order->status == 'preparing') btn-info @elseif($order->status == 'delivering') btn-primary @elseif($order->status == 'completed') btn-success @else btn-danger @endif">{{ $order->status }}</span>
                         </td>

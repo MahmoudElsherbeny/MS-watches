@@ -25,7 +25,6 @@ class Order_item extends Model
                             ->get();
 
         return count($order_products);
-        //return $order_products ? true :false;
     }
 
 }

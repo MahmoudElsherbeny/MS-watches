@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Observers;
+
 use App\Product_review;
 use App\Product;
 
 class ProductReviewObserver
 {
-    
     protected $except = [
         'created_at',
         'updated_at'

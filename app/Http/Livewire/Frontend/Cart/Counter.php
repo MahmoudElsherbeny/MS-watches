@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Frontend\Cart;
 
-use App\Cart_item;
+use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
+use App\Cart_item;
 
 class Counter extends Component
 {
@@ -13,12 +13,9 @@ class Counter extends Component
 
     public function render()
     {
-        if(Auth::check()) {
-            $cart_counter = Cart_item::Where('user_id', Auth::user()->id)->get()->count();
-        }
-        else {
-            $cart_counter = Cart::instance('cart')->content()->count();
-        }
+        $cart_counter = Auth::check()
+        ? Cart_item::Where('user_id', Auth::user()->id)->get()->count()
+        : Cart::instance('cart')->content()->count();
         
         return view('livewire.frontend.cart.counter')->with('cart_counter', $cart_counter);
     }

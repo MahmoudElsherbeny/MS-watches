@@ -17,12 +17,12 @@
                                         <img src="{{ asset('storage/' . $image->image) }}" width="100%" height="230px" />
                                     @elseif (App\Product_image::isVideo($image->image))
                                         <video class="product_video" width="100%" height="230">
-                                            <source src="{{ url('storage/products/'.$image->image) }}">
+                                            <source src="{{ url('storage/'.$image->image) }}">
                                             Your browser does not support the video tag.
                                         </video>
                                         <div class="product-video-overlay"></div>
                                         <div class="product-video">
-                                            <a class="video-popup" href="{{ url('storage/products/'.$image->image) }}">
+                                            <a class="video-popup" href="{{ url('storage/'.$image->image) }}">
                                                 <i class="ion-ios-play"></i>
                                             </a>
                                         </div>

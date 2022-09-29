@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Setting;
 use App\Website_brand;
 use App\Website_review;
+use Exception;
 
 class SettingController extends Controller
 {
@@ -34,31 +35,22 @@ class SettingController extends Controller
 
     //function update - update website review status
     public function review_update(Request $request, $id) {
-        
-        try {
-            
-            $review = Website_review::find($id);
-            if($review) {
-                $review->status = $request->input('status');
-                $review->save();
+        try { 
+            $review = Website_review::findOrFail($id);
+            $review->update(['status' => $request->input('status')]);
 
-                Session::flash('success','Review Status Updated Successfully');
-                return Redirect::back();
-            }
-            else {
-                Session::flash('error','Review Not Exist');
-            }
-            
+            Session::flash('success','Review Status Updated Successfully');
+            //logs in WebsiteReviewObserver in App\observers
+
+            return Redirect::back();
         } catch (Exception $e) {
-            Session::flash('error','Error:'.$e);
+            Session::flash('error','Error:'.$e->getMessage());
         }
-        
-        //logs in WebsiteReviewObserver in App\observers
     }
 
     //function destroy - remove review as website review
     public function review_destroy($id) {
-        $review = Website_review::find($id);
+        $review = Website_review::findOrFail($id);
         $review->delete();
         //logs in WebsiteReviewObserver in App\observers
 

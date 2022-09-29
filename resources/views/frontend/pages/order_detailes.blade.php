@@ -71,11 +71,11 @@
                             </tr>
                             <tr>
                                 <td>Delivery: </td>
-                                <td>&pound; {{ $order->state->delivery }}</td>
+                                <td>&pound; {{ $order->delivery }}</td>
                             </tr>
                             <tr>
                                 <td>Total: </td>
-                                <td>&pound; {{ $order->total/100 + $order->state->delivery }}</td>
+                                <td>&pound; {{ $order->total/100 + $order->delivery }}</td>
                             </tr>
                         </table>
                     </div>

@@ -76,12 +76,14 @@
                     <button wire:click="clear">Clear All</button>
                     <a href="{{ route('shop') }}">Continue Shopping</a>
                 </div>
+                <!--
                 <div class="coupon">
                     <h3>Coupon</h3>
                     <p>Enter your coupon code if you have one.</p>
                     <input type="text" placeholder="Coupon code" />
                     <input type="submit" value="Apply Coupon" />
                 </div>
+            -->
             </div>
             <div class="col-md-4 col-sm-5 col-xs-12">
                 <div class="cart_totals">

@@ -20,10 +20,7 @@ class Product_image extends Model
         $explode = explode('.', $image);
         $explodeExtension = end($explode);
 
-        if(in_array($explodeExtension, $imageExtensions)) {
-            return true;
-        }
-        return false;
+        return in_array($explodeExtension, $imageExtensions) ? true : false;
     }
 
     //check from image name if it video
@@ -33,34 +30,15 @@ class Product_image extends Model
         $explode = explode('.', $video);
         $explodeExtension = end($explode);
 
-        if(in_array($explodeExtension, $videoExtensions)) {
-            return true;
-        }
-        return false;
+        return in_array($explodeExtension, $videoExtensions) ? true : false;
     }
 
     //get product main image
     static public function ProductMainImage($id) {
         $image = Self::Where('product_id',$id)->orderBy('order')->first();
-        if($image) {
-            return asset('sorage/'.$image->image);
-        }
-        else {
-            return 'frontend/images/product/1.png';
-        }
+        return $image
+            ? asset('storage/'.$image->image)
+            : 'frontend/images/product/1.png';
     }
-
-    /*
-    //get product images
-    static public function getProductImages($id) {
-        $images = Self::Where('product',$id)->first();
-        if($images) {
-            return 'storage/products/'.$images->image;
-        }
-        else {
-            return 'frontend/images/product/1.png';
-        }
-    }
-    */
 
 }

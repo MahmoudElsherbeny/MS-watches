@@ -48,7 +48,7 @@
                                     <input class="mb--10" name="email" type="text" placeholder="email*" value="{{ $user->email }}" readonly>
                                 </div>
                                 <div class="single-checkout-box">
-                                    <input class="mb--10" name="phone" type="text" placeholder="phone*" value="@if($user->user_info) {{ $user->user_info->phone }} @else {{ old('phone') }} @endif">
+                                    <input class="mb--10" name="phone" type="text" placeholder="phone*" value="{{$user->user_info ? $user->user_info->phone : old('phone')}}">
                                     @error('phone')
                                         <div class="msg-error">{{ $message }}</div>
                                     @enderror
@@ -57,7 +57,7 @@
                                     <select class="mb--10" name="state">
                                         <option>choose state</option>
                                         @foreach ($states as $state)
-                                            <option value="{{ $state->id }}" @if($user->user_info && $user->user_info->state_id == $state->id) selected @endif>{{ $state->state }}</option>
+                                            <option class="text-capitalize" value="{{ $state->id }}" @if($user->user_info && $user->user_info->state_id == $state->id) selected @endif>{{ $state->state }} - &pound; {{ $state->delivery }}</option>
                                         @endforeach
                                     </select>
                                     @error('state')
@@ -65,13 +65,13 @@
                                     @enderror
                                 </div>
                                 <div class="single-checkout-box">
-                                    <input class="mb--10" name="city" type="text" placeholder="city*" value="@if($user->user_info) {{ $user->user_info->city }} @else {{ old('city') }} @endif">
+                                    <input class="mb--10" name="city" type="text" placeholder="city*" value="{{$user->user_info ? $user->user_info->city : old('city') }}">
                                     @error('city')
                                         <div class="msg-error">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="single-checkout-box mb--30">
-                                    <input name="address" type="text" placeholder="address*" value="@if($user->user_info) {{ $user->user_info->address }} @else {{ old('address') }} @endif">
+                                    <input name="address" type="text" placeholder="address*" value="{{$user->user_info ? $user->user_info->address : old('address') }}">
                                     @error('address')
                                         <div class="msg-error">{{ $message }}</div>
                                     @enderror
@@ -115,7 +115,7 @@
                                         <td>{{ $cart_items->count() }}</td>
                                         <td>-</td>
                                         <td>{{ $total_qty }}</td>
-                                        <td class="product-price"><span class="amount">£ {{ $total / 100 + $user->user_info->state->delivery }}</span></td>
+                                        <td class="product-price"><span class="amount">£@if($user->user_info && $user->user_info->state) {{ $total / 100 + $user->user_info->state->delivery }} @else {{ $total / 100 }} @endif</span></td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dashboard_log extends Model
 {
-
     public $timestamps = false;
     protected $dates = ['date'];
 

@@ -11,12 +11,9 @@ class Logslist extends Component
 
     public function render()
     {
-        if($this->logs_search) {
-            $logs = Dashboard_log::whereDate('date','=',$this->logs_search)->orderBY('date','DESC')->paginate(50);
-        }
-        else {
-            $logs = Dashboard_log::orderBY('date','DESC')->paginate(50);
-        }
+        $logs = $this->logs_search
+            ? Dashboard_log::whereDate('date','=',$this->logs_search)->orderBY('date','DESC')->paginate(50)
+            : Dashboard_log::orderBY('date','DESC')->paginate(50);
             
         return view('livewire.backend.logs.logslist')->with('logs',$logs);
     }

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\Slide;
 
-class CategoryCtrl extends Controller
+class CategoryController extends Controller
 {
     //function index - show categories page and categories live search
     public function index()

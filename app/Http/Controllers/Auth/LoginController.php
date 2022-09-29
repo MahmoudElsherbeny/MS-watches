@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Category;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Traits\CartOptions;
-use App\Traits\WishlistOptions;
-use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+
+use App\Traits\CartOptions;
+use App\Traits\WishlistOptions;
+use App\Category;
+use App\User;
+use App\Website_brand;
 
 class LoginController extends Controller
 {
@@ -35,7 +37,7 @@ class LoginController extends Controller
     //protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectTo = '/';
 
-    public $categories;    
+    public $categories, $brands;    
 
 
     protected function authenticated(Request $request, User $user) {
@@ -56,7 +58,11 @@ class LoginController extends Controller
         //$this->redirectTo = redirect()->intended();
 
         $this->categories = Category::Where('status','active')->OrderBy('order')->get();
-        View::share('categories', $this->categories);
+        $this->brands = Website_brand::Active()->OrderBy('id')->get();
+        View::share([
+            'categories' => $this->categories,
+            'brands' => $this->brands
+        ]);
     }
 
     //show login-register page function

@@ -12,12 +12,23 @@ class Storelist extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $store_search;
+    public $sort_field, $sort_dir;
+
+    public function mount() {
+        $this->sort_field = 'created_at';
+        $this->sort_dir = 'desc';
+    }
 
     public function render()
     {
         $products = Product::select('id','name','all_quantity','quantity', 'created_at', 'updated_at')
-                           ->Where('name', 'like', '%'.$this->store_search.'%')
-                           ->OrderBy('updated_at','DESC')->paginate(30);
+                           ->Search($this->store_search)
+                           ->OrderBy($this->sort_field, $this->sort_dir)->paginate(50);
         return view('livewire.backend.product_store.storelist')->with('products',$products);
+    }
+
+    public function sortBy($field) {
+        $this->sort_field = $field;
+        $this->sort_dir = $this->sort_dir == 'asc' ? 'desc' : 'asc';
     }
 }

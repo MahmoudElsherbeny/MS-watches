@@ -2,13 +2,12 @@
 
 namespace App\Http\Livewire\Frontend\Cart;
 
-use App\Cart_item;
-use App\Product;
-use App\Traits\CartOptions;
+use Livewire\Component;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Livewire\Component;
+use App\Traits\CartOptions;
+use App\Cart_item;
+use App\Product;
 
 class Page extends Component
 {
@@ -18,7 +17,9 @@ class Page extends Component
     public $quantity = [];
 
     public function mount() {
-        Auth::check() ? $this->cart_items = Cart_item::Where('user_id', Auth::user()->id)->get() : $this->cart_items = Cart::instance('cart')->content();
+        $this->cart_items = Auth::check() 
+        ? Cart_item::Where('user_id', Auth::user()->id)->get() 
+        : Cart::instance('cart')->content();
         
         foreach($this->cart_items as $item) {
             $this->quantity[$item->id] = $item->qty;
@@ -47,14 +48,20 @@ class Page extends Component
     //update product quantity in cart
     public function updateCart($row_id, $quantity)
     {
-        Auth::check() ? $this->UpdateCartDatabase($row_id, $quantity) : $this->UpdateCartSession($row_id, $quantity);
+        Auth::check() 
+        ? $this->UpdateCartDatabase($row_id, $quantity) 
+        : $this->UpdateCartSession($row_id, $quantity);
+
         $this->emit('update_cart');
     }
 
     //remove product from cart
     public function remove($row_id)
     {
-        Auth::check() ? $this->RemoveFromCartDatabase($row_id) : $this->RemoveFromCartSession($row_id);
+        Auth::check() 
+        ? $this->RemoveFromCartDatabase($row_id) 
+        : $this->RemoveFromCartSession($row_id);
+
         $this->emit('update_cart');
     }
 
@@ -67,10 +74,9 @@ class Page extends Component
 
     public function render()
     {   
-        Auth::check() ? 
-            $this->cart_items = Cart_item::Where('user_id', Auth::user()->id)->get() 
-        : 
-            $this->cart_items = Cart::instance('cart')->content();
+        $this->cart_items = Auth::check() 
+        ? Cart_item::Where('user_id', Auth::user()->id)->get() 
+        : Cart::instance('cart')->content();
 
         return view('livewire.frontend.cart.page')->with(['cart_total' => $this->total()]);
     }
